@@ -14,6 +14,7 @@ export const nav = [
   { href: '/races/', label: 'Mon chien' },
   { href: '/offres/', label: 'Offres' },
   { href: '/accompagnements/', label: 'Accompagnements' },
+  { href: '/balades-collectives/', label: 'Balades' },
   { href: '/conseils/', label: 'Conseils' },
   { href: '/a-propos/', label: 'À propos' },
 ];
@@ -21,7 +22,7 @@ export const nav = [
 export const prices = [
   {
     name: 'Séance bilan',
-    price: 35,
+    price: 40,
     unit: 'la séance',
     pitch: 'Le point de départ de tout accompagnement.',
     features: [
@@ -171,7 +172,7 @@ export const steps = [
 export const faq = [
   {
     q: 'Comment se déroule la première séance ?',
-    a: 'La séance bilan (35 €) me permet d’observer votre chien et d’échanger avec vous sur votre quotidien. À la fin, je vous propose un plan de travail adapté et des premières pistes à appliquer tout de suite.',
+    a: 'La séance bilan (40 €) me permet d’observer votre chien et d’échanger avec vous sur votre quotidien. À la fin, je vous propose un plan de travail adapté et des premières pistes à appliquer tout de suite.',
   },
   {
     q: 'Où ont lieu les séances ?',

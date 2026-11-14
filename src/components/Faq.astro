@@ -1,5 +1,7 @@
 ---
-import { faq } from '../data/site';
+import { faq as defaultFaq } from '../data/site';
+interface Props { items?: { q: string; a: string }[] }
+const { items: faq = defaultFaq } = Astro.props;
 const ld = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
 ---
 <div class="faq" data-reveal="stagger">

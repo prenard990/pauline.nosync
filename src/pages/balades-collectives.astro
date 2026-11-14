@@ -1,0 +1,110 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import LIcon from '../components/LIcon.astro';
+import Faq from '../components/Faq.astro';
+import OsloTip from '../components/OsloTip.astro';
+import riviere from '../assets/photos/riviere.jpg';
+import osloLabrador from '../assets/photos/oslo-labrador.jpg';
+
+const benefits = [
+  { icon: 'users', title: 'Socialiser en douceur', text: 'Votre chien côtoie d’autres chiens dans un cadre calme et encadré, à bonne distance, sans contact forcé.' },
+  { icon: 'route', title: 'Travailler la marche en laisse', text: 'Laisse détendue, rappels, arrêts : on met en pratique les apprentissages dans un vrai environnement, avec des distractions.' },
+  { icon: 'search', title: 'Se dépenser intelligemment', text: 'Exploration, flair et découverte de nouveaux lieux : une sortie qui fatigue autant la tête que les pattes.' },
+  { icon: 'chat', title: 'Échanger et progresser', text: 'Je vous accompagne tout au long de la balade et réponds à vos questions sur le terrain, entre propriétaires.' },
+];
+
+const steps = [
+  { n: '01', title: 'Une fois par semaine', text: 'Je propose une balade collective chaque semaine, dans un parc ou un espace naturel de Lyon et ses alentours.' },
+  { n: '02', title: 'En petit groupe', text: 'Le nombre de chiens est volontairement limité pour que chacun reste à l’aise et que je puisse accompagner chaque binôme.' },
+  { n: '03', title: 'Toujours en laisse', text: 'Les chiens restent en laisse pendant la balade. On marche, on fait des pauses, on observe : chacun à son rythme.' },
+  { n: '04', title: 'Encadrée du début à la fin', text: 'Je gère les distances entre les chiens, j’adapte le parcours et je vous donne des conseils personnalisés en marchant.' },
+];
+
+const items = [
+  { q: 'Mon chien peut-il participer directement ?', a: 'Pour la sécurité et le confort de tous, je rencontre d’abord chaque nouveau chien (séance bilan ou séance individuelle). Cela me permet de vérifier que la balade collective lui convient et de bien le placer dans le groupe.' },
+  { q: 'Mon chien est réactif, est-ce adapté ?', a: 'Cela dépend de son profil. Pour certains chiens réactifs, la balade collective est une belle étape de travail, avec des distances adaptées. Pour d’autres, il vaut mieux commencer en séance individuelle. On en parle ensemble.' },
+  { q: 'Où et quand ont lieu les balades ?', a: 'Une balade par semaine, à Lyon ou dans les alentours. Le jour, l’horaire et le point de rendez-vous vous sont communiqués à l’inscription.' },
+  { q: 'Que dois-je apporter ?', a: 'Une laisse (idéalement longue de 2 à 3 m) et un harnais confortable, des friandises appréciées par votre chien, de l’eau et des sacs à déjections.' },
+  { q: 'Comment m’inscrire ?', a: 'Contactez-moi via le formulaire ou par téléphone en précisant « Balade collective ». Je vous confirme la place et les informations pratiques.' },
+];
+---
+<Layout title="Balades collectives" description="Une balade collective par semaine à Lyon avec Pauline Renard, éducatrice canine : socialisation en douceur, marche en laisse et conseils sur le terrain, en petit groupe.">
+  <PageHero label="Balades collectives" title="Marcher <em>ensemble</em>, progresser ensemble." lead="Chaque semaine, je vous propose une balade collective en petit groupe : un moment encadré pour socialiser votre chien, mettre en pratique ses apprentissages et partager un bon moment." image={riviere} alt="Plusieurs chiens détendus au bord du Rhône">
+    <a class="btn sage" href={`/contact/?motif=${encodeURIComponent('Balade collective')}`}>Réserver ma place <Icon name="arrow" size={17} /></a>
+  </PageHero>
+
+  <section>
+    <div class="w">
+      <div class="head"><p class="label">À quoi ça sert ?</p><h2 data-split>Bien plus qu’une <em>simple promenade</em>.</h2></div>
+      <div class="grid g4" data-reveal="stagger">
+        {benefits.map((b) => (
+          <div class="card hover ben">
+            <span class="icon-c"><LIcon name={b.icon} /></span>
+            <h3>{b.title}</h3>
+            <p>{b.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-stone">
+    <div class="w row">
+      <div class="photo pimg" data-img><Image src={osloLabrador} alt="Oslo et un labrador posés côte à côte" widths={[400, 675]} sizes="(min-width: 900px) 500px, 90vw" /></div>
+      <div>
+        <p class="label">Comment ça se passe ?</p>
+        <h2 data-split>Un cadre <em>sécurisant</em> pour chaque chien.</h2>
+        <ol class="steps" data-reveal="stagger">
+          {steps.map((s) => (
+            <li><span class="sn">{s.n}</span><div><h3>{s.title}</h3><p>{s.text}</p></div></li>
+          ))}
+        </ol>
+        <OsloTip><p>Je participe souvent aux balades : je montre l’exemple aux plus jeunes… et je profite des pauses pour renifler partout !</p></OsloTip>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="w narrow">
+      <div class="head center"><p class="label">Pour qui ?</p><h2 data-split>Une balade <em>pour tous les profils</em>, ou presque.</h2></div>
+      <ul class="check cols2" data-reveal="stagger">
+        <li>Les chiots et jeunes chiens qui découvrent le monde</li>
+        <li>Les chiens qui tirent en laisse</li>
+        <li>Les chiens un peu timides avec leurs congénères</li>
+        <li>Les chiens qui ont besoin de se dépenser</li>
+        <li>Les chiens déjà accompagnés, pour consolider les acquis</li>
+        <li>Les propriétaires qui veulent échanger et apprendre</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="bg-stone">
+    <div class="w narrow">
+      <div class="head center"><p class="label">Questions fréquentes</p><h2 data-split>Bon à savoir</h2></div>
+      <Faq items={items} />
+      <div class="cta" data-reveal>
+        <a class="btn sage" href={`/contact/?motif=${encodeURIComponent('Balade collective')}`}>Réserver ma place <Icon name="arrow" size={17} /></a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .ben h3 { margin: 22px 0 10px; }
+  .ben p { color: var(--ink2); font-size: .96rem; margin: 0; }
+  .row { display: grid; gap: 56px; align-items: start; }
+  @media (min-width: 960px) { .row { grid-template-columns: .85fr 1.15fr; gap: 90px; } .pimg { position: sticky; top: 120px; } }
+  .pimg { aspect-ratio: 4 / 5; }
+  @media (max-width: 959px) { .pimg { aspect-ratio: 16 / 10; } }
+  .steps { list-style: none; padding: 0; margin: 30px 0; border-top: 1px solid var(--line); }
+  .steps li { display: flex; gap: 20px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+  .sn { font-family: var(--serif); font-style: italic; color: var(--sage); font-size: 1.2rem; min-width: 2ch; }
+  .steps h3 { margin: 0 0 6px; font-size: 1.15rem; }
+  .steps p { margin: 0; color: var(--ink2); font-size: .96rem; }
+  .cols2 { margin: 10px 0 0; }
+  @media (min-width: 560px) { .cols2 { grid-template-columns: 1fr 1fr; } }
+  .cta { display: flex; justify-content: center; margin-top: 40px; }
+</style>

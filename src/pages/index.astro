@@ -26,7 +26,7 @@ const gallery = [
   { src: paulineOslo, alt: 'Pauline et Oslo dans un parc', cap: 'Pauline et Oslo' },
 ];
 ---
-<Layout>
+<Layout bodyClass="home">
   <!-- HERO -->
   <section class="hero" data-hero>
     <div class="w hero-grid">
@@ -198,6 +198,10 @@ const gallery = [
 </Layout>
 
 <style>
+  /* Accueil : fond plus clair */
+  :global(body.home) { --paper: #ffffff; --stone: #faf8f4; --sage-l: #f0f4f0; --line: #ebe7df; }
+  :global(body.home .hdr) { background: rgb(255 255 255 / .88); }
+
   .hero { padding: clamp(40px, 6vw, 80px) 0 clamp(70px, 9vw, 120px); }
   .hero-grid { display: grid; gap: 56px; align-items: center; }
   @media (min-width: 1000px) { .hero-grid { grid-template-columns: 1.15fr .85fr; gap: 80px; } }

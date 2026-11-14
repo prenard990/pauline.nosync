@@ -7,8 +7,8 @@ import { site } from '../data/site';
 import ogPhoto from '../assets/photos/pauline-oslo.jpg';
 import '../styles/global.css';
 
-interface Props { title?: string; description?: string; image?: ImageMetadata; type?: 'website' | 'article' }
-const { title, description = site.description, image = ogPhoto, type = 'website' } = Astro.props;
+interface Props { title?: string; description?: string; image?: ImageMetadata; type?: 'website' | 'article'; bodyClass?: string }
+const { title, description = site.description, image = ogPhoto, type = 'website', bodyClass } = Astro.props;
 const fullTitle = title ? `${title} · Pauline Renard, éducatrice canine à Lyon` : 'Pauline Renard · Éducatrice & comportementaliste canin à Lyon';
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const og = await getImage({ src: image, width: 675, format: 'jpg' });
@@ -48,7 +48,7 @@ const ld = {
     <script is:inline>document.documentElement.classList.remove('no-js')</script>
     <slot name="head" />
   </head>
-  <body>
+  <body class={bodyClass}>
     <a class="skip" href="#main">Aller au contenu</a>
     <Header />
     <main id="main">

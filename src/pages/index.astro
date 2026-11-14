@@ -16,7 +16,15 @@ import osloChiot from '../assets/photos/oslo-chiot.jpg';
 import osloLabrador from '../assets/photos/oslo-labrador.jpg';
 
 const articles = (await getCollection('conseils')).sort((a, b) => a.data.order - b.data.order).slice(0, 3);
-const struggles = ['Il tire en laisse', 'Il ne revient pas au rappel', 'Il aboie ou détruit quand je pars', 'Il réagit aux autres chiens', 'Il garde ses jouets ou sa gamelle', 'Il saute sur les gens', 'Je viens d’adopter un chiot'];
+const struggles = [
+  { q: 'Il tire en laisse', a: 'Souvent, il veut simplement avancer plus vite que vous. On lui apprend que la laisse détendue est ce qui le fait avancer, pour des balades enfin agréables à deux.' },
+  { q: 'Il ne revient pas au rappel', a: 'Le monde extérieur est passionnant : il faut que revenir vers vous le soit encore plus. On construit un rappel fiable, étape par étape, en le rendant motivant.' },
+  { q: 'Il aboie ou détruit quand je pars', a: 'C’est souvent le signe d’un stress lié à la solitude, pas d’une vengeance. On l’aide à se sentir en sécurité seul, en douceur et progressivement.' },
+  { q: 'Il réagit aux autres chiens', a: 'Peur, frustration ou excitation : derrière les aboiements se cache une émotion. On l’identifie, puis on apprend à votre chien à gérer ces rencontres plus sereinement.' },
+  { q: 'Il garde ses jouets ou sa gamelle', a: 'Protéger ce qui compte est un comportement naturel. On travaille la confiance et l’échange pour qu’il n’ait plus besoin de défendre ses ressources.' },
+  { q: 'Il saute sur les gens', a: 'C’est sa façon de dire bonjour avec enthousiasme. On lui apprend une manière plus calme de saluer, qui lui apporte autant d’attention.' },
+  { q: 'Je viens d’adopter un chiot', a: 'Les premiers mois sont décisifs. On pose ensemble les bases : propreté, socialisation, morsures de jeu et premiers apprentissages, sans pression.' },
+];
 const progIcon = ['target', 'sprout', 'heart', 'house'];
 const gallery = [
   { src: riviere, alt: 'Trois chiens au bord du Rhône', cap: 'Balade sur les quais du Rhône' },
@@ -83,7 +91,14 @@ const gallery = [
         <a class="link" href="/accompagnements/" data-reveal>Découvrir mes accompagnements <Icon name="arrow" size={15} /></a>
       </div>
       <ul class="quotes" data-reveal="stagger">
-        {struggles.map((s, i) => <li><span class="qi">{String(i + 1).padStart(2, '0')}</span><span class="qt">« {s} »</span><Icon name="arrow" size={18} /></li>)}
+        {struggles.map((s, i) => (
+          <li>
+            <details name="struggle">
+              <summary><span class="qi">{String(i + 1).padStart(2, '0')}</span><span class="qt">« {s.q} »</span><Icon name="arrow" size={18} /></summary>
+              <p class="qa">{s.a}</p>
+            </details>
+          </li>
+        ))}
       </ul>
     </div>
   </section>
@@ -224,12 +239,19 @@ const gallery = [
   @media (min-width: 960px) { .split { grid-template-columns: .9fr 1.1fr; gap: 80px; } .split-l { position: sticky; top: 120px; align-self: start; } }
   .split-l .muted { margin-bottom: 26px; max-width: 46ch; }
   .quotes { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--line); }
-  .quotes li { display: flex; align-items: center; gap: 22px; padding: 24px 4px; border-bottom: 1px solid var(--line); transition: padding .4s var(--ease), color .3s; }
-  .quotes li:hover { padding-left: 14px; color: var(--sage); }
+  .quotes li { border-bottom: 1px solid var(--line); }
+  .quotes summary { display: flex; align-items: center; gap: 22px; padding: 24px 4px; cursor: pointer; list-style: none; transition: padding .4s var(--ease), color .3s; }
+  .quotes summary::-webkit-details-marker { display: none; }
+  .quotes summary:hover, .quotes details[open] summary { padding-left: 14px; color: var(--sage); }
+  .quotes summary:focus-visible { outline: 2px solid var(--sage); outline-offset: 2px; border-radius: 6px; }
   .qi { font-family: var(--serif); font-style: italic; color: var(--ink3); font-size: 1.1rem; width: 28px; }
   .qt { flex: 1; font-family: var(--display); font-size: clamp(1.2rem, 2vw, 1.6rem); letter-spacing: -.02em; }
-  .quotes :global(svg) { opacity: 0; transform: translateX(-8px); transition: opacity .3s, transform .4s var(--ease); }
-  .quotes li:hover :global(svg) { opacity: 1; transform: none; }
+  .quotes :global(svg) { opacity: .35; flex-shrink: 0; transform: rotate(0); transition: opacity .3s, transform .4s var(--ease); }
+  .quotes summary:hover :global(svg) { opacity: 1; }
+  .quotes details[open] :global(svg) { opacity: 1; transform: rotate(90deg); }
+  .qa { margin: -8px 0 0; padding: 0 4px 24px 64px; color: var(--ink2); max-width: 46ch; animation: qa-in .45s var(--ease); }
+  @keyframes qa-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+  @media (max-width: 600px) { .qa { padding-left: 54px; } }
 
   .prog { display: flex; flex-direction: column; text-decoration: none; }
   .prog h3 { margin: 22px 0 10px; }

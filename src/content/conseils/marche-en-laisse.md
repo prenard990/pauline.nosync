@@ -2,11 +2,11 @@
 title: "Marcher en laisse sans tirer"
 description: "Les balades ressemblent à du ski nautique ? Comprendre pourquoi votre chien tire, et comment lui apprendre à marcher à vos côtés."
 category: "Éducation"
-cover: "../../assets/photos/riviere.jpg"
-coverAlt: "Chiens tenus en laisse au bord du Rhône"
+cover: "../../assets/conseils/marche-en-laisse.jpg"
+coverAlt: "Un teckel marche en laisse détendue aux côtés de son humain dans une allée de parc"
 readingTime: 5
 order: 2
-oslo: "Ma balade préférée ? Celle où Pauline me laisse renifler chaque arbre. Après, je marche à côté d’elle sans même y penser."
+oslo: "Ma balade préférée ? Celle où ma maîtresse me laisse renifler chaque arbre. Après, je marche à côté d’elle sans même y penser."
 ---
 
 Un chien qui tire en laisse n’est pas un chien « dominant » ou têtu. Il va simplement plus vite que nous, il est curieux… et il a souvent appris que **tirer fonctionne** : à chaque fois qu’il tire, il avance.

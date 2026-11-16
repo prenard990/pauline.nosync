@@ -1,15 +1,20 @@
 ---
 import { nav, site } from '../data/site';
 import Icon from './Icon.astro';
-import OsloAvatar from './OsloAvatar.astro';
+import { Image } from 'astro:assets';
+import logo from '../assets/pauline-oslo-dessin.jpg';
 const path = Astro.url.pathname;
-const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+const isActive = (href: string) => {
+  if (href === '/') return path === '/';
+  const item = nav.find((l) => l.href === href);
+  return [href, ...(item?.also ?? [])].some((h) => path.startsWith(h));
+};
 const mobile = [{ href: '/', label: 'Accueil' }, ...nav, { href: '/contact/', label: 'Contact' }];
 ---
 <header class="hdr">
   <div class="w bar">
     <a class="logo oslo-host" href="/" aria-label={`${site.name}, accueil`}>
-      <OsloAvatar size={40} />
+      <Image class="logo-img" src={logo} alt="" width={52} height={52} densities={[1, 2, 3]} loading="eager" />
       <span class="name"><strong>Pauline Renard</strong><small>Éducation canine · Lyon</small></span>
     </a>
     <nav class="links" aria-label="Navigation principale">
@@ -20,7 +25,7 @@ const mobile = [{ href: '/', label: 'Accueil' }, ...nav, { href: '/contact/', la
   </div>
   <nav id="mnav" class="mnav" aria-label="Navigation mobile">
     {mobile.map((l, i) => <a href={l.href} style={`--i:${i}`} aria-current={isActive(l.href) ? 'page' : undefined}>{l.label}</a>)}
-    <a class="btn sage" href={site.phoneHref} style={`--i:${mobile.length}`}><Icon name="phone" size={18} /> {site.phone}</a>
+    <a class="btn sage" href="/contact/" style={`--i:${mobile.length}`}>Prendre rendez-vous <Icon name="arrow" size={18} /></a>
   </nav>
 </header>
 
@@ -30,6 +35,7 @@ const mobile = [{ href: '/', label: 'Accueil' }, ...nav, { href: '/contact/', la
   .hdr.hide { transform: translateY(-100%); }
   .bar { display: flex; align-items: center; gap: 28px; height: 78px; }
   .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; margin-right: auto; }
+  .logo-img { width: 52px; height: 52px; flex: none; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 2px var(--white), 0 0 0 3.5px #4f9a9b; }
   .name strong { display: block; font-family: var(--display); font-weight: 600; font-size: 1.08rem; letter-spacing: -.02em; line-height: 1.1; }
   .name small { display: block; font-size: .76rem; color: var(--ink3); letter-spacing: .02em; }
   .links { display: none; gap: 30px; }

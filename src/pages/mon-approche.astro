@@ -1,26 +1,24 @@
 ---
+import OsloAvatar from '../components/OsloAvatar.astro';
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
-import Icon from '../components/Icon.astro';
 import LIcon from '../components/LIcon.astro';
 import OsloTip from '../components/OsloTip.astro';
+import { approachPillars } from '../data/site';
 import paulineOslo from '../assets/photos/pauline-oslo.jpg';
-import osloBalle from '../assets/photos/oslo-balle.jpg';
-const values = [
-  { icon: 'handheart', title: 'Bienveillance', text: 'Des méthodes respectueuses du chien, fondées sur la compréhension de ses émotions et de ses besoins.' },
-  { icon: 'ear', title: 'Écoute', text: 'Chaque famille est unique : je pars de votre quotidien et de vos contraintes pour construire des solutions réalistes.' },
-  { icon: 'list', title: 'Concret', text: 'Des outils pratiques, simples à appliquer, pour que vous soyez autonome entre les séances.' },
-];
+import osloFeuilles from '../assets/photos/oslo-feuilles.jpg';
+import paulineSoleil from '../assets/photos/pauline-coucher-soleil.jpg';
 ---
-<Layout title="À propos" description="Pauline Renard, éducatrice et comportementaliste canin diplômée (EFM Métiers Animaliers, ACACED), basée à Lyon 7, et Oslo, son chien régulateur.">
-  <PageHero label="À propos" title="Pauline Renard, <em>éducatrice</em> et comportementaliste canin." lead="J’accompagne les familles lyonnaises pour construire avec leur chien une relation fondée sur la confiance mutuelle." image={paulineOslo} alt="Pauline Renard avec Oslo dans un parc ensoleillé" />
+<Layout title="Mon approche" description="Pauline Renard, éducatrice et comportementaliste canin diplômée (EFM Métiers Animaliers, ACACED), basée à Lyon 7, et Oslo, son chien régulateur.">
+  <PageHero mood="fier" label="L’approche de ma maîtresse" title="Pauline Renard, <em>éducatrice</em> et comportementaliste canin." lead="J’accompagne les familles lyonnaises pour construire avec leur chien une relation fondée sur la confiance mutuelle." image={paulineOslo} alt="Pauline Renard avec Oslo dans un parc ensoleillé" />
 
   <section>
     <div class="w story">
       <div>
-        <p class="label">Mon approche</p>
+        <div class="osl-say"><OsloAvatar size={120} mood="fier" /><p class="label osl-bub">Sa façon de travailler</p></div>
         <h2 data-split>Chaque difficulté a <em>sa solution</em>.</h2>
+        <div class="photo simg" data-img><Image src={paulineSoleil} alt="Pauline demande un « assis » à un chien sur un chemin de campagne au coucher du soleil" widths={[400, 675]} sizes="(min-width: 960px) 420px, 90vw" /></div>
       </div>
       <div class="story-txt" data-reveal>
         <p class="lead">Quand le quotidien avec son chien devient une source de stress ou de frustration, il est parfois difficile de savoir comment réagir.</p>
@@ -36,9 +34,9 @@ const values = [
 
   <section class="bg-stone">
     <div class="w">
-      <div class="head"><p class="label">Mes valeurs</p><h2 data-split>Ce qui guide <em>mon travail</em>.</h2></div>
+      <div class="head"><div class="osl-say"><OsloAvatar size={120} mood="fier" /><p class="label osl-bub">Ses trois piliers</p></div><h2 data-split>Ce qui guide <em>mon travail</em>.</h2></div>
       <div class="grid g3" data-reveal="stagger">
-        {values.map((v) => (
+        {approachPillars.map((v) => (
           <div class="card hover val">
             <span class="icon-c"><LIcon name={v.icon} /></span>
             <h3>{v.title}</h3>
@@ -51,14 +49,13 @@ const values = [
 
   <section>
     <div class="w row">
-      <div class="photo oimg" data-img><Image src={osloBalle} alt="Oslo debout dans l’herbe, une balle dans la gueule" widths={[400, 675]} sizes="(min-width: 900px) 460px, 90vw" /></div>
+      <div class="photo oimg" data-img><Image src={osloFeuilles} alt="Oslo, bouvier de l’Entlebuch, assis tout sourire dans les feuilles d’automne" widths={[400, 675]} sizes="(min-width: 900px) 460px, 90vw" /></div>
       <div>
-        <p class="label">Mon binôme</p>
+        <div class="osl-say"><OsloAvatar size={120} mood="fier" /><p class="label osl-bub">Et moi, son binôme</p></div>
         <h2 data-split>Oslo, bouvier de <em>l’Entlebuch</em>.</h2>
         <p class="lead" data-reveal>8 ans, très calme et très bien codé.</p>
         <p class="muted" data-reveal>Selon les situations, Oslo peut servir de chien régulateur. C’est un partenaire idéal pour aider les chiens à apprendre les bons codes et à se sentir en confiance : un chien réactif ou un chiot timide peut progresser au contact d’un congénère stable et rassurant.</p>
-        <OsloTip title="Oslo se présente"><p>Ma spécialité : rester calme quand un congénère s’agite. C’est souvent comme ça que la confiance revient.</p></OsloTip>
-        <a class="btn sage" href="/contact/">Rencontrer Pauline &amp; Oslo <Icon name="arrow" size={17} /></a>
+        <OsloTip title="Oslo se présente" mood="fier"><p>Ma spécialité : rester calme quand un congénère s’agite. C’est souvent comme ça que la confiance revient.</p></OsloTip>
       </div>
     </div>
   </section>
@@ -67,6 +64,8 @@ const values = [
 <style>
   .story { display: grid; gap: 40px; }
   @media (min-width: 960px) { .story { grid-template-columns: .8fr 1.2fr; gap: 90px; } }
+  .simg { aspect-ratio: 4 / 5; margin-top: 32px; }
+  @media (max-width: 959px) { .simg { aspect-ratio: 4 / 3; } .simg :global(img) { object-position: 50% 40%; } }
   .story-txt p:not(.lead) { color: var(--ink2); }
   .diplomas { display: grid; gap: 0; margin-top: 34px; border-top: 1px solid var(--line); }
   .diplomas > div { display: flex; gap: 18px; align-items: flex-start; padding: 20px 0; border-bottom: 1px solid var(--line); }

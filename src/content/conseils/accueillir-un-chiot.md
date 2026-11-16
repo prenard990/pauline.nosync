@@ -2,8 +2,8 @@
 title: "Accueillir un chiot : les premières semaines"
 description: "Propreté, sommeil, socialisation, solitude : tout ce qu’il faut savoir pour bien démarrer avec votre chiot."
 category: "Chiot"
-cover: "../../assets/photos/oslo-chiot.jpg"
-coverAlt: "Un chiot couché dans l’herbe observe Oslo"
+cover: "../../assets/conseils/accueillir-un-chiot.jpg"
+coverAlt: "Un chiot cocker couché dans un panier en osier garni d’une couverture"
 readingTime: 6
 order: 3
 oslo: "Quand j’étais chiot, je dormais partout, tout le temps. Aujourd’hui encore, la sieste reste mon activité numéro un."

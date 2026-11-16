@@ -3,20 +3,34 @@ export const site = {
   role: 'Éducatrice & comportementaliste canin',
   city: 'Lyon 7',
   area: 'Lyon et alentours',
-  phone: '06 45 81 64 19',
-  phoneHref: 'tel:+33645816419',
   email: 'pauline-rnd@hotmail.fr',
   description:
     "Pauline Renard, éducatrice et comportementaliste canin à Lyon 7 : éducation de base, chiots, anxiété de séparation, réactivité. Méthodes bienveillantes, déplacements dans Lyon et alentours.",
 };
 
-export const nav = [
-  { href: '/races/', label: 'Mon chien' },
-  { href: '/offres/', label: 'Offres' },
-  { href: '/accompagnements/', label: 'Accompagnements' },
-  { href: '/balades-collectives/', label: 'Balades' },
-  { href: '/conseils/', label: 'Conseils' },
-  { href: '/a-propos/', label: 'À propos' },
+// Communes desservies (zone d'intervention, affichée sur l'accueil et utilisée pour le SEO local).
+export const zones = ['Lyon', 'Villeurbanne', 'Caluire-et-Cuire', 'Tassin-la-Demi-Lune', 'Meyzieu', 'Est lyonnais', 'Ouest lyonnais'];
+
+// Les 3 piliers de l'approche (accueil + page Mon approche).
+export const pillars = [
+  { icon: 'handheart', title: '100 % bienveillant', text: 'Zéro violence, zéro outil coercitif (pas de collier étrangleur ni d’intimidation).' },
+  { icon: 'sparkles', title: 'Sur-mesure', text: 'Pas de recette toute faite : je m’adapte au tempérament de votre chien et à votre mode de vie.' },
+  { icon: 'key', title: 'Autonomie', text: 'Mon but n’est pas de dresser votre chien à votre place, mais de vous donner les clés pour le guider toute sa vie.' },
+];
+
+// Version développée des 3 piliers, avec les titres d'origine (page Mon approche).
+export const approachPillars = [
+  { icon: 'handheart', title: 'Bienveillance', text: 'Zéro violence, zéro outil coercitif (pas de collier étrangleur ni d’intimidation). Respect total des émotions du chien.' },
+  { icon: 'ear', title: 'Écoute', text: 'Pas de recette toute faite : je m’adapte au tempérament unique de votre chien, à vos besoins et à votre mode de vie.' },
+  { icon: 'list', title: 'Concret', text: 'Des clés de compréhension et des exercices pratiques de terrain pour vous rendre durablement autonomes au quotidien.' },
+];
+
+export const nav: { href: string; label: string; also?: string[] }[] = [
+  { href: '/prestations/', label: 'Prestations et tarifs' },
+  { href: '/mon-approche/', label: 'Mon approche' },
+  // Page Témoignages mise de côté (src/pages/_temoignages.astro) : à remettre quand il y aura assez d’avis.
+  // { href: '/temoignages/', label: 'Témoignages' },
+  { href: '/ecole-oslo/', label: 'L’école d’Oslo', also: ['/races/', '/conseils/'] },
 ];
 
 export const prices = [
@@ -48,27 +62,27 @@ export const prices = [
   },
   {
     name: 'Forfait 3 séances',
-    price: 120,
-    unit: 'soit 40 € la séance',
+    price: 160,
+    unit: 'séance bilan + 3 séances d’éducation',
     pitch: 'Pour poser des bases solides.',
     features: [
       'Progression construite séance après séance',
       'Idéal pour l’éducation de base ou un chiot',
       'Suivi de vos avancées entre les séances',
-      'Tarif avantageux',
+      'Soit 15 € d’économie',
     ],
     featured: true,
   },
   {
     name: 'Forfait 5 séances',
-    price: 200,
-    unit: 'soit 40 € la séance',
+    price: 230,
+    unit: 'séance bilan + 5 séances d’éducation',
     pitch: 'Pour les problématiques de comportement.',
     features: [
       'Accompagnement dans la durée',
       'Réactivité, anxiété, protection de ressources…',
       'Généralisation dans différents lieux',
-      'Tarif avantageux',
+      'Soit 35 € d’économie',
     ],
     featured: false,
   },

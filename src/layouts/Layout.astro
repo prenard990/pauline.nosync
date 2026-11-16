@@ -3,27 +3,28 @@ import { getImage } from 'astro:assets';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import OsloBuddy from '../components/OsloBuddy.astro';
-import { site } from '../data/site';
+import { site, zones } from '../data/site';
 import ogPhoto from '../assets/photos/pauline-oslo.jpg';
 import '../styles/global.css';
 
-interface Props { title?: string; description?: string; image?: ImageMetadata; type?: 'website' | 'article' }
-const { title, description = site.description, image = ogPhoto, type = 'website' } = Astro.props;
+interface Props { title?: string; description?: string; image?: ImageMetadata; type?: 'website' | 'article'; footerCta?: boolean }
+const { title, description = site.description, image = ogPhoto, type = 'website', footerCta = true } = Astro.props;
 const fullTitle = title ? `${title} · Pauline Renard, éducatrice canine à Lyon` : 'Pauline Renard · Éducatrice & comportementaliste canin à Lyon';
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const og = await getImage({ src: image, width: 675, format: 'jpg' });
 const ld = {
   '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
+  '@type': ['LocalBusiness', 'ProfessionalService'],
   name: 'Pauline Renard – Éducatrice & comportementaliste canin',
   description: site.description,
   url: Astro.site?.toString(),
-  telephone: '+33645816419',
   email: site.email,
   image: new URL(og.src, Astro.site).toString(),
   address: { '@type': 'PostalAddress', addressLocality: 'Lyon', postalCode: '69007', addressCountry: 'FR' },
-  areaServed: 'Lyon et alentours',
-  priceRange: '40 € – 200 €',
+  areaServed: zones.filter((z) => !z.includes('lyonnais')).map((name) => ({ '@type': 'City', name })),
+  geo: { '@type': 'GeoCoordinates', latitude: 45.7344, longitude: 4.8414 },
+  knowsAbout: ['Éducation canine', 'Comportement canin', 'Éducation du chiot', 'Anxiété de séparation', 'Réactivité canine'],
+  priceRange: '40 € – 230 €',
 };
 ---
 <!doctype html>
@@ -54,7 +55,7 @@ const ld = {
     <main id="main">
       <slot />
     </main>
-    <Footer />
+    <Footer cta={footerCta} />
     <OsloBuddy />
     <script>
       import { initMotion } from '../lib/motion';

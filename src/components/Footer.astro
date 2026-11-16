@@ -1,23 +1,26 @@
 ---
+import OsloAvatar from './OsloAvatar.astro';
 import { nav, site } from '../data/site';
 import Icon from './Icon.astro';
+// cta = false : pas de bandeau « Commençons par faire connaissance » (ex. accueil, qui a déjà son appel final)
+interface Props { cta?: boolean }
+const { cta = true } = Astro.props;
 ---
 <footer class="ft">
-  <section class="cta bg-dark">
+  {cta && <section class="cta bg-dark">
     <div class="w cta-grid">
       <div>
-        <p class="label">Prendre rendez-vous</p>
+        <div class="osl-say"><OsloAvatar size={120} mood="heureux" /></div>
         <h2 data-split>Commençons par <em>faire connaissance</em>.</h2>
       </div>
       <div>
         <p class="sub">La séance bilan permet d’observer votre chien, de comprendre votre quotidien et de définir ensemble un plan adapté.</p>
         <div class="btns">
-          <a class="btn light" href="/contact/">Réserver une séance bilan <Icon name="arrow" size={17} /></a>
-          <a class="link" href={site.phoneHref}>{site.phone}</a>
+          <a class="btn light" href="/contact/?motif=Bilan%20comportemental&offre=S%C3%A9ance%20bilan">Réserver une séance bilan <Icon name="arrow" size={17} /></a>
         </div>
       </div>
     </div>
-  </section>
+  </section>}
   <div class="base">
     <div class="w cols">
       <div>
@@ -31,7 +34,7 @@ import Icon from './Icon.astro';
       <div>
         <p class="t">Contact</p>
         <ul>
-          <li><a href={site.phoneHref}>{site.phone}</a></li>
+          <li><a href="/contact/">Formulaire de contact</a></li>
           <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
           <li class="muted">{site.city} · {site.area}</li>
         </ul>
@@ -47,7 +50,7 @@ import Icon from './Icon.astro';
   .cta { padding: clamp(80px, 10vw, 130px) 0; }
   .cta-grid { display: grid; gap: 40px; align-items: end; }
   @media (min-width: 900px) { .cta-grid { grid-template-columns: 1.2fr .8fr; } }
-  .cta .label { color: #c9dccd; }
+  .cta .label:not(.osl-bub) { color: #c9dccd; }
   .cta h2 { margin: 0; color: #fff; font-size: clamp(2.3rem, 5vw, 4rem); }
   .sub { color: rgb(241 243 239 / .78); font-size: 1.08rem; margin-bottom: 26px; }
   .cta .link { color: #fff; }

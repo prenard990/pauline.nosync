@@ -2,11 +2,11 @@
 title: "Un rappel fiable : 6 règles d’or"
 description: "Votre chien fait la sourde oreille au parc ? Voici comment construire, pas à pas, un rappel sur lequel vous pouvez compter."
 category: "Éducation"
-cover: "../../assets/photos/oslo-balle.jpg"
-coverAlt: "Oslo revient en courant, une balle dans la gueule"
+cover: "../../assets/conseils/rappel.jpg"
+coverAlt: "Un golden retriever assis dans un parc, une balle de tennis dans la gueule"
 readingTime: 5
 order: 1
-oslo: "Le mot magique de Pauline pour moi, c’est « ici ». Et je reviens à chaque fois… parce qu’à chaque fois, il se passe un truc génial !"
+oslo: "Le mot magique de ma maîtresse pour moi, c’est « ici ». Et je reviens à chaque fois… parce qu’à chaque fois, il se passe un truc génial !"
 ---
 
 Le rappel est sans doute l’apprentissage le plus important… et le plus frustrant quand il ne fonctionne pas. Bonne nouvelle : un rappel fiable se construit, à tout âge.

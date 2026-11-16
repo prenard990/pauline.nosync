@@ -1,0 +1,486 @@
+---
+// Prestations & tarifs : vue rapide (4 cartes) → détails en onglets → galerie condensée → FAQ.
+// Tout le texte reste présent dans la page (onglets masqués visuellement mais lus par Google).
+import OsloAvatar from '../components/OsloAvatar.astro';
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import LIcon from '../components/LIcon.astro';
+import Faq from '../components/Faq.astro';
+import OsloTip from '../components/OsloTip.astro';
+import { prices, formats, programs, faq } from '../data/site';
+import chiotEtOslo from '../assets/photos/chiot-et-oslo.jpg';
+import paulineDeuxChiens from '../assets/photos/pauline-deux-chiens.jpg';
+import aLaMaison from '../assets/photos/a-la-maison.jpg';
+import groupeDeChiens from '../assets/photos/balades/groupe-de-chiens.jpg';
+import riviereFrisbee from '../assets/photos/balades/riviere-et-frisbee.jpg';
+import deuxChiensLonge from '../assets/photos/balades/deux-chiens-en-longe.jpg';
+import osloChiotAssis from '../assets/photos/balades/oslo-et-chiot-assis.jpg';
+import bordDuLac from '../assets/photos/balades/bord-du-lac.jpg';
+import paulineRecompense from '../assets/photos/pauline-recompense.jpg';
+import paulineAssis from '../assets/photos/pauline-assis.jpg';
+import chiotJeune from '../assets/photos/balades/chiot-et-jeune-chien.jpg';
+import riviere2 from '../assets/photos/balades/bord-de-riviere.jpg';
+import pause from '../assets/photos/balades/pause-dans-l-herbe.jpg';
+import frisbee2 from '../assets/photos/balades/plage-frisbee.jpg';
+import rencontre from '../assets/photos/balades/rencontre-chiot.jpg';
+import flair from '../assets/photos/balades/flair-automne.jpg';
+
+const [bilan, seance, forfait3, forfait5] = prices;
+const contact = (motif: string) => `/contact/?motif=${encodeURIComponent(motif)}`;
+
+/* ---------- 1. Vue rapide : 4 cartes compactes ---------- */
+const quick = [
+  { tab: 'bilan', icon: 'list', name: bilan.name, price: `${bilan.price} €`, meta: '1h30 à 2h · chez vous', points: bilan.features.slice(0, 3), badge: 'Point de départ' },
+  { tab: 'seances', icon: 'target', name: seance.name, price: `${seance.price} €`, meta: seance.unit, points: seance.features.slice(0, 3) },
+  { tab: 'seances', icon: 'calendar', name: 'Forfaits', price: `dès ${forfait3.price} €`, meta: 'Bilan + 3 ou 5 séances', points: [`3 séances : ${forfait3.price} €`, `5 séances : ${forfait5.price} €`, 'Progression suivie dans la durée'], featured: true },
+  { tab: 'balades', icon: 'users', name: 'Balades collectives', price: 'Sur demande', meta: 'Une fois par semaine · petit groupe', points: ['Socialisation en douceur', 'Marche en laisse en situation réelle', 'Toujours en laisse, encadrée'] },
+];
+
+/* ---------- 2. Onglets ---------- */
+const tabs = [
+  { id: 'bilan', label: 'Le bilan', mood: 'curieux' },
+  { id: 'seances', label: 'Séances & forfaits', mood: 'bravo' },
+  { id: 'accompagnements', label: 'Accompagnements', mood: 'fier' },
+  { id: 'balades', label: 'Balades collectives', mood: 'joyeux' },
+] as const;
+
+const fmtIcon: Record<string, string> = { home: 'house', tree: 'trees', paw: 'paw', chat: 'chat' };
+const picks = [
+  { tag: 'Éducation de base · chiot', text: 'Le forfait 3 séances pose des bases solides et permet de suivre les progrès.' },
+  { tag: 'Trouble du comportement', text: 'Le forfait 5 séances laisse le temps de travailler en profondeur et de généraliser les acquis.' },
+  { tag: 'Besoin ponctuel', text: 'La séance individuelle convient à un objectif précis ou à un point d’étape.' },
+];
+const look = [
+  { icon: 'target', img: paulineAssis, alt: 'Pauline demande un « assis » à un chien noir et blanc sur un chemin de campagne', mood: 'bravo' },
+  { icon: 'sprout', img: chiotEtOslo, alt: 'Un chiot bouvier découvre le monde aux côtés d’Oslo dans un pré', mood: 'chiot' },
+  { icon: 'heart', img: paulineDeuxChiens, alt: 'Pauline encadre la rencontre de deux chiens sur un chemin', mood: 'curieux' },
+  { icon: 'house', img: aLaMaison, alt: 'Un petit chien et un bouvier tricolore installés tranquillement à la maison', mood: 'heureux' },
+] as const;
+const benefits = [
+  { icon: 'users', title: 'Socialiser en douceur', text: 'Votre chien côtoie d’autres chiens dans un cadre calme et encadré, à bonne distance, sans contact forcé.' },
+  { icon: 'route', title: 'Travailler la marche en laisse', text: 'Laisse détendue, rappels, arrêts : on met en pratique les apprentissages dans un vrai environnement, avec des distractions.' },
+  { icon: 'search', title: 'Se dépenser intelligemment', text: 'Exploration, flair et découverte de nouveaux lieux : une sortie qui fatigue autant la tête que les pattes.' },
+  { icon: 'chat', title: 'Échanger et progresser', text: 'Je vous accompagne tout au long de la balade et réponds à vos questions sur le terrain, entre propriétaires.' },
+];
+const steps = [
+  { n: '01', title: 'Une fois par semaine', text: 'Je propose une balade collective chaque semaine, dans un parc ou un espace naturel de Lyon et ses alentours.' },
+  { n: '02', title: 'En petit groupe', text: 'Le nombre de chiens est volontairement limité pour que chacun reste à l’aise et que je puisse accompagner chaque binôme.' },
+  { n: '03', title: 'Toujours en laisse', text: 'Les chiens restent en laisse pendant la balade. On marche, on fait des pauses, on observe : chacun à son rythme.' },
+  { n: '04', title: 'Encadrée du début à la fin', text: 'Je gère les distances entre les chiens, j’adapte le parcours et je vous donne des conseils personnalisés en marchant.' },
+];
+const who = [
+  'Les chiots et jeunes chiens qui découvrent le monde',
+  'Les chiens qui tirent en laisse',
+  'Les chiens un peu timides avec leurs congénères',
+  'Les chiens qui ont besoin de se dépenser',
+  'Les chiens déjà accompagnés, pour consolider les acquis',
+  'Les propriétaires qui veulent échanger et apprendre',
+];
+
+/* ---------- 3. Galerie : photos et vidéos mêlées, 4 visibles au départ ---------- */
+const media = [
+  { kind: 'video', src: '/videos/balades/balade-1.mp4', label: 'Chiens qui se promènent sur un tapis de feuilles d’automne au bord de l’eau' },
+  { kind: 'photo', src: chiotJeune, alt: 'Un jeune chien et un chiot tricolores qui se promènent dans un grand parc' },
+  { kind: 'video', src: '/videos/balades/balade-3.mp4', label: 'Deux chiens qui courent ensemble sur une pelouse' },
+  { kind: 'photo', src: riviere2, alt: 'Trois chiens détendus sur une plage de galets au bord d’une rivière' },
+  { kind: 'photo', src: pause, alt: 'Deux petits chiens en harnais, allongés dans l’herbe pendant une pause' },
+  { kind: 'video', src: '/videos/balades/balade-2.mp4', label: 'Chiot qui joue avec d’autres chiens dans un jardin' },
+  { kind: 'photo', src: frisbee2, alt: 'Un chien noir couvert de sable à côté d’un frisbee, au bord de l’eau' },
+  { kind: 'photo', src: rencontre, alt: 'Un chiot et un jeune chien se rencontrent sous l’œil de leurs humains' },
+  { kind: 'video', src: '/videos/balades/balade-4.mp4', label: 'Chiens qui jouent dans un parc' },
+  { kind: 'photo', src: flair, alt: 'Deux chiens en longe reniflent l’herbe parmi les feuilles d’automne' },
+  { kind: 'photo', src: osloChiotAssis, alt: 'Oslo assis, langue pendante, à côté d’un chiot couché dans l’herbe' },
+  { kind: 'photo', src: riviereFrisbee, alt: 'Deux chiens joyeux sur une plage de rivière, un frisbee rouge à leurs pieds' },
+  { kind: 'photo', src: bordDuLac, alt: 'Des chiens en longe se rafraîchissent au bord d’un lac' },
+  { kind: 'photo', src: deuxChiensLonge, alt: 'Deux chiens en longe se reniflent dans un grand pré' },
+] as const;
+const VISIBLE = 4;
+
+const baladeFaq = [
+  { q: 'Mon chien peut-il participer directement à une balade ?', a: 'Pour la sécurité et le confort de tous, je rencontre d’abord chaque nouveau chien (séance bilan ou séance individuelle). Cela me permet de vérifier que la balade collective lui convient et de bien le placer dans le groupe.' },
+  { q: 'Mon chien est réactif, la balade est-elle adaptée ?', a: 'Cela dépend de son profil. Pour certains chiens réactifs, la balade collective est une belle étape de travail, avec des distances adaptées. Pour d’autres, il vaut mieux commencer en séance individuelle. On en parle ensemble.' },
+  { q: 'Où et quand ont lieu les balades ?', a: 'Une balade par semaine, à Lyon ou dans les alentours. Le jour, l’horaire et le point de rendez-vous vous sont communiqués à l’inscription.' },
+  { q: 'Que dois-je apporter en balade ?', a: 'Une laisse (idéalement longue de 2 à 3 m) et un harnais confortable, des friandises appréciées par votre chien, de l’eau et des sacs à déjections.' },
+];
+---
+<Layout title="Prestations et tarifs" description="Séance bilan à 40 €, séances individuelles, forfaits, accompagnements (chiot, réactivité, anxiété…) et balades collectives : les prestations de Pauline Renard, éducatrice canine à Lyon.">
+  <PageHero mood="bravo" label="Prestations et tarifs" title="Des formules <em>claires</em>, adaptées à votre chien." lead="Tout commence par une séance bilan pour faire connaissance. Ensuite, on choisit ensemble : séance à l’unité, forfait ou balade collective." />
+
+  <!-- ============ 1. VUE RAPIDE ============ -->
+  <section id="tarifs" class="anchor quick-s">
+    <div class="w">
+      <div class="quick" data-reveal="stagger">
+        {quick.map((q) => (
+          <article class:list={['qcard', { featured: q.featured }]}>
+            {q.badge && <span class="qbadge">{q.badge}</span>}
+            {q.featured && <span class="qbadge sage">Le plus choisi</span>}
+            <span class="icon-c"><LIcon name={q.icon} /></span>
+            <h2 class="qname">{q.name}</h2>
+            <p class="qprice">{q.price}</p>
+            <p class="qmeta">{q.meta}</p>
+            <ul class="check qpoints">{q.points.map((p) => <li>{p}</li>)}</ul>
+            <a class="qmore" href={`#${q.tab}`} data-open-tab={q.tab}>Voir le détail <span aria-hidden="true">↓</span></a>
+          </article>
+        ))}
+      </div>
+      <div class="info" data-reveal>
+        <p><LIcon name="list" size={20} /> Paiement par virement ou en espèces</p>
+        <p><LIcon name="route" size={20} /> Basée à Lyon 7 · déplacements dans Lyon et alentours</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 2. DÉTAILS EN ONGLETS ============ -->
+  <section id="details" class="anchor bg-stone details-s">
+    <div class="w">
+      <div class="head center"><div class="osl-say"><OsloAvatar size={120} mood="bravo" /><p class="label osl-bub">Le détail des prestations</p></div><h2 data-split>Tout savoir, <em>en un clic</em>.</h2></div>
+
+      <div class="tablist" role="tablist" aria-label="Prestations">
+        {tabs.map((t, i) => (
+          <button class="tab" role="tab" type="button" id={`tab-${t.id}`} aria-controls={t.id} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-tab={t.id}>
+            <OsloAvatar size={34} mood={t.mood} />{t.label}
+          </button>
+        ))}
+      </div>
+
+      <!-- Onglet : le bilan -->
+      <div class="panel" role="tabpanel" id="bilan" aria-labelledby="tab-bilan" tabindex="0">
+        <div class="prow">
+          <div class="photo pimg"><Image src={paulineRecompense} alt="Pauline, accroupie sur un chemin, récompense une chienne au poil fauve" widths={[400, 675]} sizes="(min-width: 960px) 420px, 90vw" /></div>
+          <div>
+            <p class="ptag">Point de départ · {bilan.price} €</p>
+            <h3 class="ptitle">{bilan.name}</h3>
+            <p class="lead">{bilan.pitch} Une rencontre de 1h30 à 2h chez vous pour analyser l’environnement de votre chien, comprendre l’origine de ses problématiques et établir un plan d’action personnalisé.</p>
+            <ul class="check cols2">{bilan.features.map((f) => <li>{f}</li>)}</ul>
+            <a class="btn sage" href={contact('Bilan comportemental')}>Réserver mon bilan <Icon name="arrow" size={17} /></a>
+            <OsloTip><p>Pas sûr·e ? La séance bilan est faite pour ça : ma maîtresse vous conseille la formule la plus adaptée à la fin du rendez-vous.</p></OsloTip>
+          </div>
+        </div>
+      </div>
+
+      <!-- Onglet : séances & forfaits -->
+      <div class="panel" role="tabpanel" id="seances" aria-labelledby="tab-seances" tabindex="0" hidden>
+        <div class="plans">
+          {[seance, forfait3, forfait5].map((p) => (
+            <article class:list={['plan', { featured: p.featured }]}>
+              {p.featured && <span class="badge">Le plus choisi</span>}
+              <h3 class="pname">{p.name}</h3>
+              <p class="pitch">{p.pitch}</p>
+              <p class="price">{p.price} €</p>
+              <p class="unit">{p.unit}</p>
+              <ul class="check">{p.features.map((f) => <li>{f}</li>)}</ul>
+              <a class:list={['btn', p.featured ? 'sage' : 'ghost']} href={`/contact/?offre=${encodeURIComponent(p.name)}`}>Choisir cette formule</a>
+            </article>
+          ))}
+        </div>
+
+        <div class="choose">
+          <div>
+            <p class="ptag">Quelle formule choisir ?</p>
+            <h3 class="ptitle">Quelques repères pour <em>vous orienter</em>.</h3>
+          </div>
+          <ul class="picks">
+            {picks.map((p) => <li><span class="pk">{p.tag}</span><p>{p.text}</p></li>)}
+          </ul>
+        </div>
+
+        <p class="ptag fmt-t">Les formats : là où votre chien en a besoin</p>
+        <div class="fmts">
+          {formats.map((f) => (
+            <div class="fmt">
+              <span class="icon-c"><LIcon name={fmtIcon[f.icon]} /></span>
+              <div><h4>{f.title}</h4><p>{f.text}</p></div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Onglet : accompagnements -->
+      <div class="panel" role="tabpanel" id="accompagnements" aria-labelledby="tab-accompagnements" tabindex="0" hidden>
+        <h3 class="ptitle">Comprendre votre chien, <em>pas à pas</em>.</h3>
+        <p class="lead acc-lead">Bonnes bases ou trouble du comportement : j’identifie avec vous les causes et vous donne des outils pratiques pour guider votre chien.</p>
+        <div class="accs">
+          {programs.map((p, i) => (
+            <details class="acc" id={p.slug} name="acc">
+              <summary>
+                <span class="thumb"><Image src={look[i % look.length].img} alt="" widths={[160]} sizes="80px" /></span>
+                <span class="acc-txt"><strong>{p.title}</strong><span>{p.lead}</span></span>
+                <span class="pm" aria-hidden="true"><span></span><span></span></span>
+              </summary>
+              <div class="acc-body">
+                <ul class="check cols2">{p.items.map((it) => <li>{it}</li>)}</ul>
+                <p class="sugg"><span>Formule conseillée</span><strong>{p.suggested}</strong></p>
+                <a class="btn sage" href={contact(p.title)}>En parler avec moi <Icon name="arrow" size={17} /></a>
+                <OsloTip mood={look[i % look.length].mood}><p>{p.oslo}</p></OsloTip>
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+
+      <!-- Onglet : balades collectives -->
+      <div class="panel" role="tabpanel" id="balades" aria-labelledby="tab-balades" tabindex="0" hidden>
+        <div class="prow">
+          <div class="photo pimg"><Image src={groupeDeChiens} alt="Un petit groupe de chiens, dont un samoyède, se rencontre au bord d’un chemin" widths={[400, 675]} sizes="(min-width: 960px) 420px, 90vw" /></div>
+          <div>
+            <p class="ptag">Une fois par semaine · petit groupe</p>
+            <h3 class="ptitle">Marcher et progresser <em>ensemble</em>.</h3>
+            <p class="lead">Chaque semaine, je vous propose une balade collective en petit groupe : un moment encadré pour socialiser votre chien, mettre en pratique ses apprentissages et partager un bon moment.</p>
+            <div class="bens">
+              {benefits.map((b) => (
+                <div class="ben"><span class="icon-c"><LIcon name={b.icon} /></span><div><h4>{b.title}</h4><p>{b.text}</p></div></div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div class="bal2">
+          <div>
+            <p class="ptag">Comment ça se passe ?</p>
+            <h3 class="ptitle">Un cadre <em>sécurisant</em> pour chaque chien.</h3>
+            <ol class="steps">
+              {steps.map((s) => <li><span class="sn">{s.n}</span><div><h4>{s.title}</h4><p>{s.text}</p></div></li>)}
+            </ol>
+          </div>
+          <div>
+            <p class="ptag">Pour qui ?</p>
+            <ul class="check who">{who.map((w) => <li>{w}</li>)}</ul>
+            <a class="btn sage" href={contact('Balade collective')}>Réserver ma place <Icon name="arrow" size={17} /></a>
+            <OsloTip mood="joyeux"><p>Je participe souvent aux balades : je montre l’exemple aux plus jeunes… et je profite des pauses pour renifler partout !</p></OsloTip>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3. GALERIE ============ -->
+  <section class="gal-s">
+    <div class="w">
+      <div class="head center"><div class="osl-say"><OsloAvatar size={120} mood="joyeux" /><p class="label osl-bub">En images</p></div><h2 data-split>Ça court, ça <em>renifle</em>, ça joue.</h2></div>
+      <div class="media" data-media>
+        {media.map((m, i) => (
+          m.kind === 'photo' ? (
+            <figure class:list={['photo', 'mitem', { extra: i >= VISIBLE }]}><Image src={m.src} alt={m.alt} widths={[360, 560]} sizes="(min-width: 1000px) 280px, 45vw" /></figure>
+          ) : (
+            <figure class:list={['photo', 'mitem', 'vid', { extra: i >= VISIBLE }]}>
+              <video src={`${m.src}#t=0.5`} muted playsinline loop preload="metadata" disablepictureinpicture aria-label={m.label} data-silent></video>
+              <button class="vplay" type="button" aria-label="Lire la vidéo" data-vplay><span class="vi" aria-hidden="true"></span></button>
+            </figure>
+          )
+        ))}
+      </div>
+      <div class="cta"><button class="btn ghost" type="button" data-more aria-expanded="false">Voir plus de photos et vidéos</button></div>
+    </div>
+  </section>
+
+  <!-- ============ 4. FAQ (l’appel final est le bandeau du pied de page) ============ -->
+  <section id="questions" class="anchor bg-stone">
+    <div class="w narrow">
+      <div class="head center"><div class="osl-say"><OsloAvatar size={120} mood="surpris" /><p class="label osl-bub">Questions fréquentes</p></div><h2 data-split>Vous vous demandez…</h2></div>
+      <Faq items={[...faq, ...baladeFaq]} />
+    </div>
+  </section>
+</Layout>
+
+<script>
+  /* ---------- Onglets ---------- */
+  const tabBtns = [...document.querySelectorAll<HTMLButtonElement>('[data-tab]')];
+  const panels = [...document.querySelectorAll<HTMLElement>('[role="tabpanel"]')];
+  const progSlugs = [...document.querySelectorAll<HTMLDetailsElement>('details.acc')].map((d) => d.id);
+
+  function openTab(id: string, focus = false) {
+    tabBtns.forEach((b) => {
+      const on = b.dataset.tab === id;
+      b.setAttribute('aria-selected', String(on));
+      b.tabIndex = on ? 0 : -1;
+      if (on && focus) b.focus();
+    });
+    panels.forEach((p) => (p.hidden = p.id !== id));
+  }
+  tabBtns.forEach((b, i) => {
+    b.addEventListener('click', () => { openTab(b.dataset.tab!); history.replaceState(null, '', `#${b.dataset.tab}`); });
+    b.addEventListener('keydown', (e) => {
+      const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      e.preventDefault();
+      openTab(tabBtns[(i + d + tabBtns.length) % tabBtns.length].dataset.tab!, true);
+    });
+  });
+
+  // Liens « Voir le détail ↓ » et adresses avec ancre (#balades, #chiot…)
+  function fromHash(scroll: boolean) {
+    const h = decodeURIComponent(location.hash.slice(1));
+    if (!h) return;
+    let target: HTMLElement | null = null;
+    if (panels.some((p) => p.id === h)) { openTab(h); target = document.getElementById('details'); }
+    else if (progSlugs.includes(h)) {
+      openTab('accompagnements');
+      const d = document.getElementById(h) as HTMLDetailsElement;
+      d.open = true; target = d;
+    }
+    if (target && scroll) requestAnimationFrame(() => target!.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+  }
+  document.querySelectorAll<HTMLAnchorElement>('[data-open-tab]').forEach((a) => a.addEventListener('click', (e) => {
+    e.preventDefault();
+    history.replaceState(null, '', `#${a.dataset.openTab}`);
+    fromHash(true);
+  }));
+  window.addEventListener('hashchange', () => fromHash(true));
+  fromHash(true);
+
+  /* ---------- Galerie : voir plus ---------- */
+  const more = document.querySelector<HTMLButtonElement>('[data-more]');
+  const mediaBox = document.querySelector<HTMLElement>('[data-media]');
+  more?.addEventListener('click', () => {
+    const open = mediaBox!.classList.toggle('all');
+    more.setAttribute('aria-expanded', String(open));
+    more.textContent = open ? 'Voir moins' : 'Voir plus de photos et vidéos';
+  });
+
+  /* ---------- Vidéos : toujours sans le son ---------- */
+  document.querySelectorAll<HTMLVideoElement>('video[data-silent]').forEach((v) => {
+    const fig = v.closest('.vid')!;
+    const btn = fig.querySelector<HTMLButtonElement>('[data-vplay]')!;
+    const mute = () => { v.muted = true; v.volume = 0; };
+    mute();
+    v.addEventListener('volumechange', mute);
+    const sync = () => {
+      fig.classList.toggle('playing', !v.paused);
+      btn.setAttribute('aria-label', v.paused ? 'Lire la vidéo' : 'Mettre en pause');
+    };
+    btn.addEventListener('click', () => { mute(); v.paused ? v.play() : v.pause(); });
+    v.addEventListener('play', sync);
+    v.addEventListener('pause', sync);
+  });
+</script>
+
+<style>
+  .anchor { scroll-margin-top: 90px; }
+
+  /* ---------- 1. Vue rapide ---------- */
+  .quick-s { padding-top: clamp(40px, 5vw, 64px); }
+  .quick { display: grid; gap: 16px; }
+  @media (min-width: 640px) { .quick { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1100px) { .quick { grid-template-columns: repeat(4, 1fr); } }
+  .qcard { position: relative; display: flex; flex-direction: column; background: var(--white); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 24px 22px 20px; transition: transform .4s var(--ease), box-shadow .4s; }
+  .qcard:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+  .qcard.featured { border-color: var(--sage); box-shadow: inset 0 0 0 1px var(--sage); }
+  .qbadge { position: absolute; top: 18px; right: 18px; font-size: .68rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink2); background: var(--stone); padding: 5px 10px; border-radius: 999px; }
+  .qbadge.sage { color: var(--sage-d); background: var(--sage-l); }
+  .qname { font-size: 1.2rem; margin: 16px 0 4px; }
+  .qprice { font-family: var(--display); font-size: 2.4rem; letter-spacing: -.03em; line-height: 1.1; margin: 0; }
+  .qmeta { font-size: .86rem; color: var(--ink3); margin: 2px 0 14px; }
+  .qpoints { flex: 1; margin: 0 0 18px; font-size: .92rem; gap: 6px; }
+  .qmore { align-self: flex-start; display: inline-flex; gap: 6px; font-size: .92rem; font-weight: 500; color: var(--sage); text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+  .qmore:hover { color: var(--sage-d); }
+  .info { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 40px; margin-top: 32px; color: var(--ink2); font-size: .95rem; }
+  .info p { display: flex; align-items: center; gap: 10px; margin: 0; }
+  .info :global(svg) { color: var(--sage); }
+
+  /* ---------- 2. Onglets ---------- */
+  .tablist { display: flex; gap: 8px; margin: 8px auto 28px; padding: 6px; width: fit-content; max-width: 100%; overflow-x: auto; background: var(--white); border: 1px solid var(--line); border-radius: 999px; scrollbar-width: none; }
+  .tablist::-webkit-scrollbar { display: none; }
+  .tab { flex: none; display: inline-flex; align-items: center; gap: 10px; padding: 6px 18px 6px 6px; border: 0; border-radius: 999px; background: transparent; font: inherit; font-size: .95rem; font-weight: 500; color: var(--ink2); cursor: pointer; transition: background .2s, color .2s; }
+  .tab :global(img.oslo) { box-shadow: none; }
+  .tab:hover { color: var(--ink); background: var(--stone); }
+  .tab[aria-selected='true'] { background: var(--sage); color: #fff; }
+  .tab:focus-visible { outline: 2px solid var(--sage); outline-offset: 2px; }
+  @media (max-width: 760px) {
+    .tablist { display: grid; grid-template-columns: 1fr 1fr; width: auto; border-radius: var(--r); overflow: visible; }
+    .tab { gap: 8px; padding: 5px 10px 5px 5px; font-size: .86rem; line-height: 1.2; text-align: left; border-radius: 14px; }
+    .tab :global(img.oslo) { width: 28px; height: 28px; }
+  }
+  .panel { background: var(--white); border: 1px solid var(--line); border-radius: var(--r-lg); padding: clamp(22px, 4vw, 48px); animation: pin .35s var(--ease); }
+  .panel:focus-visible { outline: 2px solid var(--sage); outline-offset: 4px; }
+  :global(.no-js) .panel[hidden] { display: block; margin-top: 20px; }
+  @keyframes pin { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .prow { display: grid; gap: 32px; align-items: start; }
+  @media (min-width: 960px) { .prow { grid-template-columns: .8fr 1.2fr; gap: 56px; } }
+  .pimg { aspect-ratio: 4 / 5; }
+  @media (max-width: 959px) { .pimg { aspect-ratio: 16 / 10; } }
+  .ptag { margin: 0 0 8px; font-size: .76rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--sage); }
+  .ptitle { font-size: clamp(1.5rem, 2.6vw, 2rem); margin: 0 0 14px; }
+  .cols2 { margin: 24px 0; }
+  @media (min-width: 560px) { .cols2 { grid-template-columns: 1fr 1fr; } }
+
+  /* Séances & forfaits */
+  .plans { display: grid; gap: 16px; }
+  @media (min-width: 900px) { .plans { grid-template-columns: repeat(3, 1fr); } }
+  .plan { position: relative; display: flex; flex-direction: column; background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 26px 24px 22px; }
+  .plan.featured { border-color: var(--sage); box-shadow: inset 0 0 0 1px var(--sage); }
+  .badge { position: absolute; top: 18px; right: 18px; font-size: .68rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--sage-d); background: var(--sage-l); padding: 5px 10px; border-radius: 999px; }
+  .pname { font-size: 1.25rem; margin: 0 0 6px; padding-right: 90px; }
+  .pitch { font-size: .95rem; color: var(--ink2); margin: 0; }
+  .price { font-family: var(--display); font-size: 2.8rem; letter-spacing: -.04em; line-height: 1; margin: 14px 0 4px; }
+  .unit { font-size: .88rem; color: var(--ink3); margin: 0 0 16px; }
+  .plan .check { flex: 1; margin: 0 0 22px; font-size: .93rem; }
+  .choose { display: grid; gap: 20px; margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--line); }
+  @media (min-width: 900px) { .choose { grid-template-columns: .8fr 1.2fr; gap: 56px; } }
+  .picks { list-style: none; padding: 0; margin: 0; }
+  .picks li { padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .picks li:first-child { padding-top: 0; }
+  .pk { font-size: .74rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--sage); }
+  .picks p { margin: 4px 0 0; font-size: 1.05rem; }
+  .fmt-t { margin-top: 36px; padding-top: 28px; border-top: 1px solid var(--line); }
+  .fmts { display: grid; gap: 18px; margin-top: 12px; }
+  @media (min-width: 760px) { .fmts { grid-template-columns: 1fr 1fr; gap: 22px 40px; } }
+  .fmt, .ben { display: flex; gap: 16px; align-items: flex-start; }
+  .fmt h4, .ben h4, .steps h4 { margin: 2px 0 4px; font-size: 1.05rem; }
+  .fmt p, .ben p { margin: 0; color: var(--ink2); font-size: .94rem; }
+
+  /* Accompagnements : accordéons */
+  .acc-lead { margin: 0 0 22px; max-width: 64ch; }
+  .accs { display: grid; gap: 12px; }
+  .acc { border: 1px solid var(--line); border-radius: var(--r); background: var(--paper); scroll-margin-top: 100px; }
+  .acc[open] { background: var(--white); border-color: var(--sage); }
+  .acc summary { display: flex; align-items: center; gap: 16px; padding: 12px 18px 12px 12px; cursor: pointer; list-style: none; }
+  .acc summary::-webkit-details-marker { display: none; }
+  .acc summary:focus-visible { outline: 2px solid var(--sage); outline-offset: 2px; border-radius: var(--r); }
+  .thumb { flex: none; width: 72px; height: 72px; border-radius: 12px; overflow: hidden; }
+  .thumb :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .acc-txt { flex: 1; display: grid; gap: 2px; }
+  .acc-txt strong { font-family: var(--display); font-weight: 500; font-size: 1.15rem; }
+  .acc-txt span { font-size: .92rem; color: var(--ink2); }
+  .pm { position: relative; flex: none; width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 50%; }
+  .pm span { position: absolute; left: 50%; top: 50%; width: 12px; height: 1.5px; background: var(--ink); transform: translate(-50%, -50%); transition: transform .3s var(--ease); }
+  .pm span:last-child { transform: translate(-50%, -50%) rotate(90deg); }
+  .acc[open] .pm span:last-child { transform: translate(-50%, -50%) rotate(0); }
+  .acc-body { padding: 0 22px 22px; }
+  .acc-body .cols2 { margin-top: 4px; }
+  .sugg { display: grid; gap: 2px; padding: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 0 0 20px; }
+  .sugg span { font-size: .74rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--ink3); }
+  .sugg strong { font-weight: 500; }
+  @media (max-width: 560px) { .thumb { width: 56px; height: 56px; } .acc-txt span { display: none; } }
+
+  /* Balades */
+  .bens { display: grid; gap: 18px; margin-top: 22px; }
+  @media (min-width: 640px) { .bens { grid-template-columns: 1fr 1fr; } }
+  .bal2 { display: grid; gap: 32px; margin-top: 36px; padding-top: 32px; border-top: 1px solid var(--line); }
+  @media (min-width: 900px) { .bal2 { grid-template-columns: 1fr 1fr; gap: 56px; } }
+  .steps { list-style: none; padding: 0; margin: 10px 0 0; }
+  .steps li { display: flex; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .sn { font-family: var(--serif); font-style: italic; color: var(--sage); font-size: 1.15rem; min-width: 2ch; }
+  .steps p { margin: 0; color: var(--ink2); font-size: .94rem; }
+  .who { margin: 10px 0 24px; }
+
+  /* ---------- 3. Galerie ---------- */
+  .media { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }
+  @media (min-width: 1000px) { .media { grid-template-columns: repeat(4, 1fr); gap: 16px; } }
+  .mitem { margin: 0; aspect-ratio: 3 / 4; }
+  .mitem.extra { display: none; }
+  .media.all .mitem.extra { display: block; animation: pin .35s var(--ease); }
+  .vid { position: relative; background: #111; }
+  .vid video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .vplay { position: absolute; inset: 0; display: grid; place-items: center; width: 100%; border: 0; background: rgb(0 0 0 / .18); cursor: pointer; transition: background .3s; }
+  .vplay:hover { background: rgb(0 0 0 / .08); }
+  .vplay .vi { display: grid; place-items: center; width: 54px; height: 54px; border-radius: 50%; background: rgb(255 255 255 / .92); box-shadow: 0 8px 24px -8px rgb(0 0 0 / .5); }
+  .vplay .vi::before { content: ''; margin-left: 4px; border-style: solid; border-width: 10px 0 10px 16px; border-color: transparent transparent transparent var(--ink); }
+  .vid.playing .vplay { background: transparent; }
+  .vid.playing .vplay .vi { opacity: 0; transition: opacity .3s; }
+  .vid.playing:hover .vplay .vi { opacity: 1; }
+  .vid.playing .vplay .vi::before { margin-left: 0; width: 14px; height: 18px; border: 0; border-left: 5px solid var(--ink); border-right: 5px solid var(--ink); }
+  .vplay:focus-visible { outline: 3px solid var(--sage); outline-offset: -3px; }
+  .cta { display: flex; justify-content: center; margin-top: 28px; }
+
+</style>

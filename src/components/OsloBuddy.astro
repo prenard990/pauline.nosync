@@ -1,16 +1,20 @@
 ---
 import OsloAvatar from './OsloAvatar.astro';
 import Icon from './Icon.astro';
+import { osloMoods } from '../data/oslo';
+const path = Astro.url.pathname;
+const key = Object.keys(osloMoods).filter((k) => (k === '/' ? path === '/' : path.startsWith(k))).sort((a, b) => b.length - a.length)[0];
+const mood = key ? osloMoods[key] : 'surpris';
 ---
 <div class="buddy" data-buddy>
   <div class="bub" role="dialog" aria-label="Oslo vous parle" aria-hidden="true">
     <button class="x" type="button" aria-label="Fermer"><Icon name="close" size={16} /></button>
     <p class="who">Oslo</p>
     <p class="line" data-line></p>
-    <a class="go" href="/races/#mon-chien" data-go>Présenter mon chien <Icon name="arrow" size={16} /></a>
+    <a class="go" href="/ecole-oslo/#mon-chien" data-go>Présenter mon chien <Icon name="arrow" size={16} /></a>
   </div>
   <button class="pup oslo-host" type="button" aria-label="Parler avec Oslo" aria-expanded="false">
-    <OsloAvatar size={76} />
+    <OsloAvatar size={110} mood={mood} />
     <span class="ping" aria-hidden="true"></span>
   </button>
 </div>
@@ -18,19 +22,26 @@ import Icon from './Icon.astro';
 <style>
   .buddy { position: fixed; right: max(20px, env(safe-area-inset-right)); bottom: max(20px, env(safe-area-inset-bottom)); z-index: 40; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; pointer-events: none; }
   .buddy > * { pointer-events: auto; }
-  .pup { position: relative; border: 1px solid var(--line); padding: 4px; background: var(--white); cursor: pointer; border-radius: 50%; box-shadow: var(--shadow); opacity: 0; transform: translateY(16px); transition: transform .6s var(--ease), opacity .6s var(--ease), box-shadow .3s; }
+  .pup { position: relative; border: 0; padding: 0; background: none; cursor: pointer; border-radius: 50%; opacity: 0; transform: translateY(16px); transition: transform .6s var(--ease), opacity .6s var(--ease); }
   .buddy.ready .pup { opacity: 1; transform: none; }
-  .pup:hover { transform: translateY(-2px) !important; box-shadow: 0 12px 30px -12px rgb(29 32 28 / .3); }
-  .pup :global(.oslo) { width: 54px; height: 54px; }
-  .ping { position: absolute; top: 3px; right: 3px; width: 11px; height: 11px; border-radius: 50%; background: var(--clay); border: 2px solid var(--white); }
+  .pup:hover { transform: translateY(-3px) !important; }
+  .pup :global(img.oslo) { width: clamp(84px, 9vw, 110px); height: clamp(84px, 9vw, 110px); box-shadow: 0 0 0 4px var(--white), 0 18px 40px -16px rgb(29 32 28 / .45); }
+  .ping { position: absolute; top: 6px; right: 6px; width: 16px; height: 16px; border-radius: 50%; background: var(--clay); border: 3px solid var(--white); }
   .buddy.seen .ping { display: none; }
-  .bub { position: relative; width: min(310px, calc(100vw - 40px)); background: var(--white); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 18px 20px; box-shadow: 0 20px 50px -20px rgb(29 32 28 / .3); opacity: 0; transform: translateY(10px); visibility: hidden; transition: opacity .35s var(--ease), transform .45s var(--ease), visibility .35s; }
+  .bub { position: relative; width: min(300px, calc(100vw - 40px)); background: #1d201c; color: #fff; border: 0; border-radius: var(--r-lg); padding: 18px 20px; box-shadow: 0 20px 50px -20px rgb(29 32 28 / .3); opacity: 0; transform: translateY(10px); visibility: hidden; transition: opacity .35s var(--ease), transform .45s var(--ease), visibility .35s; }
   .buddy.open .bub { opacity: 1; transform: none; visibility: visible; }
-  .who { font-family: var(--serif); font-style: italic; font-size: 1.2rem; color: var(--sage); margin: 0 0 4px; }
-  .line { margin: 0 0 12px; font-size: .95rem; line-height: 1.55; color: var(--ink2); }
-  .go { display: inline-flex; align-items: center; gap: 6px; font-weight: 500; font-size: .92rem; text-decoration: none; color: var(--ink); border-bottom: 1px solid currentColor; padding-bottom: 1px; }
-  .go:hover { color: var(--sage); }
-  .x { position: absolute; top: 12px; right: 12px; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--line); background: var(--white); color: var(--ink3); cursor: pointer; }
+  .who { font-family: var(--serif); font-style: italic; font-size: 1.2rem; color: #b9d1bd; margin: 0 0 4px; }
+  .line { margin: 0 0 12px; font-size: .95rem; line-height: 1.55; color: rgb(255 255 255 / .88); }
+  .go { display: inline-flex; align-items: center; gap: 6px; font-weight: 500; font-size: .92rem; text-decoration: none; color: #fff; border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+  .go:hover { color: #b9d1bd; }
+  .x { position: absolute; top: 12px; right: 12px; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; border: 0; background: rgb(255 255 255 / .12); color: #fff; cursor: pointer; }
+  @media (max-width: 600px) {
+    .buddy { right: 14px; bottom: 14px; gap: 8px; }
+    .bub { width: min(250px, calc(100vw - 28px)); padding: 14px 16px; }
+    .who { font-size: 1.05rem; }
+    .line { font-size: .86rem; margin-bottom: 8px; }
+    .go { font-size: .85rem; }
+  }
   @media print { .buddy { display: none; } }
 </style>
 
@@ -56,24 +67,27 @@ import Icon from './Icon.astro';
     const path = location.pathname;
     const key = Object.keys(osloLines).filter((k) => (k === '/' ? path === '/' : path.startsWith(k))).sort((a, b) => b.length - a.length)[0];
     const dog = loadDog();
-    const base = osloLines[key] ?? 'Une question ? Pauline vous répond avec plaisir.';
+    const base = osloLines[key] ?? 'Une question ? Ma maîtresse vous répond avec plaisir.';
     if (dog) {
       line.textContent = `Comment va ${dog.nom} ? ${base}`;
       go.href = dogUrl(dog);
       go.firstChild!.textContent = `Revoir le profil de ${dog.nom} `;
     } else {
       line.textContent = base;
-      go.href = path === '/' ? '#mon-chien' : '/races/#mon-chien';
+      go.href = path === '/' ? '#mon-chien' : '/ecole-oslo/#mon-chien';
       go.firstChild!.textContent = 'Présenter mon chien ';
     }
     // the dog form is already on screen: point to contact instead
     if (!dog && document.querySelector('.dog-form') && path !== '/') {
-      go.href = '/contact/'; go.firstChild!.textContent = 'Écrire à Pauline ';
+      go.href = '/contact/'; go.firstChild!.textContent = 'Écrire à ma maîtresse ';
     }
   }
 
   pup.addEventListener('click', () => { clearTimeout(timer); setOpen(!root.classList.contains('open')); });
-  root.querySelector('.x')!.addEventListener('click', () => setOpen(false));
+  root.querySelector('.x')!.addEventListener('click', () => {
+    setOpen(false);
+    try { sessionStorage.setItem('oslo-closed', '1'); } catch {}
+  });
   go.addEventListener('click', () => setOpen(false));
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
   document.addEventListener('oslo:dog', fill);
@@ -82,15 +96,9 @@ import Icon from './Icon.astro';
     fill();
     if (sessionStorage.getItem('oslo-seen')) root.classList.add('seen');
     setTimeout(() => root.classList.add('ready'), 900);
-    // pop the bubble once per visit
-    const k = "oslo-pop";
-    if (!sessionStorage.getItem(k) && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      clearTimeout(timer);
-      timer = window.setTimeout(() => {
-        sessionStorage.setItem(k, '1');
-        setOpen(true);
-        timer = window.setTimeout(() => setOpen(false), 6000);
-      }, 4000);
-    }
+    // bulle visible sur chaque page, jusqu'à ce que le visiteur la ferme
+    let closed = false;
+    try { closed = !!sessionStorage.getItem('oslo-closed'); } catch {}
+    if (!closed) timer = window.setTimeout(() => setOpen(true), 1500);
   }
 </script>

@@ -69,6 +69,15 @@ section { padding: clamp(80px, 10vw, 140px) 0; position: relative; }
 .label .n { font-family: var(--serif); font-style: italic; font-size: 1.15rem; letter-spacing: 0; text-transform: none; color: var(--ink3); }
 .label::after { content: ''; width: 40px; height: 1px; background: currentColor; opacity: .5; }
 .center .label { justify-content: center; }
+/* Oslo qui « dit » le titre de la section */
+.osl-say { display: flex; align-items: center; gap: clamp(14px, 2vw, 22px); margin-bottom: 26px; }
+.osl-say img.oslo { width: clamp(84px, 9vw, 120px); height: clamp(84px, 9vw, 120px); box-shadow: 0 0 0 4px var(--white), 0 0 0 5px var(--line), 0 14px 30px -14px rgb(29 32 28 / .35); }
+.osl-say .osl-bub { position: relative; margin: 0; padding: 12px 18px; background: var(--white); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 8px 22px -14px rgb(29 32 28 / .25); line-height: 1.35; }
+.osl-say .osl-bub::after { display: none; }
+/* texte de bulle toujours lisible, même sur fond foncé (pied de page, bandeau final) */
+.osl-say p.osl-bub.label { color: var(--sage-d); }
+.osl-say .osl-bub::before { content: ''; position: absolute; left: -7px; top: 50%; width: 12px; height: 12px; background: var(--white); border-left: 1px solid var(--line); border-bottom: 1px solid var(--line); transform: translateY(-50%) rotate(45deg); }
+.center .osl-say { justify-content: center; }
 .muted { color: var(--ink2); }
 .head { max-width: 760px; margin-bottom: clamp(40px, 5vw, 64px); }
 .head.center { margin-inline: auto; }

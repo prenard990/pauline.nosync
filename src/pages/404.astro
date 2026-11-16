@@ -6,8 +6,8 @@ import OsloAvatar from '../components/OsloAvatar.astro';
 <Layout title="Page introuvable">
   <section class="nf">
     <div class="w center">
-      <OsloAvatar size={110} mood="calm" />
-      <p class="label" style="margin-top:28px">Erreur 404</p>
+      <OsloAvatar size={110} mood="triste" />
+      <div class="osl-say" style="margin-top:28px"><OsloAvatar size={120} mood="triste" /><p class="label osl-bub">Erreur 404</p></div>
       <h1 data-split>Cette page est <em>introuvable</em>.</h1>
       <p class="lead" style="margin:0 auto 32px">Même Oslo ne la retrouve pas, et pourtant il a du flair.</p>
       <a class="btn sage" href="/">Retour à l’accueil <Icon name="arrow" size={17} /></a>
@@ -16,5 +16,5 @@ import OsloAvatar from '../components/OsloAvatar.astro';
 </Layout>
 <style>
   .nf { min-height: 70vh; display: grid; place-items: center; }
-  .nf :global(.oslo) { margin: 0 auto; }
+  .nf :global(.oslo) { display: block; margin: 0 auto; }
 </style>

@@ -1,10 +1,10 @@
 ---
-import OsloAvatar from './OsloAvatar.astro';
-interface Props { title?: string; size?: number; class?: string; color?: string }
-const { title = 'Le conseil d’Oslo', size = 56, class: cls } = Astro.props;
+import OsloAvatar, { type OsloMood } from './OsloAvatar.astro';
+interface Props { title?: string; size?: number; class?: string; color?: string; mood?: OsloMood }
+const { title = 'Le conseil d’Oslo', size = 56, class: cls, mood = 'clin-oeil' } = Astro.props;
 ---
 <aside class:list={['oslo-tip', cls]} data-reveal>
-  <OsloAvatar size={size} />
+  <OsloAvatar size={size} mood={mood} />
   <div>
     <p class="t">{title}</p>
     <div class="txt"><slot /></div>

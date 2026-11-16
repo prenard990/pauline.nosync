@@ -2,8 +2,8 @@
 title: "Décoder le langage de son chien"
 description: "Bâillements, léchage de truffe, regard détourné : votre chien vous parle sans cesse. Apprenez à lire ses signaux."
 category: "Quotidien"
-cover: "../../assets/photos/oslo-labrador.jpg"
-coverAlt: "Oslo et un labrador détendus, couchés dans l’herbe"
+cover: "../../assets/conseils/langage-du-chien.jpg"
+coverAlt: "Un border collie en position d’invitation au jeu face à un petit chien, une balle entre eux"
 readingTime: 4
 order: 6
 oslo: "Quand je m’ébroue après avoir croisé un chien un peu trop excité, c’est ma façon de dire : « allez, on passe à autre chose »."

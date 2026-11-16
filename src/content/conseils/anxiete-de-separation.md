@@ -2,11 +2,11 @@
 title: "Anxiété de séparation : reconnaître et agir"
 description: "Aboiements, destructions, malpropreté quand vous partez ? Votre chien vit peut-être mal la solitude. Comment l’aider."
 category: "Comportement"
-cover: "../../assets/photos/pauline-oslo.jpg"
-coverAlt: "Pauline accroupie avec Oslo dans un parc"
+cover: "../../assets/conseils/anxiete-de-separation.jpg"
+coverAlt: "Un berger allemand regarde sa maîtresse partir, sac à la main, par la porte d’entrée"
 readingTime: 6
 order: 4
-oslo: "Quand Pauline part, j’ai mon tapis de fouille et mon coin tranquille. Et quand elle revient, je reste calme… enfin, j’essaie !"
+oslo: "Quand ma maîtresse part, j’ai mon tapis de fouille et mon coin tranquille. Et quand elle revient, je reste calme… enfin, j’essaie !"
 ---
 
 Les voisins se plaignent d’aboiements, vous retrouvez le canapé détruit ou des besoins à votre retour ? Votre chien n’agit pas par vengeance : il exprime **une vraie détresse émotionnelle** face à la solitude.

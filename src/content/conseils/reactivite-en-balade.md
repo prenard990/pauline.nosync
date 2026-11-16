@@ -2,8 +2,8 @@
 title: "Réactivité en balade : comprendre avant d’agir"
 description: "Votre chien aboie, tire ou se jette sur les autres chiens ou les passants ? Comprendre la réactivité est le premier pas pour l’apaiser."
 category: "Comportement"
-cover: "../../assets/photos/frisbee.jpg"
-coverAlt: "Chienne en harnais couchée dans l’herbe, attentive à son environnement"
+cover: "../../assets/conseils/reactivite-en-balade.jpg"
+coverAlt: "Un labrador assis calmement en laisse pendant qu’un autre chien passe au loin"
 readingTime: 6
 order: 5
 oslo: "Avec les chiens qui ont peur de moi, je bâille, je renifle le sol, je regarde ailleurs. En langage chien, ça veut dire : « tout va bien, je ne te veux aucun mal »."

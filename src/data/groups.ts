@@ -39,7 +39,7 @@ export const groups: Group[] = [
     ],
     activities: ['Treibball', 'Agility ou hoopers', 'Pistage et recherche', 'Obéissance ludique', 'Apprentissage de tours'],
     vigilance: ['La surstimulation (lancers de balle à répétition)', 'La poursuite de véhicules ou de joggeurs', 'Les sensibilités aux bruits', 'Le manque de temps de repos'],
-    oslo: 'Je suis moi-même un bouvier ! Mon secret ? Pauline m’a appris que se poser, c’est aussi un travail. Et franchement, une bonne sieste après une séance de flair, rien de tel.',
+    oslo: 'Je suis moi-même un bouvier ! Mon secret ? Ma maîtresse m’a appris que se poser, c’est aussi un travail. Et franchement, une bonne sieste après une séance de flair, rien de tel.',
   },
   {
     slug: 'molosses-gardiens',

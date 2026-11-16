@@ -31,5 +31,5 @@ export function clearDog() {
 
 export function dogUrl(p: DogProfile) {
   const qs = new URLSearchParams({ nom: p.nom, age: p.age, race: p.race }).toString();
-  return p.group ? `/races/${p.group}/?${qs}` : `/races/?${qs}`;
+  return p.group ? `/races/${p.group}/?${qs}` : `/ecole-oslo/?${qs}#quiz`;
 }

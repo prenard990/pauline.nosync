@@ -1,0 +1,139 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import DogFinder from '../components/DogFinder.astro';
+import BehaviourQuiz from '../components/BehaviourQuiz.astro';
+import OsloTip from '../components/OsloTip.astro';
+import OsloAvatar from '../components/OsloAvatar.astro';
+import LIcon from '../components/LIcon.astro';
+import Icon from '../components/Icon.astro';
+import { groups } from '../data/groups';
+import { groupStyle } from '../data/groupStyle';
+
+const articles = (await getCollection('conseils')).sort((a, b) => a.data.order - b.data.order);
+const cats = ['Tous', ...new Set(articles.map((a) => a.data.category))];
+---
+<Layout title="L’école d’Oslo : les conseils" description="Les conseils d’éducation canine de Pauline Renard et le guide d’Oslo : rappel, marche en laisse, chiot, anxiété, et les aptitudes naturelles et les besoins de votre chien.">
+  <PageHero mood="curieux" label="Bienvenue à mon école" title="Les conseils pour mieux <em>comprendre</em> votre chien." lead="Des conseils simples et bienveillants, issus du terrain, et le guide d’Oslo pour mieux comprendre les aptitudes et les besoins de votre chien.">
+    <nav class="jump" aria-label="Accès rapide">
+      <a href="#conseils"><span>01</span> Les conseils</a>
+      <a href="#mon-chien"><span>02</span> Le guide d’Oslo</a>
+      <a href="#quiz"><span>03</span> Croisé ou je ne sais pas ?</a>
+      <a href="#familles"><span>04</span> Les grandes typologies</a>
+    </nav>
+  </PageHero>
+
+  <!-- ============ CONSEILS ============ -->
+  <section id="conseils" class="anchor">
+    <div class="w">
+      <div class="head"><div class="osl-say"><OsloAvatar size={120} mood="clin-oeil" /><p class="label osl-bub">Les conseils</p></div><h2 data-split>Des clés pour <em>le quotidien</em>.</h2></div>
+      <div class="filters" role="group" aria-label="Filtrer par thème">
+        {cats.map((c, i) => <button type="button" data-f={c} aria-pressed={i === 0 ? 'true' : 'false'}>{c}</button>)}
+      </div>
+      <div class="grid g3 list" data-reveal="stagger">
+        {articles.map((a) => <ArticleCard entry={a} />)}
+      </div>
+      <p class="note">Pour une situation précise, rien ne remplace une séance adaptée à votre chien. <a class="link" href="/contact/">Prendre rendez-vous <Icon name="arrow" size={15} /></a></p>
+    </div>
+  </section>
+
+  <!-- ============ GUIDE D'OSLO ============ -->
+  <section class="anchor bg-stone" id="mon-chien">
+    <div class="w">
+      <div class="head"><div class="osl-say"><OsloAvatar size={120} mood="curieux" /><p class="label osl-bub">Mon guide des aptitudes</p></div><h2 data-split>Chaque chien a <em>son histoire</em>.</h2></div>
+      <p class="lead intro" data-reveal>Réduire le comportement d’un chien à sa race serait réducteur : il y a l’individu, son histoire, son âge, son environnement, son humain et ses apprentissages. En revanche, chaque chien possède des aptitudes fondamentales, héritées de ses ancêtres les canidés, et des tendances naturelles, modelées par la sélection de certaines typologies, qui influencent sa façon de voir le monde et d’interagir avec nous.</p>
+      <div class="find-card" data-reveal>
+        <div class="fc-head"><OsloAvatar size={44} mood="curieux" /><span>Présentez-moi votre chien</span></div>
+        <DogFinder />
+      </div>
+    </div>
+  </section>
+
+  <section id="quiz" class="anchor bg-sage">
+    <div class="w">
+      <div class="head"><div class="osl-say"><OsloAvatar size={120} mood="curieux" /><p class="label osl-bub">Croisé ou je ne sais pas ?</p></div><h2 data-split>Dites-moi plutôt <em>comment il est</em>.</h2></div>
+      <div data-unknown hidden>
+        <OsloTip title="Enchanté !" mood="surpris">
+          <p data-v="unknown">Je n’ai pas trouvé « <strong data-race></strong> » dans ma liste. Pas de souci : choisissez ci-dessous les 5 comportements qui ressemblent le plus à <strong data-nom></strong>, et je vous montre la typologie la plus proche.</p>
+          <p data-v="mixed" hidden>Un chien croisé hérite des tendances de plusieurs typologies. Choisissez ci-dessous les 5 comportements qui ressemblent le plus à <strong data-nom></strong>, et je vous montre la typologie la plus proche.</p>
+        </OsloTip>
+      </div>
+      <p class="lead quiz-lead" data-reveal>Choisissez les <strong>5 comportements</strong> qui ressemblent le plus à votre chien. Je vous oriente ensuite vers la typologie qui lui correspond le mieux : une piste pour mieux le comprendre, pas une étiquette.</p>
+      <BehaviourQuiz />
+    </div>
+  </section>
+
+  <section id="familles" class="anchor">
+    <div class="w">
+      <div class="head"><div class="osl-say"><OsloAvatar size={120} mood="curieux" /><p class="label osl-bub">Les grandes typologies</p></div><h2 data-split>Des tendances, <em>pas des cases</em>.</h2><p class="lead fam-lead" data-reveal>Ces fiches décrivent des tendances fréquentes, pas des règles. Votre chien peut s’y reconnaître en partie… ou pas du tout, et c’est très bien ainsi.</p></div>
+      <div class="grid g3" data-reveal="stagger">
+        {groups.map((g) => (
+          <a class="card hover fam" href={`/races/${g.slug}/`}>
+            <span class="icon-c"><LIcon name={groupStyle[g.slug].icon} /></span>
+            <h3>{g.name}</h3>
+            <p>{g.short}</p>
+            <p class="ex">{g.examples.slice(0, 3).join(' · ')}…</p>
+            <span class="more">Découvrir <Icon name="arrow" size={15} /></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .anchor { scroll-margin-top: 40px; }
+  .jump { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-top: 30px; }
+  .jump a { font-size: .95rem; text-decoration: none; color: var(--ink2); padding: 4px 0; border-bottom: 1px solid var(--line); transition: color .2s, border-color .2s; }
+  .jump a span { font-family: var(--serif); font-style: italic; color: var(--sage); margin-right: 4px; }
+  .jump a:hover { color: var(--ink); border-color: var(--ink); }
+
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 40px; }
+  .filters button { font: inherit; font-size: .92rem; padding: 9px 18px; border: 1px solid var(--line); border-radius: 999px; background: var(--white); color: var(--ink2); cursor: pointer; transition: background .2s, color .2s, border-color .2s; }
+  .filters button:hover { border-color: var(--ink); color: var(--ink); }
+  .filters button[aria-pressed='true'] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+  .list { row-gap: 56px; }
+  .list :global(.art.hide) { display: none; }
+  .note { margin: 56px 0 0; color: var(--ink2); display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; }
+
+  .intro { margin-bottom: 36px; max-width: 62ch; }
+  .quiz-lead { max-width: 62ch; margin: 0 0 30px; }
+  [data-unknown] { margin-bottom: 8px; }
+  .fam-lead { margin-top: 18px; max-width: 60ch; }
+  .find-card { background: var(--white); border: 1px solid var(--line); border-radius: var(--r-lg); padding: clamp(28px, 5vw, 56px); }
+  .fc-head { display: flex; align-items: center; gap: 12px; margin-bottom: 26px; font-size: .78rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--sage); }
+  [data-unknown][hidden] { display: none; }
+  .fam { display: flex; flex-direction: column; text-decoration: none; }
+  .fam h3 { margin: 22px 0 10px; }
+  .fam p { color: var(--ink2); font-size: .96rem; }
+  .ex { font-size: .88rem !important; color: var(--ink3) !important; margin-top: auto; }
+  .more { display: inline-flex; align-items: center; gap: 8px; font-size: .9rem; font-weight: 500; color: var(--sage); }
+</style>
+
+<script>
+  // Filtres des conseils
+  const btns = document.querySelectorAll<HTMLButtonElement>('[data-f]');
+  btns.forEach((b) => b.addEventListener('click', () => {
+    const f = b.dataset.f;
+    btns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    const apply = () => document.querySelectorAll<HTMLElement>('.list .art').forEach((a) => a.classList.toggle('hide', f !== 'Tous' && a.dataset.cat !== f));
+    document.startViewTransition ? document.startViewTransition(apply) : apply();
+  }));
+
+  // Race non trouvée par le guide d'Oslo
+  const box = document.querySelector<HTMLElement>('[data-unknown]');
+  const q = new URLSearchParams(location.search);
+  const race = q.get('race');
+  if (box && race) {
+    box.querySelector('[data-race]')!.textContent = race;
+    box.querySelectorAll('[data-nom]').forEach((el) => (el.textContent = q.get('nom') || 'votre chien'));
+    if (/crois|sais pas|inconnu|batard|bâtard/i.test(race)) {
+      box.querySelector<HTMLElement>('[data-v="unknown"]')!.hidden = true;
+      box.querySelector<HTMLElement>('[data-v="mixed"]')!.hidden = false;
+    }
+    box.hidden = false;
+  }
+</script>

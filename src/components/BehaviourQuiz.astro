@@ -1,0 +1,92 @@
+---
+// Questionnaire : choisir les 5 comportements qui ressemblent le plus au chien,
+// puis redirection vers la typologie qui correspond le mieux.
+import Icon from './Icon.astro';
+import { behaviours, QUIZ_PICKS } from '../data/behaviours';
+---
+<form class="quiz" data-quiz>
+  <fieldset>
+    <legend class="sr">Choisissez {QUIZ_PICKS} comportements</legend>
+    <div class="chips">
+      {behaviours.map((b) => (
+        <label class="chip">
+          <input type="checkbox" name="b" value={b.id} />
+          <span>{b.text}</span>
+        </label>
+      ))}
+    </div>
+  </fieldset>
+  <div class="quiz-foot">
+    <p class="count" aria-live="polite"><strong data-count>0</strong> / {QUIZ_PICKS} comportements choisis</p>
+    <button class="btn sage" type="submit" disabled data-go>Voir sa typologie <Icon name="arrow" size={18} /></button>
+  </div>
+</form>
+
+<style>
+  .quiz fieldset { border: 0; margin: 0; padding: 0; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip { position: relative; cursor: pointer; }
+  .chip input { position: absolute; opacity: 0; pointer-events: none; }
+  .chip span { display: inline-flex; align-items: center; gap: 8px; padding: 11px 16px; border: 1px solid var(--line); border-radius: 999px; background: var(--white); font-size: .95rem; line-height: 1.35; color: var(--ink2); transition: background .2s, border-color .2s, color .2s; }
+  .chip span::before { content: ''; flex: none; width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid var(--line); background: var(--white); transition: background .2s, border-color .2s; }
+  .chip:hover span { border-color: var(--ink); color: var(--ink); }
+  .chip input:focus-visible + span { outline: 2px solid var(--sage); outline-offset: 2px; }
+  .chip input:checked + span { background: var(--sage); border-color: var(--sage); color: #fff; }
+  .chip input:checked + span::before { border-color: #fff; background: #fff; box-shadow: inset 0 0 0 4px var(--sage); }
+  .chip input:disabled + span { opacity: .45; cursor: not-allowed; }
+  .chip input:disabled + span:hover { border-color: var(--line); color: var(--ink2); }
+  .quiz-foot { position: sticky; bottom: 12px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; margin-top: 28px; padding: 14px 16px 14px 22px; background: var(--white); border: 1px solid var(--line); border-radius: 999px; box-shadow: var(--shadow); }
+  .count { margin: 0; color: var(--ink2); }
+  .count strong { color: var(--sage); font-size: 1.15rem; }
+  .quiz-foot .btn[disabled] { opacity: .5; cursor: not-allowed; }
+  @media (max-width: 600px) {
+    .chip span { font-size: .9rem; padding: 10px 14px; }
+    .quiz-foot { border-radius: var(--r); padding: 12px; gap: 8px; margin-right: 92px; } /* place pour Oslo flottant */
+    .count { font-size: .88rem; }
+    .quiz-foot .btn { width: 100%; justify-content: center; }
+  }
+</style>
+
+<script>
+  import { rankGroups, QUIZ_PICKS } from '../data/behaviours';
+  import { loadDog, saveDog } from '../lib/dog';
+
+  document.querySelectorAll<HTMLFormElement>('[data-quiz]').forEach((form) => {
+    const boxes = [...form.querySelectorAll<HTMLInputElement>('input[name="b"]')];
+    const count = form.querySelector<HTMLElement>('[data-count]')!;
+    const go = form.querySelector<HTMLButtonElement>('[data-go]')!;
+
+    const update = () => {
+      const n = boxes.filter((b) => b.checked).length;
+      count.textContent = String(n);
+      go.disabled = n !== QUIZ_PICKS;
+      boxes.forEach((b) => { if (!b.checked) b.disabled = n >= QUIZ_PICKS; });
+    };
+    boxes.forEach((b) => b.addEventListener('change', update));
+    update();
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const picked = boxes.filter((b) => b.checked).map((b) => b.value);
+      if (picked.length !== QUIZ_PICKS) return;
+      const ranking = rankGroups(picked);
+      const best = ranking[0];
+      if (!best) return;
+      // seconde typologie proche (au moins 2/3 des points de la première) : proposée sur la fiche
+      const second = ranking[1] && ranking[1].score >= best.score * 0.66 ? ranking[1].slug : '';
+
+      const q = new URLSearchParams(location.search);
+      const saved = loadDog();
+      const nom = q.get('nom') || saved?.nom || '';
+      const age = q.get('age') || saved?.age || '';
+      const race = q.get('race') || saved?.race || 'Croisé';
+      if (nom) saveDog({ nom, age, race, group: best.slug });
+
+      const params = new URLSearchParams({ via: 'quiz' });
+      if (nom) { params.set('nom', nom); params.set('age', age); params.set('race', race); }
+      if (second) params.set('aussi', second);
+      location.href = `/races/${best.slug}/?${params.toString()}`;
+    });
+  });
+</script>

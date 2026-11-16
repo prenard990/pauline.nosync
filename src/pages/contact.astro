@@ -1,22 +1,22 @@
 ---
+import OsloAvatar from '../components/OsloAvatar.astro';
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
 import Icon from '../components/Icon.astro';
 import Faq from '../components/Faq.astro';
 import OsloTip from '../components/OsloTip.astro';
 import { site, prices, programs } from '../data/site';
-const motifs = [...programs.map((p) => p.title), 'Anxiété de séparation', 'Réactivité (humains / congénères)', 'Séance bilan', 'Balade collective', 'Autre'];
+const motifs = [...programs.map((p) => p.title), 'Anxiété de séparation', 'Réactivité (humains / congénères)', 'Bilan comportemental', 'Balade collective', 'Autre'];
 ---
-<Layout title="Contact" description="Contactez Pauline Renard, éducatrice canine à Lyon 7 : décrivez votre situation pour convenir d’une séance bilan. 06 45 81 64 19.">
-  <PageHero label="Contact" title="Parlons de <em>votre chien</em>." lead="Décrivez-moi votre situation, je reviens vers vous rapidement pour convenir d’une séance bilan." />
+<Layout footerCta={false} title="Contact" description="Contactez Pauline Renard, éducatrice canine à Lyon 7 : décrivez votre situation pour convenir d’une séance bilan.">
+  <PageHero mood="heureux" label="Écrivez à ma maîtresse" title="Parlons de <em>votre chien</em>." lead="Décrivez-moi votre situation, je reviens vers vous rapidement pour convenir d’une séance bilan." />
 
   <section>
     <div class="w layout">
       <aside class="side" data-reveal="stagger">
-        <a class="ct" href={site.phoneHref}><span class="icon-c"><Icon name="phone" size={20} /></span><span><small>Téléphone</small><strong>{site.phone}</strong></span></a>
         <a class="ct" href={`mailto:${site.email}`}><span class="icon-c"><Icon name="mail" size={20} /></span><span><small>E-mail</small><strong>{site.email}</strong></span></a>
         <div class="ct"><span class="icon-c"><Icon name="pin" size={20} /></span><span><small>Zone d’intervention</small><strong>{site.city} · {site.area}</strong></span></div>
-        <OsloTip title="Bon à savoir"><p>La <strong>séance bilan à 40 €</strong> est le point de départ idéal : on fait connaissance et je vous propose un plan adapté.</p></OsloTip>
+        <OsloTip title="Bon à savoir"><p>La <strong>séance bilan à 40 €</strong> est le point de départ idéal : vous faites connaissance avec ma maîtresse, et elle vous propose un plan adapté.</p></OsloTip>
       </aside>
 
       <div class="form-card" data-reveal>
@@ -44,7 +44,7 @@ const motifs = [...programs.map((p) => p.title), 'Anxiété de séparation', 'R�
 
   <section class="bg-stone">
     <div class="w narrow">
-      <div class="head center"><p class="label">Questions fréquentes</p><h2 data-split>Avant de me contacter</h2></div>
+      <div class="head center"><div class="osl-say"><OsloAvatar size={120} mood="surpris" /><p class="label osl-bub">Questions fréquentes</p></div><h2 data-split>Avant de me contacter</h2></div>
       <Faq />
     </div>
   </section>
@@ -121,7 +121,7 @@ const motifs = [...programs.map((p) => p.title), 'Anxiété de séparation', 'R�
         ok.className = 'msg ok'; ok.textContent = 'Merci ! Votre message a bien été envoyé, je vous réponds rapidement. 🐶';
         f.reset();
       } catch {
-        ok.className = 'msg err'; ok.textContent = `L’envoi a échoué. Écrivez-moi directement à ${site.email} ou appelez le ${site.phone}.`;
+        ok.className = 'msg err'; ok.textContent = `L’envoi a échoué. Écrivez-moi directement à ${site.email} ou réessayez dans quelques minutes.`;
       } finally {
         btn.disabled = false; lbl.textContent = 'Envoyer ma demande';
       }

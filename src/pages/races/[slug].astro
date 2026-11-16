@@ -18,26 +18,26 @@ const st = groupStyle[g.slug];
 const groupBreeds = breeds.filter((b) => b.group === g.slug).map((b) => b.name);
 const others = groups.filter((o) => o.slug !== g.slug);
 ---
-<Layout title={`${g.name} : comprendre et éduquer`} description={`${g.short} Comprendre le comportement des ${g.name.toLowerCase()} et adapter leur éducation, avec Pauline Renard, éducatrice canine à Lyon.`}>
+<Layout footerCta={false} title={`${g.name} : comprendre et éduquer`} description={`${g.short} Comprendre le comportement des ${g.name.toLowerCase()} et adapter leur éducation, avec Pauline Renard, éducatrice canine à Lyon.`}>
   <div class="gp">
     <section class="ghero" data-hero>
       <div class="w ghero-grid">
         <div>
-          <a class="back" href="/races/"><Icon name="arrow" size={15} /> Toutes les familles</a>
+          <a class="back" href="/ecole-oslo/#familles"><Icon name="arrow" size={15} /> Toutes les typologies</a>
           <div class="dogcard" hidden data-dogcard>
             <span><strong data-dog="nom"></strong> · <span data-dog="race"></span> · <span data-dog="stage"></span></span>
             <button type="button" class="reset" data-reset>Changer de chien</button>
           </div>
-          <p class="label"><LIcon name={st.icon} size={16} /> Famille de races</p>
-          <h1 class="gtitle" data-split><span data-dog-title hidden><span data-dog="nom"></span> fait partie des </span><em>{g.name}</em></h1>
+          <div class="osl-say"><OsloAvatar size={120} mood="curieux" /><p class="label osl-bub"><LIcon name={st.icon} size={16} /> Typologie</p></div>
+          <h1 class="gtitle" data-split><span data-dog-title hidden><span data-dog="nom"></span> <span data-dog-verb>fait partie des</span> </span><em>{g.name}</em></h1>
           <p class="lead" data-reveal>{g.short}</p>
           <ul class="traits" data-reveal="stagger">{g.traits.map((t) => <li>{t}</li>)}</ul>
         </div>
         <div class="gside" data-reveal>
           <div class="gicon"><LIcon name={st.icon} size={72} stroke={1} /></div>
           <div class="gspeech">
-            <OsloAvatar size={48} />
-            <p data-oslo-hello>Je vais vous expliquer comment fonctionnent les {g.name.toLowerCase()}, et comment adapter leur éducation.</p>
+            <OsloAvatar size={48} mood="fier" />
+            <p data-oslo-hello>Voici les grandes tendances des {g.name.toLowerCase()}. Mais chaque chien reste unique : son histoire, son âge et ses apprentissages comptent tout autant !</p>
           </div>
         </div>
       </div>
@@ -46,8 +46,8 @@ const others = groups.filter((o) => o.slug !== g.slug);
     <section>
       <div class="w origin">
         <div>
-          <p class="label">D’où vient-il ?</p>
-          <h2 data-split>Un chien façonné par son <em>métier d’origine</em>.</h2>
+          <div class="osl-say"><OsloAvatar size={120} mood="curieux" /><p class="label osl-bub">D’où vient-il ?</p></div>
+          <h2 data-split>Des tendances héritées de <em>sa sélection</em>.</h2>
         </div>
         <div data-reveal>
           <p class="lead">{g.origin}</p>
@@ -60,7 +60,7 @@ const others = groups.filter((o) => o.slug !== g.slug);
 
     <section class="bg-stone">
       <div class="w">
-        <div class="head"><p class="label">Décrypter son comportement</p><h2 data-split>Ce que vous observez, <em>et ce que ça signifie</em>.</h2></div>
+        <div class="head"><div class="osl-say"><OsloAvatar size={120} mood="curieux" /><p class="label osl-bub">Décrypter son comportement</p></div><h2 data-split>Ce que vous observez, <em>et ce que ça signifie</em>.</h2></div>
         <div class="decode" data-reveal="stagger">
           {g.decode.map((d, i) => (
             <details name="decode" open={i === 0}>
@@ -74,7 +74,7 @@ const others = groups.filter((o) => o.slug !== g.slug);
 
     <section>
       <div class="w">
-        <div class="head"><p class="label">Adapter l’éducation</p><h2 data-split>Comment <em>l’accompagner</em> au mieux.</h2></div>
+        <div class="head"><div class="osl-say"><OsloAvatar size={120} mood="bravo" /><p class="label osl-bub">Adapter l’éducation</p></div><h2 data-split>Comment <em>l’accompagner</em> au mieux.</h2></div>
         <div class="grid g4" data-reveal="stagger">
           {g.education.map((e, i) => (
             <div class="edu">
@@ -90,11 +90,11 @@ const others = groups.filter((o) => o.slug !== g.slug);
     <section class="bg-sage">
       <div class="w grid g2 lists">
         <div data-reveal>
-          <p class="label">Activités adaptées</p>
+          <div class="osl-say"><OsloAvatar size={120} mood="joyeux" /><p class="label osl-bub">Activités adaptées</p></div>
           <ul class="pills">{g.activities.map((a) => <li>{a}</li>)}</ul>
         </div>
         <div data-reveal>
-          <p class="label">Points de vigilance</p>
+          <div class="osl-say"><OsloAvatar size={120} mood="surpris" /><p class="label osl-bub">Points de vigilance</p></div>
           <ul class="check">{g.vigilance.map((v) => <li>{v}</li>)}</ul>
         </div>
       </div>
@@ -102,7 +102,7 @@ const others = groups.filter((o) => o.slug !== g.slug);
 
     <section>
       <div class="w narrow">
-        <div class="head center"><p class="label">Selon son âge</p><h2><span data-dog-age-title>Et selon l’âge ?</span></h2></div>
+        <div class="head center"><div class="osl-say"><OsloAvatar size={120} mood="chiot" /><p class="label osl-bub">Selon son âge</p></div><h2><span data-dog-age-title>Et selon l’âge ?</span></h2></div>
         <div class="tabs" role="tablist">
           {stages.map((s, i) => <button type="button" role="tab" data-stage={s.key} aria-selected={i === 2 ? 'true' : 'false'}>{s.label}</button>)}
         </div>
@@ -122,7 +122,7 @@ const others = groups.filter((o) => o.slug !== g.slug);
             <p class="t">Chaque chien est unique.</p>
             <p class="muted">La race donne des tendances, pas un destin : l’histoire, l’environnement et la personnalité de votre chien comptent tout autant. Pour une analyse personnalisée, rien ne remplace une séance bilan.</p>
           </div>
-          <a class="btn sage" href={`/contact/?motif=${encodeURIComponent('Séance bilan')}`} data-contact>Réserver un bilan <span data-dog-for></span> <Icon name="arrow" size={17} /></a>
+          <a class="btn sage" href={`/contact/?motif=${encodeURIComponent('Bilan comportemental')}&offre=${encodeURIComponent('Séance bilan')}`} data-contact>Réserver un bilan <span data-dog-for></span> <Icon name="arrow" size={17} /></a>
         </div>
         <details class="all">
           <summary>Voir les {groupBreeds.length} races de cette famille</summary>
@@ -231,12 +231,37 @@ const others = groups.filter((o) => o.slug !== g.slug);
     const forEl = document.querySelector<HTMLElement>('[data-dog-for]');
     if (forEl) forEl.textContent = `pour ${dog.nom}`;
     const c = document.querySelector<HTMLAnchorElement>('[data-contact]');
-    if (c) c.href = `/contact/?motif=${encodeURIComponent('Séance bilan')}&chien=${encodeURIComponent(`${dog.nom}, ${stage?.label ?? ''}, ${dog.race}`)}`;
+    if (c) c.href = `/contact/?motif=${encodeURIComponent('Bilan comportemental')}&offre=${encodeURIComponent('Séance bilan')}&chien=${encodeURIComponent(`${dog.nom}, ${stage?.label ?? ''}, ${dog.race}`)}`;
     if (stage) {
       select(stage.key);
       document.querySelector<HTMLElement>('[data-dog-age-title]')!.textContent = `${dog.nom} : ${stage.title.charAt(0).toLowerCase()}${stage.title.slice(1)}`;
     }
     document.querySelector('[data-reset]')?.addEventListener('click', () => { clearDog(); location.href = '/#mon-chien'; });
   }
+
+  // Arrivée depuis le questionnaire « croisé / je ne sais pas »
+  function quizResult() {
+    const q = new URLSearchParams(location.search);
+    if (q.get('via') !== 'quiz') return;
+    const slug = location.pathname.split('/').filter(Boolean)[1];
+    const g = groups.find((x) => x.slug === slug);
+    if (!g) return;
+    const nom = q.get('nom') || 'votre chien';
+    const verb = document.querySelector<HTMLElement>('[data-dog-verb]');
+    if (verb) verb.textContent = 'se rapproche surtout des';
+    const hello = document.querySelector<HTMLElement>('[data-oslo-hello]');
+    if (!hello) return;
+    hello.textContent = `D’après les comportements choisis, ${nom} se rapproche surtout des ${g.name.toLowerCase()}. C’est une tendance, pas une étiquette : chaque chien reste unique !`;
+    const other = groups.find((x) => x.slug === q.get('aussi'));
+    if (other) {
+      const a = document.createElement('a');
+      const keep = new URLSearchParams(q); keep.delete('aussi');
+      a.href = `/races/${other.slug}/?${keep.toString()}`;
+      a.textContent = other.name.toLowerCase();
+      hello.append(document.createElement('br'), document.createElement('br'), `${nom.charAt(0).toUpperCase()}${nom.slice(1)} ressemble aussi un peu aux `, a, '.');
+    }
+  }
+
   init();
+  quizResult();
 </script>

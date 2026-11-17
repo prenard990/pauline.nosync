@@ -5,12 +5,31 @@ import PageHero from '../components/PageHero.astro';
 import Icon from '../components/Icon.astro';
 import Faq from '../components/Faq.astro';
 import OsloTip from '../components/OsloTip.astro';
-import { site, prices, programs } from '../data/site';
+import { site, prices } from '../data/site';
 import { stages } from '../data/groups';
 import { breeds } from '../data/breeds';
 // liste de races proposée dans le formulaire (sans doublons, par ordre alphabétique)
 const breedNames = [...new Set(breeds.map((b) => b.name))].sort((a, b) => a.localeCompare(b, 'fr'));
-const motifs = [...programs.map((p) => p.title), 'Anxiété de séparation', 'Réactivité (humains / congénères)', 'Bilan comportemental', 'Balade collective', 'Autre'];
+// « Votre besoin » : options regroupées. `alias` = valeurs envoyées par les liens du site (?motif=…)
+// pour présélectionner la bonne option.
+const motifGroups = [
+  { label: 'Pour commencer', options: [
+    { text: 'Bilan comportemental (premier rendez-vous)', alias: ['Bilan comportemental', 'Séance bilan'] },
+    { text: 'Une question avant de me lancer', alias: [] },
+  ] },
+  { label: 'Ce qui vous amène', options: [
+    { text: 'Éducation de base (laisse, rappel, bonnes habitudes)', alias: ['Éducation de base'] },
+    { text: 'Arrivée d’un chiot ou d’un chien adopté', alias: ['Chiot & nouvel arrivant', 'Chiot'] },
+    { text: 'Réactivité en balade (chiens, humains, vélos…)', alias: ['Réactivité'] },
+    { text: 'Difficulté à rester seul', alias: ['Anxiété de séparation'] },
+    { text: 'Protection de ressources (jouets, gamelle…)', alias: ['Protection de ressources'] },
+    { text: 'Autre comportement difficile (aboiements, destructions, fugues…)', alias: ['Comportements problématiques'] },
+    { text: 'Changement de vie (bébé, déménagement, nouvel animal)', alias: ['Changements de vie'] },
+  ] },
+  { label: 'En groupe', options: [
+    { text: 'Balades collectives', alias: ['Balade collective'] },
+  ] },
+];
 ---
 <Layout footerCta={false} title="Contact" description="Contactez Pauline Renard, éducatrice canine à Lyon 7 : décrivez votre situation pour convenir d’une séance bilan.">
   <PageHero mood="heureux" label="Écrivez à ma maîtresse" title="Parlons de <em>votre chien</em>." lead="Décrivez-moi votre situation, je reviens vers vous rapidement pour convenir d’une séance bilan." />
@@ -42,7 +61,13 @@ const motifs = [...programs.map((p) => p.title), 'Anxiété de séparation', 'R�
             {breedNames.map((b) => <option value={b} />)}
           </datalist>
           <div class="two">
-            <label>Votre besoin<select name="motif" id="motif">{motifs.map((m) => <option>{m}</option>)}</select></label>
+            <label>Votre besoin<select name="motif" id="motif" required>
+              <option value="" disabled selected>Choisissez ce qui vous correspond…</option>
+              {motifGroups.map((g) => (
+                <optgroup label={g.label}>{g.options.map((o) => <option data-alias={o.alias.join('|')}>{o.text}</option>)}</optgroup>
+              ))}
+              <option data-alias="Autre">Autre demande</option>
+            </select></label>
             <label>Formule envisagée<select name="offre" id="offre"><option>Je ne sais pas encore</option>{prices.map((p) => <option>{p.name}</option>)}</select></label>
           </div>
           <label>Votre message<textarea name="msg" rows="6" required placeholder="Depuis quand, dans quels contextes, ce que vous avez déjà essayé…"></textarea></label>
@@ -103,8 +128,10 @@ const motifs = [...programs.map((p) => p.title), 'Anxiété de séparation', 'R�
     const pick = (id: string, v: string | null) => {
       const s = f.querySelector<HTMLSelectElement>(id);
       if (!s || !v) return;
-      const o = [...s.options].find((o) => o.text === v || v.startsWith(o.text) || o.text.startsWith(v));
-      if (o) s.value = o.text;
+      const opts = [...s.options].filter((o) => o.value !== '');
+      const o = opts.find((o) => o.text === v || (o.dataset.alias ?? '').split('|').includes(v))
+        ?? opts.find((o) => v.startsWith(o.text) || o.text.startsWith(v));
+      if (o) s.value = o.value;
     };
     pick('#offre', q.get('offre'));
     pick('#motif', q.get('motif'));

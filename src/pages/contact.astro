@@ -127,8 +127,22 @@ const motifs = [...programs.map((p) => p.title), 'Anxiété de séparation', 'R�
         ok.textContent = 'Envoi en cours, merci de patienter et de ne pas fermer la page : cela peut prendre jusqu’à une minute.';
       }, 4000);
       try {
-        const r = await fetch(`https://formsubmit.co/ajax/${site.email}`, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(o) });
-        // FormSubmit answers 200 with success "false" (e.g. form not activated yet): treat it as a failure.
+        // Web3Forms (rapide) dès qu'une clé est renseignée dans site.ts, sinon FormSubmit
+        const headers = { 'Content-Type': 'application/json', Accept: 'application/json' };
+        const r = site.web3formsKey
+          ? await fetch('https://api.web3forms.com/submit', {
+              method: 'POST', headers,
+              body: JSON.stringify({
+                access_key: site.web3formsKey,
+                subject: o._subject,
+                from_name: 'Site Pauline Renard',
+                replyto: o.email,
+                'Nom': o.nom, 'E-mail': o.email, 'Téléphone': o.tel || '—', 'Chien': o.chien || '—',
+                'Besoin': o.motif, 'Formule envisagée': o.offre, 'Message': o.msg,
+              }),
+            })
+          : await fetch(`https://formsubmit.co/ajax/${site.email}`, { method: 'POST', headers, body: JSON.stringify(o) });
+        // Les deux services peuvent répondre 200 avec success « false » (ex. formulaire non activé) : c'est un échec.
         const res = await r.json().catch(() => ({}));
         if (!r.ok || String(res.success) !== 'true') throw new Error(res.message);
         ok.className = 'msg ok'; ok.textContent = 'Merci ! Votre message a bien été envoyé, je vous réponds rapidement. 🐶';

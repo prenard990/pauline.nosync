@@ -6,6 +6,10 @@ import Icon from '../components/Icon.astro';
 import Faq from '../components/Faq.astro';
 import OsloTip from '../components/OsloTip.astro';
 import { site, prices, programs } from '../data/site';
+import { stages } from '../data/groups';
+import { breeds } from '../data/breeds';
+// liste de races proposée dans le formulaire (sans doublons, par ordre alphabétique)
+const breedNames = [...new Set(breeds.map((b) => b.name))].sort((a, b) => a.localeCompare(b, 'fr'));
 const motifs = [...programs.map((p) => p.title), 'Anxiété de séparation', 'Réactivité (humains / congénères)', 'Bilan comportemental', 'Balade collective', 'Autre'];
 ---
 <Layout footerCta={false} title="Contact" description="Contactez Pauline Renard, éducatrice canine à Lyon 7 : décrivez votre situation pour convenir d’une séance bilan.">
@@ -27,8 +31,16 @@ const motifs = [...programs.map((p) => p.title), 'Anxiété de séparation', 'R�
           </div>
           <div class="two">
             <label><span>Téléphone <span class="opt">(facultatif)</span></span><input type="tel" name="tel" autocomplete="tel" /></label>
-            <label>Nom, âge et race du chien<input name="chien" placeholder="Ex. : Oslo, 8 ans, bouvier" /></label>
+            <label>Nom du chien<input name="chien_nom" placeholder="Ex. : Oslo" autocomplete="off" /></label>
           </div>
+          <div class="two">
+            <label>Son âge<select name="chien_age" id="chien_age"><option value="">Choisir…</option>{stages.map((s) => <option>{s.label}</option>)}</select></label>
+            <label>Sa race<input name="chien_race" list="contact-breeds" placeholder="Tapez pour chercher : bouvier, croisé…" autocomplete="off" /></label>
+          </div>
+          <datalist id="contact-breeds">
+            <option value="Croisé / je ne sais pas" />
+            {breedNames.map((b) => <option value={b} />)}
+          </datalist>
           <div class="two">
             <label>Votre besoin<select name="motif" id="motif">{motifs.map((m) => <option>{m}</option>)}</select></label>
             <label>Formule envisagée<select name="offre" id="offre"><option>Je ne sais pas encore</option>{prices.map((p) => <option>{p.name}</option>)}</select></label>
@@ -96,11 +108,14 @@ const motifs = [...programs.map((p) => p.title), 'Anxiété de séparation', 'R�
     };
     pick('#offre', q.get('offre'));
     pick('#motif', q.get('motif'));
-    // prefill the dog field from the URL or the profile saved with Oslo
-    const chien = f.querySelector<HTMLInputElement>('[name=chien]')!;
+    // préremplit le chien depuis l'adresse (chien_nom, chien_age, chien_race) ou le profil enregistré avec Oslo
     const dog = loadDog();
-    if (q.get('chien')) chien.value = q.get('chien')!;
-    else if (dog && !chien.value) chien.value = `${dog.nom}, ${stages.find((s) => s.key === dog.age)?.label ?? ''}, ${dog.race}`;
+    const nomEl = f.querySelector<HTMLInputElement>('[name=chien_nom]')!;
+    const raceEl = f.querySelector<HTMLInputElement>('[name=chien_race]')!;
+    const ageKey = q.get('chien_age') || dog?.age || '';
+    nomEl.value = q.get('chien_nom') || dog?.nom || '';
+    raceEl.value = q.get('chien_race') || dog?.race || '';
+    pick('#chien_age', stages.find((s) => s.key === ageKey)?.label ?? null);
 
     const ok = f.querySelector<HTMLElement>('#ok')!;
     // un champ signalé en rouge redevient normal dès qu'il est correctement rempli
@@ -137,7 +152,8 @@ const motifs = [...programs.map((p) => p.title), 'Anxiété de séparation', 'R�
                 subject: o._subject,
                 from_name: 'Site Pauline Renard',
                 replyto: o.email,
-                'Nom': o.nom, 'E-mail': o.email, 'Téléphone': o.tel || '—', 'Chien': o.chien || '—',
+                'Nom': o.nom, 'E-mail': o.email, 'Téléphone': o.tel || '—',
+                'Nom du chien': o.chien_nom || '—', 'Âge du chien': o.chien_age || '—', 'Race': o.chien_race || '—',
                 'Besoin': o.motif, 'Formule envisagée': o.offre, 'Message': o.msg,
               }),
             })

@@ -231,7 +231,7 @@ const others = groups.filter((o) => o.slug !== g.slug);
     const forEl = document.querySelector<HTMLElement>('[data-dog-for]');
     if (forEl) forEl.textContent = `pour ${dog.nom}`;
     const c = document.querySelector<HTMLAnchorElement>('[data-contact]');
-    if (c) c.href = `/contact/?motif=${encodeURIComponent('Bilan comportemental')}&offre=${encodeURIComponent('Séance bilan')}&chien=${encodeURIComponent(`${dog.nom}, ${stage?.label ?? ''}, ${dog.race}`)}`;
+    if (c) c.href = `/contact/?motif=${encodeURIComponent('Bilan comportemental')}&offre=${encodeURIComponent('Séance bilan')}&${new URLSearchParams({ chien_nom: dog.nom, chien_age: dog.age, chien_race: dog.race })}`;
     if (stage) {
       select(stage.key);
       document.querySelector<HTMLElement>('[data-dog-age-title]')!.textContent = `${dog.nom} : ${stage.title.charAt(0).toLowerCase()}${stage.title.slice(1)}`;

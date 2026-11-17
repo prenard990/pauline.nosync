@@ -1,8 +1,8 @@
-import { defineConfig } from 'astro/config';
+﻿import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://pauline-renard.mute-dew-d0f2.workers.dev',
+  site: 'https://paulinerenard-educateurcanin.fr',
   integrations: [sitemap()],
   redirects: {
     '/offres': '/prestations/',

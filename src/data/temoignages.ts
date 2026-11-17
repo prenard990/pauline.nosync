@@ -22,6 +22,22 @@ export const temoignages: Temoignage[] = [
     texte: 'Superbe expérience avec Pauline, une éducatrice canin au top ! Elle nous a aidés à gérer la protection de ressources de Lucky, un Jack Russell adopté qui manquait cruellement de repères et de confiance. Ses méthodes ont transformé notre quotidien. Un grand professionnalisme, je la recommande vivement pour tous les problèmes de comportement de chien à Lyon !',
   },
   {
+    prenom: 'Marie',
+    chien: 'Nala',
+    race: 'Adoptée à La Réunion',
+    motif: 'Réactivité en balade',
+    source: 'Google',
+    texte: 'Pauline nous a aidés à comprendre et à gérer la réactivité de notre chienne Nala, adoptée à la réunion. Au début, les balades étaient quasi impossible, elle déclenchait sur toutes les personnes qu’elle croisait, sur les vélos, les enfants... Les exercices demandent pas mal de rigueur au quotidien, mais grâce aux conseils de Pauline, on commence enfin à voir des améliorations en balade. Une professionnelle sérieuse que je ne regrette pas d’avoir contactée.',
+  },
+  {
+    prenom: 'Florian',
+    chien: 'Nix',
+    race: 'Samoyède',
+    motif: 'Énergie et rappel',
+    source: 'Google',
+    texte: 'Accompagnement très utile avec Pauline pour gérer l’énergie débordante de Nix, mon Samoyède. Il avait du mal avec le rappel et manquait de cadre. Les séances m’ont permis d’avoir des bases plus solides pour le canaliser au quotidien et l’emmener partout avec moi ! Un bon suivi professionnel.',
+  },
+  {
     prenom: 'Prénom',
     chien: 'Nom du chien',
     race: 'Berger australien',

@@ -18,7 +18,7 @@ const st = groupStyle[g.slug];
 const groupBreeds = breeds.filter((b) => b.group === g.slug).map((b) => b.name);
 const others = groups.filter((o) => o.slug !== g.slug);
 ---
-<Layout title={`${g.name} : comprendre et éduquer`} description={`${g.short} Comprendre le comportement des ${g.name.toLowerCase()} et adapter leur éducation, avec Pauline Renard, éducatrice canine à Lyon.`}>
+<Layout title={`${g.name} : comprendre leur comportement`} description={`${g.short} Comprendre le comportement des ${g.name.toLowerCase()}, avec Pauline Renard, éducatrice canine à Lyon.`}>
   <div class="gp">
     <section class="ghero" data-hero>
       <div class="w ghero-grid">
@@ -37,7 +37,7 @@ const others = groups.filter((o) => o.slug !== g.slug);
           <div class="gicon"><LIcon name={st.icon} size={72} stroke={1} /></div>
           <div class="gspeech">
             <OsloAvatar size={48} />
-            <p data-oslo-hello>Je vais vous expliquer comment fonctionnent les {g.name.toLowerCase()}, et comment adapter leur éducation.</p>
+            <p data-oslo-hello>Je vais vous expliquer comment fonctionnent les {g.name.toLowerCase()}.</p>
           </div>
         </div>
       </div>
@@ -67,21 +67,6 @@ const others = groups.filter((o) => o.slug !== g.slug);
               <summary><span class="dq">« {d.obs} »</span><span class="pm" aria-hidden="true"><span></span><span></span></span></summary>
               <p class="dw"><span>Ce que ça signifie</span>{d.why}</p>
             </details>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="w">
-        <div class="head"><p class="label">Adapter l’éducation</p><h2 data-split>Comment <em>l’accompagner</em> au mieux.</h2></div>
-        <div class="grid g4" data-reveal="stagger">
-          {g.education.map((e, i) => (
-            <div class="edu">
-              <span class="n">0{i + 1}</span>
-              <h3>{e.title}</h3>
-              <p>{e.text}</p>
-            </div>
           ))}
         </div>
       </div>
@@ -172,10 +157,6 @@ const others = groups.filter((o) => o.slug !== g.slug);
   .dw span { display: block; font-size: .75rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--sage); margin-bottom: 4px; }
   .decode details::details-content { block-size: 0; overflow: hidden; transition: block-size .45s var(--ease), content-visibility .45s allow-discrete; }
   .decode details[open]::details-content { block-size: auto; }
-  .edu { padding-top: 22px; border-top: 1px solid var(--ink); }
-  .edu .n { font-family: var(--serif); font-style: italic; font-size: 1.6rem; color: var(--sage); }
-  .edu h3 { margin: 12px 0 10px; }
-  .edu p { margin: 0; color: var(--ink2); font-size: .96rem; }
   .lists { gap: 56px; align-items: start; }
   .pills { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
   .pills li { padding: 9px 16px; border-radius: 999px; background: var(--white); font-size: .95rem; }

@@ -74,15 +74,18 @@ const others = groups.filter((o) => o.slug !== g.slug);
 
     <section>
       <div class="w">
-        <div class="head"><p class="label">Adapter l’éducation</p><h2 data-split>Comment <em>l’accompagner</em> au mieux.</h2></div>
+        <div class="head"><p class="label">Les grandes pistes</p><h2 data-split>Les clés pour <em>l’accompagner</em>.</h2></div>
         <div class="grid g4" data-reveal="stagger">
           {g.education.map((e, i) => (
             <div class="edu">
               <span class="n">0{i + 1}</span>
               <h3>{e.title}</h3>
-              <p>{e.text}</p>
             </div>
           ))}
+        </div>
+        <div class="edu-cta" data-reveal>
+          <p class="muted">Voici les grandes lignes. La mise en pratique dépend de votre chien, de son histoire et de votre quotidien : c’est ce que nous construisons ensemble, pas à pas, en séance.</p>
+          <a class="btn sage" href={`/contact/?motif=${encodeURIComponent('Séance bilan')}`} data-contact>Réserver un bilan <span data-dog-for></span> <Icon name="arrow" size={17} /></a>
         </div>
       </div>
     </section>
@@ -176,6 +179,8 @@ const others = groups.filter((o) => o.slug !== g.slug);
   .edu .n { font-family: var(--serif); font-style: italic; font-size: 1.6rem; color: var(--sage); }
   .edu h3 { margin: 12px 0 10px; }
   .edu p { margin: 0; color: var(--ink2); font-size: .96rem; }
+  .edu-cta { margin-top: 44px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px 32px; padding-top: 28px; border-top: 1px dashed var(--ink2); }
+  .edu-cta p { margin: 0; max-width: 62ch; }
   .lists { gap: 56px; align-items: start; }
   .pills { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
   .pills li { padding: 9px 16px; border-radius: 999px; background: var(--white); font-size: .95rem; }
@@ -228,10 +233,10 @@ const others = groups.filter((o) => o.slug !== g.slug);
     document.querySelector<HTMLElement>('[data-dog-title]')!.hidden = false;
     document.querySelector<HTMLElement>('[data-oslo-hello]')!.textContent =
       `Enchanté, ${dog.nom} ! Les ${g.name.toLowerCase()} ont une histoire passionnante. Voyons ensemble ce qui se cache derrière ses comportements.`;
-    const forEl = document.querySelector<HTMLElement>('[data-dog-for]');
-    if (forEl) forEl.textContent = `pour ${dog.nom}`;
-    const c = document.querySelector<HTMLAnchorElement>('[data-contact]');
-    if (c) c.href = `/contact/?motif=${encodeURIComponent('Séance bilan')}&chien=${encodeURIComponent(`${dog.nom}, ${stage?.label ?? ''}, ${dog.race}`)}`;
+    document.querySelectorAll<HTMLElement>('[data-dog-for]').forEach((el) => (el.textContent = `pour ${dog.nom}`));
+    document.querySelectorAll<HTMLAnchorElement>('[data-contact]').forEach((c) => {
+      c.href = `/contact/?motif=${encodeURIComponent('Séance bilan')}&chien=${encodeURIComponent(`${dog.nom}, ${stage?.label ?? ''}, ${dog.race}`)}`;
+    });
     if (stage) {
       select(stage.key);
       document.querySelector<HTMLElement>('[data-dog-age-title]')!.textContent = `${dog.nom} : ${stage.title.charAt(0).toLowerCase()}${stage.title.slice(1)}`;

@@ -7,6 +7,9 @@ export const site = {
   // Clé publique Web3Forms (https://web3forms.com) : une fois renseignée, le formulaire de contact
   // l'utilise à la place de FormSubmit. Cette clé est faite pour être visible dans le site.
   web3formsKey: '4b7da27c-4422-4523-8705-5aad2cececf9',
+  // Serveur Cloudflare qui enregistre chaque demande pour l'application « Mes bilans » (worker/index.js).
+  // Adresse fixe : fonctionne que le site soit hébergé sur Netlify ou sur Cloudflare.
+  demandesApi: 'https://pauline-renard.pauline-renard.workers.dev/api/demande',
   description:
     "Pauline Renard, éducatrice et comportementaliste canin à Lyon 7 : éducation de base, chiots, anxiété de séparation, réactivité. Méthodes bienveillantes, déplacements dans Lyon et alentours.",
 };

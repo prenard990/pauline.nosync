@@ -1,8 +1,24 @@
 {
   "name": "pauline-renard",
   "compatibility_date": "2026-11-01",
+  // petit serveur pour les demandes du formulaire (worker/index.js) ; il gère /api/* et la redirection www ;
+  // tout le reste est servi directement depuis dist/
+  "main": "worker/index.js",
+  "workers_dev": true,
+  "preview_urls": false,
   "assets": {
     "directory": "./dist",
-    "not_found_handling": "404-page"
-  }
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "run_worker_first": true
+  },
+  // adresses officielles (www redirige vers l adresse principale, voir worker/index.js)
+  "routes": [
+    { "pattern": "paulinerenard-educateurcanin.fr", "custom_domain": true },
+    { "pattern": "www.paulinerenard-educateurcanin.fr", "custom_domain": true }
+  ],
+  // stockage des demandes reçues (créé avec : npx wrangler kv namespace create DEMANDES)
+  "kv_namespaces": [
+    { "binding": "DEMANDES", "id": "104dd8f8b6b84f4db863e295ce9e852d" }
+  ]
 }

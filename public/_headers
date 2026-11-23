@@ -1,0 +1,4 @@
+# L'adresse de test Cloudflare (workers.dev) ne doit pas être indexée par Google :
+# seule l'adresse officielle paulinerenard-educateurcanin.fr doit l'être.
+https://pauline-renard.:account.workers.dev/*
+  X-Robots-Tag: noindex

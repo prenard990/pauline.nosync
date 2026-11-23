@@ -168,6 +168,11 @@ const motifGroups = [
         ok.className = 'msg wait';
         ok.textContent = 'Envoi en cours, merci de patienter et de ne pas fermer la page : cela peut prendre jusqu’à une minute.';
       }, 4000);
+      // la demande est aussi enregistrée sur le site (worker/index.js) pour l'application « Mes bilans »
+      const saved = fetch(site.demandesApi, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nom: o.nom, email: o.email, tel: o.tel, chien_nom: o.chien_nom, chien_age: o.chien_age, chien_race: o.chien_race, motif: o.motif, offre: o.offre, msg: o.msg }),
+      }).then((r) => r.ok).catch(() => false);
       try {
         // Web3Forms (rapide) dès qu'une clé est renseignée dans site.ts, sinon FormSubmit
         const headers = { 'Content-Type': 'application/json', Accept: 'application/json' };
@@ -187,10 +192,12 @@ const motifGroups = [
           : await fetch(`https://formsubmit.co/ajax/${site.email}`, { method: 'POST', headers, body: JSON.stringify(o) });
         // Les deux services peuvent répondre 200 avec success « false » (ex. formulaire non activé) : c'est un échec.
         const res = await r.json().catch(() => ({}));
-        if (!r.ok || String(res.success) !== 'true') throw new Error(res.message);
+        // l'envoi est réussi si l'e-mail est parti OU si la demande est enregistrée sur le site
+        if ((!r.ok || String(res.success) !== 'true') && !(await saved)) throw new Error(res.message);
         ok.className = 'msg ok'; ok.textContent = 'Merci ! Votre message a bien été envoyé, je vous réponds rapidement. 🐶';
         f.reset();
       } catch {
+        if (await saved) { ok.className = 'msg ok'; ok.textContent = 'Merci ! Votre message a bien été envoyé, je vous réponds rapidement. 🐶'; f.reset(); return; }
         ok.className = 'msg err'; ok.textContent = `L’envoi a échoué. Écrivez-moi directement à ${site.email} ou réessayez dans quelques minutes.`;
       } finally {
         window.clearTimeout(slow);

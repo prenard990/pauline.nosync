@@ -1,0 +1,188 @@
+---
+// Fiche de renseignements envoyée aux clients avant le bilan (lien personnel reçu par e-mail : /questionnaire/?t=…).
+// Réservée aux clients invités : sans lien valide (créé depuis l application, usage unique), le formulaire reste caché
+// et le serveur refuse l envoi.
+// Les réponses sont enregistrées par worker/index.js et arrivent dans l'application « Mes bilans »,
+// qui les reporte dans le bilan correspondant. Les noms des champs = ceux de l'application : ne pas les renommer.
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+const api = '/api/questionnaire'; // même serveur que le site (Cloudflare, worker/index.js)
+const sel = (o: string[]) => o;
+---
+<Layout title="Fiche de renseignements" description="Fiche de renseignements à remplir avant votre bilan avec Pauline Renard." footerCta={false} noindex>
+  <section class="qs">
+    <div class="w narrow">
+      <p class="label">Avant votre bilan</p>
+      <h1 class="h">Fiche de <em>renseignements</em></h1>
+      <p class="lead">Merci d’avoir pris rendez-vous ! Quelques minutes suffisent. Ces informations me permettent de préparer notre rendez-vous et de consacrer la séance à votre chien. Répondez simplement : il n'y a pas de mauvaise réponse, et les champs sont facultatifs sauf mention contraire.</p>
+
+      <p class="card gate" id="gate">Vérification de votre lien…</p>
+      <form id="q" class="card" novalidate data-api={api} hidden>
+        <fieldset>
+          <legend>Vous</legend>
+          <div class="two">
+            <label>Prénom *<input name="prenom" required autocomplete="given-name" /></label>
+            <label>Nom *<input name="nom" required autocomplete="family-name" /></label>
+          </div>
+          <div class="two">
+            <label>E-mail *<input type="email" name="email" required autocomplete="email" /></label>
+            <label>Téléphone<input type="tel" name="tel" autocomplete="tel" /></label>
+          </div>
+          <label>Adresse (si le bilan a lieu chez vous)<input name="adresse" autocomplete="street-address" /></label>
+          <label>Ville<input name="ville" autocomplete="address-level2" /></label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Votre foyer</legend>
+          <div class="two">
+            <label>Nombre d’adultes<input type="number" name="adultes" min="0" inputmode="numeric" /></label>
+            <label>Logement<select name="logement"><option value="">Choisir…</option>{sel(['Appartement', 'Maison sans jardin', 'Maison avec jardin', 'Milieu rural']).map((o) => <option>{o}</option>)}</select></label>
+          </div>
+          <div class="grp"><span>Enfants</span><div class="chips">{['Aucun', 'Moins de 6 ans', '6 à 12 ans', 'Adolescents'].map((o) => <label class="chip"><input type="checkbox" name="enfants" value={o} /><span>{o}</span></label>)}</div></div>
+          <div class="grp"><span>Autres animaux</span><div class="chips">{['Aucun', 'Chien(s)', 'Chat(s)', 'NAC', 'Animaux de ferme'].map((o) => <label class="chip"><input type="checkbox" name="animaux" value={o} /><span>{o}</span></label>)}</div></div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Votre chien</legend>
+          <div class="two">
+            <label>Nom *<input name="chien_nom" required /></label>
+            <label>Race / type<input name="race" placeholder="Croisé, je ne sais pas…" /></label>
+          </div>
+          <div class="three">
+            <label>Âge<input name="age" placeholder="Ex. : 2 ans" /></label>
+            <label>Sexe<select name="sexe"><option value="">—</option><option>Mâle</option><option>Femelle</option></select></label>
+            <label>Stérilisé(e)<select name="sterilise"><option value="">—</option><option>Oui</option><option>Non</option><option>Implant / chimique</option></select></label>
+          </div>
+          <div class="three">
+            <label>Poids (kg)<input name="poids" inputmode="decimal" /></label>
+            <label>Âge à l’arrivée chez vous<select name="age_adoption"><option value="">—</option>{['Moins de 8 semaines', '8 à 12 semaines', '3 à 6 mois', '6 à 12 mois', 'Plus d’1 an'].map((o) => <option>{o}</option>)}</select></label>
+            <label>Provenance<select name="origine"><option value="">—</option>{['Éleveur familial', 'Élevage professionnel / animalerie', 'Refuge / association', 'Particulier', 'Rue / fourrière', 'Importé de l’étranger'].map((o) => <option>{o}</option>)}</select></label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Sa santé</legend>
+          <div class="two">
+            <label>Dernière visite chez le vétérinaire<input name="veto_visite" placeholder="Date et motif" /></label>
+            <label>Pensez-vous qu’il a mal quelque part ?<select name="douleur"><option value="">—</option><option>Non</option><option>Oui</option><option>Ne sait pas</option></select></label>
+          </div>
+          <label>Problèmes de santé, traitements en cours<textarea name="sante" rows="2"></textarea></label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Son quotidien</legend>
+          <div class="three">
+            <label>Temps seul par jour<select name="seul_duree"><option value="">—</option>{['Moins de 2 h', '2 à 4 h', '4 à 6 h', '6 à 8 h', 'Plus de 8 h'].map((o) => <option>{o}</option>)}</select></label>
+            <label>Sorties par jour<select name="sorties_nb"><option value="">—</option>{['1', '2', '3', '4 ou plus'].map((o) => <option>{o}</option>)}</select></label>
+            <label>Durée totale des balades<select name="sorties_duree"><option value="">—</option>{['Moins de 30 min', '30 min à 1 h', '1 à 2 h', 'Plus de 2 h'].map((o) => <option>{o}</option>)}</select></label>
+          </div>
+          <div class="grp"><span>Matériel de promenade</span><div class="chips">{['Collier plat', 'Harnais', 'Laisse courte', 'Laisse à enrouleur', 'Longe', 'Muselière', 'Collier étrangleur', 'Collier à pointes', 'Collier électrique / anti-aboiement'].map((o) => <label class="chip"><input type="checkbox" name="materiel" value={o} /><span>{o}</span></label>)}</div></div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Votre demande</legend>
+          <label>Qu’est-ce qui vous amène ? Décrivez la situation avec vos mots *<textarea name="demande" rows="4" required placeholder="Dans quelles situations, avec qui, ce qui se passe…"></textarea></label>
+          <label>Depuis quand ?<select name="debut"><option value="">—</option>{['Depuis toujours / arrivée', 'Moins d’1 mois', '1 à 6 mois', '6 à 12 mois', 'Plus d’1 an'].map((o) => <option>{o}</option>)}</select></label>
+          <label>Votre chien a-t-il déjà grogné, pincé ou mordu ? Si oui, racontez brièvement<textarea name="historique" rows="2"></textarea></label>
+          <label>Ce que vous avez déjà essayé, et ce que ça a donné<textarea name="deja_tente" rows="2"></textarea></label>
+          <label>Ce que vous aimeriez voir changer en priorité<textarea name="attentes" rows="2"></textarea></label>
+        </fieldset>
+
+        <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <button class="btn sage" type="submit"><span class="lbl">Envoyer ma fiche</span> <Icon name="arrow" size={17} /></button>
+        <p class="msg" id="qok" role="status" aria-live="polite"></p>
+        <p class="privacy">Ces informations sont uniquement destinées à la préparation de votre bilan. Elles ne sont ni revendues, ni utilisées à d’autres fins, et vous pouvez demander leur suppression à tout moment en écrivant à {site.email}.</p>
+      </form>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .qs { padding-top: clamp(32px, 6vw, 64px); }
+  .h { font-family: var(--display); font-size: clamp(2rem, 5vw, 3rem); line-height: 1.05; margin: 8px 0 14px; }
+  .h em { font-family: var(--serif); font-weight: 400; }
+  .lead { color: var(--ink2); margin: 0 0 28px; max-width: 60ch; }
+  .card.gate { display: block; color: var(--ink2); line-height: 1.6; }
+  .card { background: var(--white); border: 1px solid var(--line); border-radius: var(--r-lg); padding: clamp(20px, 4vw, 40px); display: grid; gap: 26px; }
+  fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 16px; }
+  legend { font-family: var(--display); font-size: 1.2rem; font-weight: 600; margin-bottom: 4px; padding: 0; }
+  .two, .three { display: grid; gap: 16px; }
+  @media (min-width: 620px) { .two { grid-template-columns: 1fr 1fr; } .three { grid-template-columns: repeat(3, 1fr); } }
+  label { display: grid; gap: 7px; font-weight: 500; font-size: .9rem; }
+  .grp { display: grid; gap: 8px; font-weight: 500; font-size: .9rem; }
+  input, select, textarea { font: inherit; font-weight: 400; padding: 13px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); width: 100%; }
+  @media (max-width: 760px) { input, select, textarea { font-size: 16px; } }
+  input:focus, select:focus, textarea:focus { outline: none; background: var(--white); border-color: var(--sage); box-shadow: 0 0 0 3px var(--sage-l); }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { display: inline-flex; cursor: pointer; font-weight: 400; }
+  .chip input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .chip span { border: 1px solid var(--line); border-radius: 99px; padding: 8px 14px; background: var(--paper); }
+  .chip input:checked + span { background: var(--sage); border-color: var(--sage); color: #fff; }
+  .chip input:focus-visible + span { box-shadow: 0 0 0 3px var(--sage-l); }
+  .invalid { border-color: var(--clay) !important; background: var(--clay-l) !important; }
+  .hp { position: absolute; left: -9999px; }
+  form .btn { justify-self: start; }
+  form .btn[disabled] { opacity: .7; cursor: wait; }
+  .msg { margin: 0; font-weight: 500; }
+  .msg.ok { color: var(--sage); } .msg.err { color: var(--clay); }
+  .msg:empty { display: none; }
+  .privacy { margin: 0; font-size: .82rem; color: var(--ink3); }
+</style>
+
+<script>
+  const f = document.querySelector<HTMLFormElement>('#q');
+  if (f) {
+    const ok = f.querySelector<HTMLElement>('#qok')!;
+    const btn = f.querySelector<HTMLButtonElement>('button[type=submit]')!;
+    const lbl = btn.querySelector<HTMLElement>('.lbl')!;
+    // lien personnel envoyé par Pauline : /questionnaire/?t=… (usage unique)
+    const token = new URLSearchParams(location.search).get('t') || '';
+    // le formulaire n'apparaît qu'avec un lien valide
+    const gate = document.querySelector<HTMLElement>('#gate')!;
+    const refuse = () => { gate.innerHTML = `Ce lien n’est pas valide, a expiré ou a déjà été utilisé.<br>Cette fiche est réservée aux personnes ayant pris rendez-vous : <a href="/contact/">contactez-moi</a> et je vous enverrai un nouveau lien.`; };
+    if (!/^[\w-]{24,64}$/.test(token)) refuse();
+    else fetch('/api/invitation/' + encodeURIComponent(token), { cache: 'no-store' })
+      .then((r) => { if (r.ok) { gate.remove(); f.hidden = false; } else refuse(); })
+      .catch(() => { gate.textContent = 'Impossible de vérifier votre lien pour le moment : vérifiez votre connexion et rechargez la page.'; });
+    // brouillon conservé sur l'appareil si la personne ferme la page avant d'envoyer
+    const KEY = 'fiche-renseignements-' + token;
+    const collect = () => {
+      const fd = new FormData(f); const o: Record<string, string | string[]> = {};
+      for (const [k, v] of fd.entries()) { if (k === '_honey') continue; const s = String(v); if (['enfants', 'animaux', 'materiel'].includes(k)) (o[k] = (o[k] as string[]) || []).push(s); else o[k] = s; }
+      return o;
+    };
+    try {
+      const saved = JSON.parse(localStorage.getItem(KEY) || 'null');
+      if (saved) for (const [k, v] of Object.entries(saved)) {
+        if (Array.isArray(v)) f.querySelectorAll<HTMLInputElement>(`[name="${k}"]`).forEach((i) => { i.checked = v.includes(i.value); });
+        else { const el = f.elements.namedItem(k) as HTMLInputElement | null; if (el && 'value' in el) el.value = String(v); }
+      }
+    } catch {}
+    f.addEventListener('input', (e) => {
+      const t = e.target as HTMLInputElement;
+      if (t.required && t.checkValidity()) t.classList.remove('invalid');
+      // « Aucun » exclut les autres choix (et inversement)
+      if (t.type === 'checkbox' && t.checked) f.querySelectorAll<HTMLInputElement>(`[name="${t.name}"]`).forEach((i) => { if (i !== t && (t.value === 'Aucun' || i.value === 'Aucun')) i.checked = false; });
+      try { localStorage.setItem(KEY, JSON.stringify(collect())); } catch {}
+    });
+    f.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      let valid = true;
+      f.querySelectorAll<HTMLInputElement>('[required]').forEach((el) => { const bad = !el.checkValidity(); el.classList.toggle('invalid', bad); if (bad && valid) { el.focus(); valid = false; } });
+      if (!valid) { ok.className = 'msg err'; ok.textContent = 'Merci de compléter les champs marqués d’une étoile.'; return; }
+      if ((f.elements.namedItem('_honey') as HTMLInputElement).value) return;
+      btn.disabled = true; lbl.textContent = 'Envoi en cours…'; ok.textContent = '';
+      try {
+        const r = await fetch(f.dataset.api!, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ token, fields: collect() }) });
+        const res = await r.json().catch(() => ({}));
+        if (!r.ok || !res.success) throw new Error(res.message);
+        try { localStorage.removeItem(KEY); } catch {}
+        f.querySelectorAll('fieldset, .btn').forEach((el) => el.remove());
+        ok.className = 'msg ok'; ok.textContent = 'Merci ! Votre fiche est bien envoyée. À très bientôt pour le bilan. 🐶';
+      } catch {
+        ok.className = 'msg err'; ok.textContent = 'L’envoi a échoué. Vos réponses sont gardées sur cet appareil : réessayez dans quelques minutes.';
+      } finally { btn.disabled = false; lbl.textContent = 'Envoyer ma fiche'; }
+    });
+  }
+</script>

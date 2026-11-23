@@ -1,10 +1,10 @@
 ---
 title: "Marcher en laisse sans tirer"
-description: "Les balades ressemblent à du ski nautique ? Comprendre pourquoi votre chien tire, et comment lui apprendre à marcher à vos côtés."
+description: "Les balades ressemblent à du ski nautique ? Comprendre pourquoi votre chien tire est la première étape pour changer les choses."
 category: "Éducation"
 cover: "../../assets/conseils/marche-en-laisse.jpg"
 coverAlt: "Un teckel marche en laisse détendue aux côtés de son humain dans une allée de parc"
-readingTime: 5
+readingTime: 3
 order: 2
 oslo: "Ma balade préférée ? Celle où ma maîtresse me laisse renifler chaque arbre. Après, je marche à côté d’elle sans même y penser."
 ---
@@ -18,22 +18,19 @@ Un chien qui tire en laisse n’est pas un chien « dominant » ou têtu. Il va 
 - **Tirer est récompensé** : s’il tire et que l’on suit, il atteint son but.
 - **Il manque de dépense** : un chien qui n’a pas assez d’activité aura du mal à se canaliser.
 
-## Les bases pour changer les choses
+## Ce qui n’aide pas
 
-### Laisse tendue = on s’arrête
+- **Tirer en retour** ou donner des à-coups : cela crée de la tension, de l’inconfort, et souvent encore plus de traction.
+- **Le matériel contraignant** (collier étrangleur, à pointes) : il peut provoquer douleur et stress, et abîmer la relation.
+- **L’incohérence** : si tirer fonctionne une fois sur deux, votre chien continuera d’essayer.
 
-Dès que la laisse se tend, arrêtez-vous calmement. Dès qu’elle se détend, on repart. Votre chien comprend vite que c’est la laisse détendue qui fait avancer. Cela demande de la patience les premiers jours !
+## Les pistes pour avancer
 
-### Récompensez la bonne position
+- Faire comprendre à votre chien que c’est **la laisse détendue** qui fait avancer.
+- Rendre **votre côté** intéressant.
+- Choisir un **matériel confortable** et adapté à sa morphologie.
+- Prévoir aussi des moments où il peut **être un chien** : renifler, explorer, flâner.
 
-Quand votre chien marche près de vous, laisse détendue, récompensez-le **à côté de votre jambe**. Il comprend que c’est l’endroit où il se passe de bonnes choses.
+> Une balade réussie n’est pas une marche au pied militaire pendant une heure. C’est un équilibre, et cet équilibre est différent pour chaque chien.
 
-### Changez de direction
-
-Faites des demi-tours, des zigzags : votre chien apprend à rester attentif à vous plutôt que de foncer droit devant.
-
-> Le matériel compte : un harnais en Y bien ajusté et une laisse d’au moins 2 mètres sont bien plus confortables pour votre chien qu’un collier étrangleur, qui peut provoquer douleur et stress.
-
-## Laissez-le aussi être un chien
-
-Une balade réussie n’est pas une marche au pied militaire pendant une heure. Alternez des moments de marche au pied et des moments de liberté où votre chien peut renifler, sur un signal dédié (« va sentir »). Une balade où il a pu explorer le calme bien plus qu’une longue marche rapide.
+La technique, le rythme de progression et le choix du matériel s’adaptent à votre chien et à vos parcours habituels : c’est ce que nous mettons en place ensemble, sur le terrain.

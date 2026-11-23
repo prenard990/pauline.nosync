@@ -1,12 +1,12 @@
 ---
-title: "Anxiété de séparation : reconnaître et agir"
-description: "Aboiements, destructions, malpropreté quand vous partez ? Votre chien vit peut-être mal la solitude. Comment l’aider."
+title: "Anxiété de séparation : reconnaître et agir"
+description: "Aboiements, destructions, malpropreté quand vous partez ? Votre chien vit peut-être mal la solitude. Savoir reconnaître les signes."
 category: "Comportement"
 cover: "../../assets/conseils/anxiete-de-separation.jpg"
 coverAlt: "Un berger allemand regarde sa maîtresse partir, sac à la main, par la porte d’entrée"
-readingTime: 6
+readingTime: 4
 order: 4
-oslo: "Quand ma maîtresse part, j’ai mon tapis de fouille et mon coin tranquille. Et quand elle revient, je reste calme… enfin, j’essaie !"
+oslo: "Quand ma maîtresse part, j’ai mon coin tranquille. Et quand elle revient, je reste calme… enfin, j’essaie !"
 ---
 
 Les voisins se plaignent d’aboiements, vous retrouvez le canapé détruit ou des besoins à votre retour ? Votre chien n’agit pas par vengeance : il exprime **une vraie détresse émotionnelle** face à la solitude.
@@ -20,28 +20,16 @@ Les voisins se plaignent d’aboiements, vous retrouvez le canapé détruit ou d
 - Accueil très excessif à votre retour
 - Salivation, halètement, refus de manger en votre absence
 
-> Le meilleur moyen de savoir ce qui se passe ? Filmez votre chien quand vous partez. Les premières minutes sont souvent très parlantes.
+> Le meilleur moyen de savoir ce qui se passe ? Filmez votre chien quand vous partez. Ces images seront aussi très précieuses lors de notre séance bilan.
 
 ## Ce qu’il ne faut pas faire
 
 **Ne le punissez jamais à votre retour.** Votre chien ne fait pas le lien avec ce qu’il a fait plus tôt. La punition augmente son anxiété… et donc le problème.
 
-## Les premières pistes
+Évitez aussi de **le laisser seul « pour qu’il s’habitue »** : sans préparation, chaque absence difficile renforce son angoisse.
 
-### Banaliser les départs et les retours
+## Ce sur quoi on travaille
 
-Évitez les grands au revoir et les retrouvailles très excitées. Partez et revenez calmement, en ignorant votre chien quelques instants.
+L’anxiété de séparation a souvent plusieurs causes, et le travail porte sur plusieurs axes à la fois : la façon dont se passent vos départs et vos retours, les signaux qui annoncent votre absence, l’apprentissage progressif de la solitude, et les besoins de votre chien au quotidien.
 
-### Désensibiliser les signaux de départ
-
-Prendre les clés, mettre ses chaussures, enfiler son manteau… Votre chien a repéré tous ces signaux. Faites-les régulièrement sans partir, pour qu’ils perdent leur signification.
-
-### Travailler la solitude par petites étapes
-
-Commencez par des absences très courtes, que votre chien supporte sans stress, et augmentez progressivement. L’objectif : qu’il ne dépasse jamais son seuil de tolérance.
-
-### Répondre à ses besoins
-
-Une bonne balade avant de partir, un jouet d’occupation (type tapis de fouille ou jouet à garnir), un espace où il se sent en sécurité : un chien dépensé et occupé vit mieux la solitude.
-
-L’anxiété de séparation demande un travail progressif et adapté à chaque chien. C’est l’une des problématiques que j’accompagne le plus souvent : n’hésitez pas à me contacter pour en parler.
+Le dosage et l’ordre de ces étapes sont propres à chaque chien : aller trop vite peut aggraver la situation. C’est l’une des problématiques que j’accompagne le plus souvent, n’hésitez pas à me contacter pour en parler.

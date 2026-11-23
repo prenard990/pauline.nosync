@@ -1,40 +1,33 @@
 ---
-title: "Un rappel fiable : 6 règles d’or"
-description: "Votre chien fait la sourde oreille au parc ? Voici comment construire, pas à pas, un rappel sur lequel vous pouvez compter."
+title: "Un rappel fiable : les grands principes"
+description: "Votre chien fait la sourde oreille au parc ? Comprendre pourquoi il ne revient pas, c’est déjà la moitié du chemin."
 category: "Éducation"
 cover: "../../assets/photos/oslo-balle.jpg"
 coverAlt: "Oslo revient en courant, une balle dans la gueule"
-readingTime: 5
+readingTime: 3
 order: 1
 oslo: "Le mot magique de Pauline pour moi, c’est « ici ». Et je reviens à chaque fois… parce qu’à chaque fois, il se passe un truc génial !"
 ---
 
 Le rappel est sans doute l’apprentissage le plus important… et le plus frustrant quand il ne fonctionne pas. Bonne nouvelle : un rappel fiable se construit, à tout âge.
 
-## 1. Revenir doit toujours être une bonne affaire
+## Pourquoi mon chien ne revient pas ?
 
-Votre chien choisit en permanence entre plusieurs options : renifler cette odeur passionnante, jouer avec un copain… ou revenir vers vous. Pour qu’il choisisse de revenir, **cela doit valoir le coup**. Gardez des récompenses de grande valeur (friandises qu’il adore, jeu de tir, balle) réservées au rappel.
+Votre chien n’est ni têtu ni « dominant ». À chaque appel, il fait un choix entre plusieurs options : renifler cette odeur passionnante, jouer avec un copain… ou revenir vers vous. S’il ne revient pas, c’est que, de son point de vue, **revenir n’est pas la meilleure affaire du moment**.
 
-## 2. Ne rappelez jamais pour quelque chose de désagréable
+## Les erreurs les plus fréquentes
 
-Rappeler son chien pour lui mettre la laisse et rentrer, pour le gronder ou pour lui couper les griffes lui apprend que revenir annonce la fin du plaisir. Dans ces cas-là, allez plutôt le chercher.
+- **Rappeler pour quelque chose de désagréable** : mettre la laisse et rentrer, gronder, couper les griffes… Le rappel finit par annoncer la fin du plaisir.
+- **Répéter le mot en boucle** : votre chien apprend qu’il peut attendre le cinquième appel.
+- **Gronder un chien qui revient tard** : il retient surtout que revenir vers vous, c’est risqué.
+- **Exiger trop, trop vite** : un rappel qui marche dans le salon ne marche pas forcément au parc.
 
-> Astuce : pendant la balade, rappelez-le plusieurs fois, récompensez-le, puis relâchez-le aussitôt. Le rappel ne signifie plus « fin de la fête ».
+## Les grands principes
 
-## 3. Commencez là où c’est facile
+- Revenir doit **toujours valoir le coup** pour votre chien.
+- Un rappel se construit **par étapes**, du plus facile au plus difficile.
+- Certains outils permettent de lui laisser de la liberté **en toute sécurité** pendant l’apprentissage.
 
-On n’apprend pas à nager dans une mer agitée. Entraînez-vous d’abord à la maison, puis dans le jardin, puis dans un parc calme, et seulement ensuite dans des lieux plus stimulants. Augmentez la difficulté **une seule chose à la fois** : distance, distractions ou durée.
+> Le « comment » dépend de votre chien : ce qui le motive vraiment, son niveau actuel, son environnement. C’est là que tout se joue.
 
-## 4. Utilisez une longe
-
-Une longe de 5 à 10 mètres permet de laisser de la liberté à votre chien tout en évitant qu’il apprenne qu’il peut ignorer l’appel. C’est un excellent outil de transition vers la liberté.
-
-## 5. Un mot, une seule fois
-
-Choisissez un mot de rappel clair (« ici », « viens ») et dites-le **une seule fois**, d’une voix joyeuse. Répéter le mot en boucle lui apprend qu’il peut attendre le cinquième appel.
-
-## 6. Célébrez chaque retour
-
-Même s’il a mis du temps, même s’il a fait un détour : quand votre chien revient, c’est la fête. Un retour récompensé, c’est un rappel qui se renforce.
-
-Si votre chien a déjà « grillé » son mot de rappel à force d’échecs, pas de panique : on peut repartir de zéro avec un nouveau mot. C’est un travail que l’on peut faire ensemble en séance.
+Si votre chien a déjà « grillé » son mot de rappel à force d’échecs, pas de panique : on peut repartir sur de nouvelles bases. C’est un travail que l’on construit ensemble en séance, étape par étape.

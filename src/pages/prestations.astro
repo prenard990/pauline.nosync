@@ -106,7 +106,7 @@ const baladeFaq = [
 ];
 ---
 <Layout title="Prestations et tarifs" description="Bilan gratuit de 30 min, bilan complet à 40 €, séances individuelles, forfaits, accompagnements (chiot, réactivité, anxiété…) et balades collectives : les prestations de Pauline Renard, éducatrice canine à Lyon.">
-  <PageHero mood="bravo" label="Prestations et tarifs" title="Des formules <em>claires</em>, adaptées à votre chien." lead="Tout commence par un bilan gratuit de 30 minutes pour faire connaissance, puis un bilan complet chez vous. Ensuite, on choisit ensemble : séance à l’unité, forfait ou balade collective." />
+  <PageHero mood="bravo" label="Prestations et tarifs" title="Des formules <em>claires</em>, adaptées à votre chien." lead="Le bilan complet, chez vous, est le point de départ de tout accompagnement. Vous hésitez ? Un bilan gratuit de 30 minutes permet d’abord de faire connaissance. Ensuite, on choisit ensemble : séance à l’unité, forfait ou balade collective." />
 
   <!-- ============ 1. VUE RAPIDE ============ -->
   <section id="tarifs" class="anchor quick-s">
@@ -153,11 +153,11 @@ const baladeFaq = [
         ))}
       </div>
 
-      <!-- Onglet : les bilans (gratuit puis complet) -->
+      <!-- Onglet : les bilans (gratuit facultatif, complet indispensable) -->
       <div class="panel" role="tabpanel" id="bilan" aria-labelledby="tab-bilan" tabindex="0">
         <div class="duo">
           <article class="step free">
-            <p class="ptag"><LIcon name="gift" size={16} /> Étape 1 · Gratuit</p>
+            <p class="ptag"><LIcon name="gift" size={16} /> Facultatif · Gratuit</p>
             <h3 class="ptitle">{freeCall.name}</h3>
             <p class="smeta">{freeCall.duration} · {freeCall.where}</p>
             <p>Un premier échange pour faire connaissance et savoir si je peux vous aider.</p>
@@ -166,7 +166,7 @@ const baladeFaq = [
             <a class="btn sage" href={contact('Bilan gratuit')}>Réserver mon bilan gratuit <Icon name="arrow" size={17} /></a>
           </article>
           <article class="step">
-            <p class="ptag"><LIcon name="list" size={16} /> Étape 2 · {bilan.price} €</p>
+            <p class="ptag"><LIcon name="list" size={16} /> Avant toute séance · {bilan.price} €</p>
             <h3 class="ptitle">{bilan.name}</h3>
             <p class="smeta">1h30 à 2h · chez vous</p>
             <p>{bilan.pitch} Une rencontre chez vous pour analyser l’environnement de votre chien, comprendre l’origine de ses problématiques et établir un plan d’action personnalisé.</p>

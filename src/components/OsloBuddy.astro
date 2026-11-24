@@ -15,7 +15,6 @@ const mood = key ? osloMoods[key] : 'surpris';
   </div>
   <button class="pup oslo-host" type="button" aria-label="Parler avec Oslo" aria-expanded="false">
     <OsloAvatar size={110} mood={mood} />
-    <span class="ping" aria-hidden="true"></span>
   </button>
 </div>
 
@@ -96,9 +95,6 @@ const mood = key ? osloMoods[key] : 'surpris';
     fill();
     if (sessionStorage.getItem('oslo-seen')) root.classList.add('seen');
     setTimeout(() => root.classList.add('ready'), 900);
-    // bulle visible sur chaque page, jusqu'à ce que le visiteur la ferme
-    let closed = false;
-    try { closed = !!sessionStorage.getItem('oslo-closed'); } catch {}
-    if (!closed) timer = window.setTimeout(() => setOpen(true), 1500);
+    // la bulle ne s'ouvre plus toute seule : uniquement quand le visiteur clique sur Oslo
   }
 </script>

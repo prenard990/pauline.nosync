@@ -1,6 +1,6 @@
 export const site = {
   name: 'Pauline Renard',
-  role: 'Éducatrice & comportementaliste canin',
+  role: 'Éducateur & comportementaliste canin',
   city: 'Lyon 7',
   area: 'Lyon et alentours',
   // affiché sur le site (pied de page, contact, prestations)
@@ -13,7 +13,7 @@ export const site = {
   // Adresse fixe : fonctionne que le site soit hébergé sur Netlify ou sur Cloudflare.
   demandesApi: 'https://pauline-renard.pauline-renard.workers.dev/api/demande',
   description:
-    "Pauline Renard, éducatrice et comportementaliste canin à Lyon 7 : éducation de base, chiots, anxiété de séparation, réactivité. Méthodes bienveillantes, déplacements dans Lyon et alentours.",
+    "Pauline Renard, éducateur canin et comportementaliste à Lyon 7 : éducation de base, chiots, anxiété de séparation, réactivité. Méthodes bienveillantes, déplacements dans Lyon et alentours.",
 };
 
 // Communes desservies (zone d'intervention, affichée sur l'accueil et utilisée pour le SEO local).

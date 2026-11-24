@@ -9,13 +9,13 @@ import '../styles/global.css';
 
 interface Props { title?: string; description?: string; image?: ImageMetadata; type?: 'website' | 'article'; footerCta?: boolean; noindex?: boolean }
 const { title, description = site.description, image = ogPhoto, type = 'website', footerCta = true, noindex = false } = Astro.props;
-const fullTitle = title ? `${title} · Pauline Renard, éducatrice canine à Lyon` : 'Pauline Renard · Éducatrice & comportementaliste canin à Lyon';
+const fullTitle = title ? `${title} · Pauline Renard, éducateur canin à Lyon` : 'Pauline Renard · Éducateur canin & comportementaliste à Lyon';
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const og = await getImage({ src: image, width: 675, format: 'jpg' });
 const ld = {
   '@context': 'https://schema.org',
   '@type': ['LocalBusiness', 'ProfessionalService'],
-  name: 'Pauline Renard – Éducatrice & comportementaliste canin',
+  name: 'Pauline Renard – Éducateur & comportementaliste canin',
   description: site.description,
   url: Astro.site?.toString(),
   email: site.email,

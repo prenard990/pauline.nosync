@@ -52,7 +52,10 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
   <section class="hero" data-hero>
     <div class="w hero-grid">
       <div class="hero-txt">
-        <h1 data-split>Éducatrice et comportementaliste canin <em>à Lyon</em> et alentours</h1>
+        <div class="hero-head">
+          <h1 data-split>Éducatrice et comportementaliste canin <em>à Lyon</em> et alentours</h1>
+          <div class="hero-mini" aria-hidden="true"><Image src={heroPhoto} alt="" widths={[160, 240]} sizes="120px" loading="eager" /></div>
+        </div>
         <p class="lead" data-reveal>Retrouvez une relation sereine et complice avec votre chien grâce à une approche bienveillante, respectueuse de ses émotions et adaptée à votre quotidien.</p>
         <div class="btns" data-reveal>
           <a class="btn sage" href={`/contact/?motif=${encodeURIComponent('Bilan comportemental')}`}>Réserver un bilan comportemental <Icon name="arrow" size={17} /></a>
@@ -76,36 +79,6 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
     </div>
   </section>
 
-  <!-- 1 bis. BILAN GRATUIT (juste après la présentation : la porte d'entrée la plus simple) -->
-  <section class="free-s" id="bilan-gratuit">
-    <div class="w">
-      <div class="free-card" data-reveal>
-        <div class="free-main">
-          <div class="osl-say"><OsloAvatar size={120} mood="joyeux" /><p class="label osl-bub">Bilan gratuit · {freeCall.duration}</p></div>
-          <h2 data-split>Vous hésitez encore ? <em>Faites un premier bilan gratuit.</em></h2>
-          <p class="lead">30 minutes {freeCall.where} pour me parler de votre chien et des difficultés que vous rencontrez. À la fin de l’échange, je vous dis ce que nous aurions à travailler ensemble et je vous propose un échéancier de séances.</p>
-          <ul class="free-meta" aria-label="En pratique">
-            <li><LIcon name="clock" size={18} /> {freeCall.duration}</li>
-            <li><LIcon name="phone" size={18} /> Téléphone</li>
-            <li><LIcon name="video" size={18} /> ou visio</li>
-            <li><LIcon name="gift" size={18} /> Gratuit, sans engagement</li>
-          </ul>
-          <div class="btns">
-            <a class="btn sage" href={`/contact/?motif=${encodeURIComponent('Bilan gratuit')}&offre=${encodeURIComponent('Bilan gratuit')}`}>Réserver mon bilan gratuit <Icon name="arrow" size={17} /></a>
-          </div>
-        </div>
-        <div class="free-side">
-          <p class="free-t">Pendant ces 30 minutes</p>
-          <ul class="check">{freeCall.features.map((f) => <li>{f}</li>)}</ul>
-          <div class="free-next">
-            <p class="free-t">Et ensuite ?</p>
-            <p>{bilanWhy} <a href="/prestations/#bilan">Découvrir le bilan complet ({prices[0].price} €) →</a></p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- 2. VOUS VOUS RECONNAISSEZ ? -->
   <section class="bg-stone sits-s">
     <div class="w">
@@ -124,24 +97,59 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
             <ul class="signs" aria-label="Ce que vous observez">
               {s.signs.map((t) => <li>{t}</li>)}
             </ul>
-            <div class="piste">
-              <p class="piste-l"><LIcon name="bulb" size={16} /> Piste de compréhension</p>
+            <details class="piste" data-open-wide>
+              <summary class="piste-l"><LIcon name="bulb" size={16} /> Piste de compréhension</summary>
               <p>{s.piste}</p>
-            </div>
+            </details>
             <a class="sit-more" href={s.href}>En savoir plus <Icon name="arrow" size={15} /></a>
           </article>
         ))}
       </div>
+    </div>
+  </section>
 
+  <!-- 2 bis. BILAN GRATUIT (juste après les difficultés : la porte d'entrée la plus simple) -->
+  <section class="free-s" id="bilan-gratuit">
+    <div class="w">
+      <div class="free-card" data-reveal>
+        <div class="free-main">
+          <div class="osl-say"><OsloAvatar size={120} mood="joyeux" /><p class="label osl-bub">Bilan gratuit · {freeCall.duration}</p></div>
+          <h2 data-split>Vous hésitez encore ? <em>Faites un premier bilan gratuit.</em></h2>
+          <p class="lead">30 minutes {freeCall.where} pour me parler de votre chien et des difficultés que vous rencontrez. À la fin de l’échange, je vous dis ce que nous aurions à travailler ensemble et je vous propose un échéancier de séances.</p>
+          <ul class="free-meta" aria-label="En pratique">
+            <li><LIcon name="clock" size={18} /> {freeCall.duration}</li>
+            <li><LIcon name="phone" size={18} /> Téléphone</li>
+            <li><LIcon name="video" size={18} /> ou visio</li>
+            <li><LIcon name="gift" size={18} /> Gratuit, sans engagement</li>
+          </ul>
+          <div class="btns">
+            <a class="btn sage" href={`/contact/?motif=${encodeURIComponent('Bilan gratuit')}&offre=${encodeURIComponent('Bilan gratuit')}`}>Réserver mon bilan gratuit <Icon name="arrow" size={17} /></a>
+            <a class="link free-more" href="/prestations/#bilan">Bilan gratuit ou bilan complet ? <Icon name="arrow" size={15} /></a>
+          </div>
+        </div>
+        <div class="free-side">
+          <p class="free-t">Pendant ces 30 minutes</p>
+          <ul class="check">{freeCall.features.map((f) => <li>{f}</li>)}</ul>
+          <div class="free-next">
+            <p class="free-t">Et ensuite ?</p>
+            <p>{bilanWhy} <a href="/prestations/#bilan">Découvrir le bilan complet ({prices[0].price} €) →</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 ter. GUIDE D'OSLO (formulaire affiché à la demande) -->
+  <section class="finder-s">
+    <div class="w">
       <div class="finder" id="mon-chien" data-reveal>
         <div class="finder-intro">
           <div class="fc-head"><OsloAvatar size={44} mood="curieux" /><span>Le guide d’Oslo</span></div>
           <h3>Comprendre ce qui compte pour lui</h3>
-          <p>Chaque chien est unique : son histoire, son âge, son environnement, ses apprentissages et sa relation avec vous comptent énormément. Tous partagent pourtant des aptitudes héritées de leurs ancêtres canidés (le flair, l’exploration, le besoin de mâcher ou de se reposer), et certaines typologies ont des tendances plus marquées.</p>
-          <p>Présentez votre chien à Oslo : il vous donne des pistes pour mieux comprendre ses besoins.</p>
-          <a class="link small" href="/ecole-oslo/#familles">Découvrir les grandes typologies <Icon name="arrow" size={15} /></a>
+          <p>Présentez votre chien à Oslo (nom, âge, race) : il vous donne des pistes pour mieux comprendre ses besoins.</p>
+          <button class="btn sage" type="button" data-finder-open aria-controls="finder-form" aria-expanded="false">Découvrir ses besoins <Icon name="arrow" size={17} /></button>
         </div>
-        <div class="finder-form"><DogFinder /></div>
+        <div class="finder-form" id="finder-form" hidden><DogFinder /></div>
       </div>
     </div>
   </section>
@@ -241,18 +249,28 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
   </section>
 </Layout>
 
+<script>
+  // guide d'Oslo : le formulaire ne s'affiche qu'au clic
+  document.querySelectorAll<HTMLButtonElement>('[data-finder-open]').forEach((b) => b.addEventListener('click', () => {
+    const f = document.getElementById(b.getAttribute('aria-controls')!);
+    if (!f) return;
+    f.hidden = false; b.setAttribute('aria-expanded', 'true'); b.hidden = true;
+    f.querySelector<HTMLInputElement>('input')?.focus({ preventScroll: true });
+  }));
+  // pistes de compréhension : ouvertes sur grand écran, repliées sur téléphone
+  if (matchMedia('(min-width: 760px)').matches) document.querySelectorAll<HTMLDetailsElement>('details[data-open-wide]').forEach((d) => (d.open = true));
+</script>
+
 <style>
   .anchor { scroll-margin-top: 90px; }
   /* respiration entre le guide d'Oslo et les accompagnements */
-  .sits-s { padding-bottom: clamp(96px, 12vw, 170px); }
-  .offers-s { padding-top: clamp(96px, 12vw, 170px); }
   .narrow-head { max-width: 820px; }
   .narrow-head .lead { margin-top: 22px; }
 
   /* 1. Hero */
   .hero { padding: clamp(32px, 6vw, 80px) 0 clamp(64px, 9vw, 120px); }
   .hero-grid { display: grid; gap: 48px; align-items: center; }
-  @media (min-width: 1000px) { .hero-grid { grid-template-columns: 1.15fr .85fr; gap: 80px; } }
+  @media (min-width: 1000px) { .hero-grid { grid-template-columns: 1.4fr .6fr; gap: 64px; } }
   .hero h1 { font-size: clamp(2.3rem, 5.2vw, 4.4rem); margin-bottom: 26px; }
   .hero .lead { margin-bottom: 34px; max-width: 54ch; }
   .btns { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -260,7 +278,19 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
   .trust { list-style: none; padding: 26px 0 0; margin: 40px 0 0; display: flex; flex-wrap: wrap; gap: 14px 30px; font-size: .92rem; color: var(--ink2); border-top: 1px solid var(--line); }
   .trust li { display: inline-flex; align-items: center; gap: 10px; }
   .trust :global(svg) { color: var(--sage); }
-  .hero-visual { position: relative; max-width: 520px; width: 100%; justify-self: center; }
+  .hero-visual { position: relative; max-width: 360px; width: 100%; justify-self: center; }
+  .hero-mini { display: none; }
+  @media (max-width: 999px) {
+    .hero { padding-bottom: 40px; }
+    .hero-visual { display: none; }
+    .hero-head { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; }
+    .hero-head h1 { margin: 0; flex: 1; }
+    .hero-mini { display: block; flex: none; width: 92px; height: 92px; border-radius: 50%; overflow: hidden; box-shadow: 0 0 0 3px var(--white), 0 0 0 4px var(--line); }
+    .hero-mini :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+    .hero h1 { font-size: clamp(1.7rem, 7vw, 2.6rem); }
+    .hero .lead { margin-bottom: 24px; font-size: 1.02rem; }
+    .trust { margin-top: 26px; padding-top: 18px; gap: 10px 22px; font-size: .86rem; }
+  }
   .hero-img { aspect-ratio: 4 / 5; border-radius: 220px 220px var(--r) var(--r); }
   .hero-img :global(img) { object-position: 50% 50%; }
   .oslo-card { position: absolute; left: -24px; bottom: 32px; display: flex; align-items: center; gap: 12px; background: var(--white); border: 1px solid var(--line); border-radius: var(--r); padding: 12px 18px 12px 12px; box-shadow: var(--shadow); font-size: .85rem; color: var(--ink3); }
@@ -268,7 +298,9 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
   @media (max-width: 1000px) { .oslo-card { position: static; margin: 14px auto 0; width: fit-content; box-shadow: none; } }
 
   /* 1 bis. Bilan gratuit */
-  .free-s { padding: 0 0 clamp(64px, 8vw, 110px); }
+  .free-s { padding: clamp(48px, 6vw, 88px) 0 0; }
+  .finder-s { padding: clamp(32px, 4vw, 56px) 0 clamp(56px, 7vw, 96px); }
+  @media (min-width: 700px) { .free-more { display: none; } }
   .free-card { display: grid; gap: 36px; background: var(--white); border: 1px solid var(--sage); box-shadow: inset 0 0 0 1px var(--sage); border-radius: var(--r-lg); padding: clamp(26px, 4vw, 56px); }
   @media (min-width: 1000px) { .free-card { grid-template-columns: 1.1fr .9fr; gap: 64px; align-items: start; } }
   .free-main h2 { font-size: clamp(1.8rem, 3.6vw, 2.8rem); margin-bottom: 18px; }
@@ -292,7 +324,12 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
   .signs li { padding: 7px 13px; border-radius: 999px; background: #f6e9e1; color: #8a4a2a; font-size: .9rem; font-weight: 500; line-height: 1.3; }
   /* la piste : l'explication, mise en avant à part */
   .piste { padding: 16px 18px; border-left: 3px solid var(--sage); border-radius: 4px var(--r) var(--r) 4px; background: var(--sage-l); }
-  .piste-l { display: flex; align-items: center; gap: 7px; margin: 0 0 6px; font-size: .8rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--sage-d); }
+  .piste summary { list-style: none; cursor: pointer; }
+  .piste summary::-webkit-details-marker { display: none; }
+  .piste summary::after { content: '+'; margin-left: auto; font-size: 1.1rem; font-weight: 400; letter-spacing: 0; }
+  .piste[open] summary::after { content: '−'; }
+  .piste[open] summary { margin-bottom: 6px; }
+  .piste-l { display: flex; align-items: center; gap: 7px; margin: 0; font-size: .8rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--sage-d); }
   .piste p:not(.piste-l) { margin: 0; color: var(--ink); font-size: .97rem; line-height: 1.55; }
   @media (max-width: 600px) {
     .sit { padding: 22px 18px; }
@@ -305,7 +342,7 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
   .sit-more { display: inline-flex; align-items: center; gap: 6px; font-size: .9rem; font-weight: 500; color: var(--sage); }
   .sit-more { text-decoration: none; align-self: flex-start; margin-top: auto; }
   .sit-more:hover { text-decoration: underline; }
-  .finder { display: grid; gap: 32px; margin-top: clamp(56px, 7vw, 96px); background: var(--white); border: 1px solid var(--line); border-radius: var(--r-lg); padding: clamp(24px, 4vw, 48px); scroll-margin-top: 90px; }
+  .finder { display: grid; gap: 32px; background: var(--white); border: 1px solid var(--line); border-radius: var(--r-lg); padding: clamp(24px, 4vw, 48px); scroll-margin-top: 90px; }
   @media (min-width: 1000px) { .finder { grid-template-columns: .8fr 1.2fr; gap: 56px; align-items: center; } }
   .fc-head { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; font-size: .78rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--sage); }
   .finder-intro h3 { font-size: clamp(1.3rem, 2.2vw, 1.6rem); margin: 0 0 12px; }
@@ -328,7 +365,7 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
   .philo { display: grid; gap: 48px; align-items: center; }
   @media (min-width: 960px) { .philo { grid-template-columns: .8fr 1.2fr; gap: 90px; } }
   .philo-img { aspect-ratio: 4 / 5; max-width: 460px; }
-  @media (max-width: 959px) { .philo-img { aspect-ratio: 4 / 3; max-width: none; } }
+  @media (max-width: 959px) { .philo-img { display: none; } }
   .pillars { list-style: none; padding: 0; margin: 30px 0; border-top: 1px solid rgb(54 81 63 / .2); }
   .pillars li { display: flex; gap: 18px; padding: 20px 0; border-bottom: 1px solid rgb(54 81 63 / .2); }
   .pillars .icon-c { background: var(--white); }
@@ -367,4 +404,45 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
   .final-cta .btn { background: var(--paper); border-color: var(--paper); color: var(--sage-d); font-weight: 600; font-size: 1.02rem; padding: 17px 30px; box-shadow: 0 14px 34px -14px rgb(0 0 0 / .55); }
   .final-cta .btn:hover { background: #fff; border-color: #fff; color: var(--ink); transform: translateY(-2px); }
   @media (max-width: 520px) { .final-cta .btn { width: 100%; justify-content: center; } }
+  @media (max-width: 699px) {
+    .offers { gap: 12px; margin-top: 28px; }
+    .o-tag { margin-top: 14px; }
+    .o-txt { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 14px; }
+    .more-p { margin-top: 24px; }
+    .sits { margin-top: 28px; gap: 12px; }
+    .sit { gap: 14px; }
+    .osl-say { margin-bottom: 16px; }
+    .osl-say :global(img.oslo) { width: 64px; height: 64px; }
+    .sits-s .narrow-head .lead { display: none; }
+    .narrow-head .lead { margin-top: 14px; font-size: 1rem; }
+    .reviews { grid-auto-flow: column; grid-auto-columns: 86%; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; margin-top: 28px; gap: 12px; }
+    .review { scroll-snap-align: start; }
+    .zones { gap: 6px; }
+    .free-side { display: none; }
+    section:not(.hero):not(.free-s):not(.finder-s) { padding: 56px 0; }
+    .final-s { padding-top: 0 !important; }
+    .head { margin-bottom: 0; }
+    .final .lead { font-size: 1rem; margin-top: 14px; }
+    .final .zones { margin-top: 18px; }
+    .sit { padding: 18px 16px; gap: 12px; }
+    .sit .icon-c { width: 40px; height: 40px; }
+    .sit h3 { font-size: 1.08rem; }
+    .signs { gap: 0; display: block; color: #8a4a2a; font-size: .9rem; line-height: 1.5; }
+    .signs li { display: inline; padding: 0; background: none; font-size: inherit; }
+    .signs li:not(:last-child)::after { content: ' · '; color: var(--ink3); }
+    .piste { padding: 10px 14px; }
+    .o-top { display: none; }
+    .o-tag { margin-top: 0; }
+    .offer { padding: 20px 18px; }
+    .pillars { margin: 22px 0; }
+    .pillars li { padding: 14px 0; gap: 14px; }
+    .pillars p { display: none; }
+    .pillars h3 { margin: 0; align-self: center; }
+    .pillars .icon-c { width: 40px; height: 40px; }
+    .free-card { gap: 0; padding: 22px 18px; }
+    .free-meta { margin-bottom: 20px; gap: 6px; }
+    .free-meta li { padding: 6px 11px; font-size: .84rem; }
+    .free-main h2 { font-size: 1.6rem; }
+    .free-main .lead { font-size: 1rem; margin-bottom: 18px; }
+  }
 </style>

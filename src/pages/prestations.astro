@@ -106,19 +106,11 @@ const baladeFaq = [
 ];
 ---
 <Layout title="Prestations et tarifs" description="Bilan gratuit de 30 min, bilan complet à 40 €, séances individuelles, forfaits, accompagnements (chiot, réactivité, anxiété…) et balades collectives : les prestations de Pauline Renard, éducateur canin à Lyon.">
-  <PageHero mood="bravo" label="Prestations et tarifs" title="Des formules <em>claires</em>, adaptées à votre chien." lead="Le bilan complet, chez vous, est le point de départ de tout accompagnement. Vous hésitez ? Un bilan gratuit de 30 minutes permet d’abord de faire connaissance. Ensuite, on choisit ensemble : séance à l’unité, forfait ou balade collective." />
+  <PageHero mood="bravo" label="Prestations et tarifs" title="Des formules <em>claires</em>, adaptées à votre chien." />
 
   <!-- ============ 1. VUE RAPIDE ============ -->
   <section id="tarifs" class="anchor quick-s">
     <div class="w">
-      <div class="free-band" data-reveal>
-        <span class="icon-c"><LIcon name="gift" /></span>
-        <div>
-          <p class="fb-t">{freeCall.pitch}</p>
-          <p class="fb-s">{freeCall.duration} {freeCall.where}, sans engagement : vous m’exposez la situation, je vous propose les points à travailler et un échéancier de séances.</p>
-        </div>
-        <a class="btn sage" href={contact('Bilan gratuit')}>Réserver mon bilan gratuit <Icon name="arrow" size={17} /></a>
-      </div>
       <div class="quick" data-reveal="stagger">
         {quick.map((q) => (
           <article class:list={['qcard', { featured: q.featured }]}>
@@ -136,6 +128,14 @@ const baladeFaq = [
       <div class="info" data-reveal>
         <p><LIcon name="list" size={20} /> Paiement par virement ou en espèces</p>
         <p><LIcon name="route" size={20} /> Lyon 7 et alentours</p>
+      </div>
+      <div class="free-band" data-reveal>
+        <span class="icon-c"><LIcon name="gift" /></span>
+        <div>
+          <p class="fb-t">{freeCall.pitch}</p>
+          <p class="fb-s">{freeCall.duration} {freeCall.where}, sans engagement : vous m’exposez la situation, je vous propose les points à travailler et un échéancier de séances.</p>
+        </div>
+        <a class="btn sage" href={contact('Bilan gratuit')}>Réserver mon bilan gratuit <Icon name="arrow" size={17} /></a>
       </div>
     </div>
   </section>
@@ -399,7 +399,7 @@ const baladeFaq = [
   .qpoints { flex: 1; margin: 0 0 18px; font-size: .92rem; gap: 6px; }
   .qmore { align-self: flex-start; display: inline-flex; gap: 6px; font-size: .92rem; font-weight: 500; color: var(--sage); text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 1px; }
   .qmore:hover { color: var(--sage-d); }
-  .info { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 40px; margin-top: 32px; color: var(--ink2); font-size: .95rem; }
+  .info { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 40px; margin-top: 40px; color: var(--ink2); font-size: .95rem; }
   .info p { display: flex; align-items: center; gap: 10px; margin: 0; }
   .info :global(svg) { color: var(--sage); }
 
@@ -420,7 +420,7 @@ const baladeFaq = [
   .panel:focus-visible { outline: 2px solid var(--sage); outline-offset: 4px; }
   :global(.no-js) .panel[hidden] { display: block; margin-top: 20px; }
   @keyframes pin { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-  .free-band { display: grid; gap: 18px; align-items: center; margin-bottom: 28px; padding: 22px clamp(20px, 3vw, 32px); border: 1px solid var(--sage); box-shadow: inset 0 0 0 1px var(--sage); border-radius: var(--r-lg); background: var(--sage-l); }
+  .free-band { display: grid; gap: 18px; align-items: center; margin-top: 36px; padding: 22px clamp(20px, 3vw, 32px); border: 1px solid var(--sage); box-shadow: inset 0 0 0 1px var(--sage); border-radius: var(--r-lg); background: var(--sage-l); }
   @media (min-width: 900px) { .free-band { grid-template-columns: auto 1fr auto; gap: 24px; } }
   .free-band .icon-c { background: var(--white); }
   .fb-t { margin: 0 0 4px; font-family: var(--display); font-weight: 500; font-size: clamp(1.2rem, 2vw, 1.45rem); letter-spacing: -.02em; color: var(--ink); }

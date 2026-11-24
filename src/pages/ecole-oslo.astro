@@ -42,8 +42,8 @@ const cats = ['Tous', ...new Set(articles.map((a) => a.data.category))];
   <!-- ============ GUIDE D'OSLO ============ -->
   <section class="anchor bg-stone" id="mon-chien">
     <div class="w">
-      <div class="head"><div class="osl-say"><OsloAvatar size={120} mood="curieux" /><p class="label osl-bub">Mon guide des aptitudes</p></div><h2 data-split>Chaque chien a <em>son histoire</em>.</h2></div>
-      <p class="lead intro" data-reveal>Réduire le comportement d’un chien à sa race serait réducteur : il y a l’individu, son histoire, son âge, son environnement, son humain et ses apprentissages. En revanche, chaque chien possède des aptitudes fondamentales, héritées de ses ancêtres les canidés, et des tendances naturelles, modelées par la sélection de certaines typologies, qui influencent sa façon de voir le monde et d’interagir avec nous.</p>
+      <div class="head"><div class="osl-say"><OsloAvatar size={120} mood="curieux" /><p class="label osl-bub">Mon guide des aptitudes</p></div><h2 data-split>Des tendances, <em>pas des cases</em>.</h2></div>
+      <p class="lead intro" data-reveal>Chaque chien est unique : son histoire, son âge, son environnement et ses apprentissages comptent autant que sa race. Mais tous possèdent des aptitudes fondamentales, héritées de leurs ancêtres les canidés, et des tendances naturelles, modelées par la sélection de certaines typologies. Ce ne sont pas des cases, mais des clés : elles influencent sa façon de voir le monde et d’interagir avec nous, et c’est en s’appuyant sur elles que l’on construit l’accompagnement.</p>
       <div class="find-card" data-reveal>
         <div class="fc-head"><OsloAvatar size={44} mood="curieux" /><span>Présentez-moi votre chien</span></div>
         <DogFinder />
@@ -67,7 +67,7 @@ const cats = ['Tous', ...new Set(articles.map((a) => a.data.category))];
 
   <section id="familles" class="anchor">
     <div class="w">
-      <div class="head"><div class="osl-say"><OsloAvatar size={120} mood="curieux" /><p class="label osl-bub">Les grandes typologies</p></div><h2 data-split>Des tendances, <em>pas des cases</em>.</h2><p class="lead fam-lead" data-reveal>Ces fiches décrivent des tendances fréquentes, pas des règles. Votre chien peut s’y reconnaître en partie… ou pas du tout, et c’est très bien ainsi.</p></div>
+      <div class="head"><div class="osl-say"><OsloAvatar size={120} mood="curieux" /><p class="label osl-bub">Les grandes typologies</p></div><h2 data-split>Les fiches <em>par typologie</em>.</h2></div>
       <div class="grid g3" data-reveal="stagger">
         {groups.map((g) => (
           <a class="card hover fam" href={`/races/${g.slug}/`}>

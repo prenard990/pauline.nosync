@@ -132,7 +132,52 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
     </div>
   </section>
 
-  <!-- 4. BILAN GRATUIT (après les accompagnements) -->
+  <!-- 4. GUIDE D'OSLO (formulaire affiché à la demande) -->
+  <section class="finder-s">
+    <div class="w">
+      <div class="finder" id="mon-chien" data-reveal>
+        <div class="finder-intro">
+          <div class="fc-head"><OsloAvatar size={44} mood="curieux" /><span>Le guide d’Oslo</span></div>
+          <h3>Comprendre ce qui compte pour lui</h3>
+          <p>Présentez votre chien à Oslo (nom, âge, race) : il vous donne des pistes pour mieux comprendre ses besoins.</p>
+          <button class="btn sage" type="button" data-finder-open aria-controls="finder-form" aria-expanded="false">Découvrir ses besoins <Icon name="arrow" size={17} /></button>
+        </div>
+        <div class="finder-form" id="finder-form" hidden><DogFinder /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. AVIS CLIENTS puis CONTACT (un seul bloc) -->
+  <section class="final-s">
+    <div class="w">
+      <div class="final">
+        {avis.length > 0 && <div class="final-avis">
+          <p class="fa-t"><span class="stars" aria-hidden="true">{[1, 2, 3, 4, 5].map(() => <Icon name="star" size={14} />)}</span> Avis clients</p>
+          <h2 class="fa-h" data-split>Ils ont retrouvé <em>un quotidien serein</em></h2>
+          <div class="mini-reviews">
+            {avis.map((t) => (
+              <figure class="mini">
+                <blockquote><p>{t.texte}</p></blockquote>
+                <figcaption><strong>{t.prenom}</strong> &amp; {t.chien} · {t.race}</figcaption>
+              </figure>
+            ))}
+          </div>
+          <a class="rev-link" href={site.reviewUrl} target="_blank" rel="noopener">Vous avez été accompagné·e ? Laissez un avis <Icon name="arrow" size={15} /></a>
+        </div>}
+        <div class="final-top">
+          <div>
+            <h2 data-split>Prêt à commencer <em>avec votre chien</em> ?</h2>
+            <p class="zones-l"><LIcon name="pin" size={16} /> À domicile et en extérieur : {zones.join(', ')}.</p>
+          </div>
+          <div class="final-cta" data-reveal>
+            <a class="btn light" href="/contact/">Me contacter <Icon name="arrow" size={17} /></a>
+            <p class="reassure"><LIcon name="clock" size={16} /> Réponse sous 24h · 7j/7</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- 6. BILAN GRATUIT (en fin de page) -->
   <section class="free-s" id="bilan-gratuit">
     <div class="w">
       <div class="free-card" data-reveal>
@@ -163,51 +208,6 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
     </div>
   </section>
 
-  <!-- 5. GUIDE D'OSLO (formulaire affiché à la demande) -->
-  <section class="finder-s">
-    <div class="w">
-      <div class="finder" id="mon-chien" data-reveal>
-        <div class="finder-intro">
-          <div class="fc-head"><OsloAvatar size={44} mood="curieux" /><span>Le guide d’Oslo</span></div>
-          <h3>Comprendre ce qui compte pour lui</h3>
-          <p>Présentez votre chien à Oslo (nom, âge, race) : il vous donne des pistes pour mieux comprendre ses besoins.</p>
-          <button class="btn sage" type="button" data-finder-open aria-controls="finder-form" aria-expanded="false">Découvrir ses besoins <Icon name="arrow" size={17} /></button>
-        </div>
-        <div class="finder-form" id="finder-form" hidden><DogFinder /></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 6. AVIS CLIENTS puis CONTACT (un seul bloc) -->
-  <section class="final-s">
-    <div class="w">
-      <div class="final">
-        {avis.length > 0 && <div class="final-avis">
-          <p class="fa-t"><span class="stars" aria-hidden="true">{[1, 2, 3, 4, 5].map(() => <Icon name="star" size={14} />)}</span> Avis clients</p>
-          <h2 class="fa-h" data-split>Ils ont retrouvé <em>un quotidien serein</em></h2>
-          <div class="mini-reviews">
-            {avis.map((t) => (
-              <figure class="mini">
-                <blockquote><p>{t.texte}</p></blockquote>
-                <figcaption><strong>{t.prenom}</strong> &amp; {t.chien} · {t.race}</figcaption>
-              </figure>
-            ))}
-          </div>
-          <a class="rev-link" href={site.reviewUrl} target="_blank" rel="noopener">Vous avez été accompagné·e ? Laissez un avis <Icon name="arrow" size={15} /></a>
-        </div>}
-        <div class="final-top">
-          <div>
-            <h2 data-split>Prêt à commencer <em>avec votre chien</em> ?</h2>
-            <p class="zones-l"><LIcon name="pin" size={16} /> À domicile et en extérieur : {zones.join(', ')}.</p>
-          </div>
-          <div class="final-cta" data-reveal>
-            <a class="btn light" href="/contact/">Me contacter <Icon name="arrow" size={17} /></a>
-            <p class="reassure"><LIcon name="clock" size={16} /> Réponse sous 24h · 7j/7</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 </Layout>
 
 <script>
@@ -259,7 +259,7 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
   @media (max-width: 1000px) { .oslo-card { position: static; margin: 14px auto 0; width: fit-content; box-shadow: none; } }
 
   /* 1 bis. Bilan gratuit */
-  .free-s { padding: clamp(48px, 6vw, 88px) 0 0; }
+  .free-s { padding: clamp(40px, 5vw, 64px) 0 clamp(56px, 7vw, 96px); }
   .finder-s { padding: clamp(32px, 4vw, 56px) 0 clamp(56px, 7vw, 96px); }
   @media (min-width: 700px) { .free-more { display: none; } }
   .free-card { display: grid; gap: 36px; background: var(--white); border: 1px solid var(--sage); box-shadow: inset 0 0 0 1px var(--sage); border-radius: var(--r-lg); padding: clamp(26px, 4vw, 56px); }
@@ -323,7 +323,7 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
   .more-p { margin-top: 56px; }
 
   /* 6. Avis + contact */
-  .final-s { padding-top: 0; }
+  .final-s { padding-top: 0; padding-bottom: 0; }
   .final { background: var(--sage-d); color: #fff; border-radius: var(--r-lg); padding: clamp(26px, 4vw, 44px) clamp(22px, 4vw, 52px); }
   .final-top { display: grid; gap: 22px; align-items: center; }
   @media (min-width: 860px) { .final-top { grid-template-columns: 1fr auto; gap: 40px; } }
@@ -364,8 +364,8 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
     .sits-s .narrow-head .lead { display: none; }
     .narrow-head .lead { margin-top: 14px; font-size: 1rem; }
     .free-side { display: none; }
-    section:not(.hero):not(.free-s):not(.finder-s) { padding: 56px 0; }
-    .final-s { padding-top: 0 !important; }
+    section:not(.hero):not(.free-s):not(.finder-s):not(.final-s) { padding: 56px 0; }
+    .final-s { padding-top: 0 !important; padding-bottom: 0 !important; }
     .head { margin-bottom: 0; }
     .sit { padding: 18px 16px; gap: 12px; }
     .sit .icon-c { width: 40px; height: 40px; }

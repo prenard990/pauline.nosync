@@ -178,22 +178,13 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
     </div>
   </section>
 
-  <!-- 6. AVIS CLIENTS + CONTACT (un seul bloc) -->
+  <!-- 6. AVIS CLIENTS puis CONTACT (un seul bloc) -->
   <section class="final-s">
     <div class="w">
       <div class="final">
-        <div class="final-top">
-          <div>
-            <h2 data-split>Prêt à commencer <em>avec votre chien</em> ?</h2>
-            <p class="zones-l"><LIcon name="pin" size={16} /> À domicile et en extérieur : {zones.join(', ')}.</p>
-          </div>
-          <div class="final-cta" data-reveal>
-            <a class="btn light" href="/contact/">Me contacter <Icon name="arrow" size={17} /></a>
-            <p class="reassure"><LIcon name="clock" size={16} /> Réponse sous 24h · 7j/7</p>
-          </div>
-        </div>
         {avis.length > 0 && <div class="final-avis">
-          <p class="fa-t"><span class="stars" aria-hidden="true">{[1, 2, 3, 4, 5].map(() => <Icon name="star" size={14} />)}</span> Ils m’ont fait confiance</p>
+          <p class="fa-t"><span class="stars" aria-hidden="true">{[1, 2, 3, 4, 5].map(() => <Icon name="star" size={14} />)}</span> Avis clients</p>
+          <h2 class="fa-h" data-split>Ils ont retrouvé <em>un quotidien serein</em></h2>
           <div class="mini-reviews">
             {avis.map((t) => (
               <figure class="mini">
@@ -204,6 +195,16 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
           </div>
           <a class="rev-link" href={site.reviewUrl} target="_blank" rel="noopener">Vous avez été accompagné·e ? Laissez un avis <Icon name="arrow" size={15} /></a>
         </div>}
+        <div class="final-top">
+          <div>
+            <h2 data-split>Prêt à commencer <em>avec votre chien</em> ?</h2>
+            <p class="zones-l"><LIcon name="pin" size={16} /> À domicile et en extérieur : {zones.join(', ')}.</p>
+          </div>
+          <div class="final-cta" data-reveal>
+            <a class="btn light" href="/contact/">Me contacter <Icon name="arrow" size={17} /></a>
+            <p class="reassure"><LIcon name="clock" size={16} /> Réponse sous 24h · 7j/7</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -333,8 +334,9 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
   .final-cta { display: grid; justify-items: start; gap: 10px; }
   @media (min-width: 860px) { .final-cta { justify-items: center; } }
   .reassure { display: inline-flex; align-items: center; gap: 8px; margin: 0; font-size: .85rem; font-weight: 500; color: #fff; }
-  .final-avis { margin-top: 28px; padding-top: 24px; border-top: 1px solid rgb(255 255 255 / .18); }
-  .fa-t { display: flex; align-items: center; gap: 10px; margin: 0 0 14px; font-size: .78rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: rgb(255 255 255 / .9); }
+  .final-avis { margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid rgb(255 255 255 / .18); }
+  .final .fa-h { margin: 0 0 18px; }
+  .fa-t { display: flex; align-items: center; gap: 10px; margin: 0 0 10px; font-size: .78rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: rgb(255 255 255 / .9); }
   .stars { display: inline-flex; gap: 2px; color: #f0c14b; }
   .stars :global(svg) { fill: currentColor; }
   .mini-reviews { display: grid; gap: 12px; }

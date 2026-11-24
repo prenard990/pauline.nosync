@@ -3,6 +3,8 @@ export const site = {
   role: 'Éducatrice & comportementaliste canin',
   city: 'Lyon 7',
   area: 'Lyon et alentours',
+  // affiché sur le site (pied de page, contact, prestations)
+  location: 'Lyon 7 et alentours',
   email: 'pauline-rnd@hotmail.fr',
   // Clé publique Web3Forms (https://web3forms.com) : une fois renseignée, le formulaire de contact
   // l'utilise à la place de FormSubmit. Cette clé est faite pour être visible dans le site.

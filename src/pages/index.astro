@@ -6,7 +6,7 @@ import LIcon from '../components/LIcon.astro';
 import OsloAvatar from '../components/OsloAvatar.astro';
 import DogFinder from '../components/DogFinder.astro';
 import { temoignages } from '../data/temoignages';
-import { zones, pillars } from '../data/site';
+import { zones, pillars, freeCall, prices, bilanWhy } from '../data/site';
 import heroPhoto from '../assets/photos/pauline-oslo-prairie.jpg';
 import paulineRecompense from '../assets/photos/pauline-recompense.jpg';
 
@@ -71,6 +71,36 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
         <div class="oslo-card" data-reveal>
           <OsloAvatar size={42} mood="joyeux" />
           <span><strong>Ma maîtresse et moi en balade</strong>Lyon et alentours</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1 bis. BILAN GRATUIT (juste après la présentation : la porte d'entrée la plus simple) -->
+  <section class="free-s" id="bilan-gratuit">
+    <div class="w">
+      <div class="free-card" data-reveal>
+        <div class="free-main">
+          <div class="osl-say"><OsloAvatar size={120} mood="joyeux" /><p class="label osl-bub">Bilan gratuit · {freeCall.duration}</p></div>
+          <h2 data-split>Vous hésitez encore ? <em>Faites un premier bilan gratuit.</em></h2>
+          <p class="lead">30 minutes {freeCall.where} pour me parler de votre chien et des difficultés que vous rencontrez. À la fin de l’échange, je vous dis ce que nous aurions à travailler ensemble et je vous propose un échéancier de séances.</p>
+          <ul class="free-meta" aria-label="En pratique">
+            <li><LIcon name="clock" size={18} /> {freeCall.duration}</li>
+            <li><LIcon name="phone" size={18} /> Téléphone</li>
+            <li><LIcon name="video" size={18} /> ou visio</li>
+            <li><LIcon name="gift" size={18} /> Gratuit, sans engagement</li>
+          </ul>
+          <div class="btns">
+            <a class="btn sage" href={`/contact/?motif=${encodeURIComponent('Bilan gratuit')}&offre=${encodeURIComponent('Bilan gratuit')}`}>Réserver mon bilan gratuit <Icon name="arrow" size={17} /></a>
+          </div>
+        </div>
+        <div class="free-side">
+          <p class="free-t">Pendant ces 30 minutes</p>
+          <ul class="check">{freeCall.features.map((f) => <li>{f}</li>)}</ul>
+          <div class="free-next">
+            <p class="free-t">Et ensuite ?</p>
+            <p>{bilanWhy} <a href="/prestations/#bilan">Découvrir le bilan complet ({prices[0].price} €) →</a></p>
+          </div>
         </div>
       </div>
     </div>
@@ -236,6 +266,20 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
   .oslo-card strong { display: block; color: var(--ink); font-size: .95rem; }
   @media (max-width: 1000px) { .oslo-card { position: static; margin: 14px auto 0; width: fit-content; box-shadow: none; } }
 
+  /* 1 bis. Bilan gratuit */
+  .free-s { padding: 0 0 clamp(64px, 8vw, 110px); }
+  .free-card { display: grid; gap: 36px; background: var(--white); border: 1px solid var(--sage); box-shadow: inset 0 0 0 1px var(--sage); border-radius: var(--r-lg); padding: clamp(26px, 4vw, 56px); }
+  @media (min-width: 1000px) { .free-card { grid-template-columns: 1.1fr .9fr; gap: 64px; align-items: start; } }
+  .free-main h2 { font-size: clamp(1.8rem, 3.6vw, 2.8rem); margin-bottom: 18px; }
+  .free-main .lead { margin-bottom: 24px; }
+  .free-meta { list-style: none; padding: 0; margin: 0 0 28px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .free-meta li { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; background: var(--sage-l); color: var(--sage-d); font-size: .9rem; font-weight: 500; }
+  .free-side { display: grid; gap: 28px; }
+  .free-t { margin: 0 0 14px; font-size: .78rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--sage); }
+  .free-next { padding: 20px 22px; border-radius: var(--r); background: var(--stone); }
+  .free-next p:not(.free-t) { margin: 0; color: var(--ink2); font-size: .95rem; line-height: 1.6; }
+  .free-next a { color: var(--sage-d); font-weight: 500; }
+  @media (max-width: 520px) { .free-main .btns .btn { width: 100%; } }
   /* 2. Situations + guide */
   .sits { display: grid; gap: 16px; margin-top: 44px; }
   @media (min-width: 760px) { .sits { grid-template-columns: 1fr 1fr; gap: 20px; } }

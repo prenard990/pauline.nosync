@@ -85,7 +85,7 @@ const others = groups.filter((o) => o.slug !== g.slug);
         </div>
         <div class="edu-cta" data-reveal>
           <p class="muted">Voici les grandes lignes. La mise en pratique dépend de votre chien, de son histoire et de votre quotidien : c’est ce que nous construisons ensemble, pas à pas, en séance.</p>
-          <a class="btn sage" href={`/contact/?motif=${encodeURIComponent('Bilan comportemental')}&offre=${encodeURIComponent('Séance bilan')}`} data-contact>Réserver un bilan <span data-dog-for></span> <Icon name="arrow" size={17} /></a>
+          <a class="btn sage" href={`/contact/?motif=${encodeURIComponent('Bilan gratuit')}&offre=${encodeURIComponent('Bilan gratuit')}`} data-contact>Réserver un bilan gratuit <span data-dog-for></span> <Icon name="arrow" size={17} /></a>
         </div>
       </div>
     </section>
@@ -123,9 +123,9 @@ const others = groups.filter((o) => o.slug !== g.slug);
         <div class="note" data-reveal>
           <div>
             <p class="t">Chaque chien est unique.</p>
-            <p class="muted">La race donne des tendances, pas un destin : l’histoire, l’environnement et la personnalité de votre chien comptent tout autant. Pour une analyse personnalisée, rien ne remplace une séance bilan.</p>
+            <p class="muted">La race donne des tendances, pas un destin : l’histoire, l’environnement et la personnalité de votre chien comptent tout autant. Pour une analyse personnalisée, commencez par un premier bilan gratuit de 30 minutes.</p>
           </div>
-          <a class="btn sage" href={`/contact/?motif=${encodeURIComponent('Bilan comportemental')}&offre=${encodeURIComponent('Séance bilan')}`} data-contact>Réserver un bilan <span data-dog-for></span> <Icon name="arrow" size={17} /></a>
+          <a class="btn sage" href={`/contact/?motif=${encodeURIComponent('Bilan gratuit')}&offre=${encodeURIComponent('Bilan gratuit')}`} data-contact>Réserver un bilan gratuit <span data-dog-for></span> <Icon name="arrow" size={17} /></a>
         </div>
         <details class="all">
           <summary>Voir les {groupBreeds.length} races de cette famille</summary>
@@ -235,7 +235,7 @@ const others = groups.filter((o) => o.slug !== g.slug);
       `Enchanté, ${dog.nom} ! Les ${g.name.toLowerCase()} ont une histoire passionnante. Voyons ensemble ce qui se cache derrière ses comportements.`;
     document.querySelectorAll<HTMLElement>('[data-dog-for]').forEach((el) => (el.textContent = `pour ${dog.nom}`));
     document.querySelectorAll<HTMLAnchorElement>('[data-contact]').forEach((c) => {
-      c.href = `/contact/?motif=${encodeURIComponent('Bilan comportemental')}&offre=${encodeURIComponent('Séance bilan')}&${new URLSearchParams({ chien_nom: dog.nom, chien_age: dog.age, chien_race: dog.race })}`;
+      c.href = `/contact/?motif=${encodeURIComponent('Bilan gratuit')}&offre=${encodeURIComponent('Bilan gratuit')}&${new URLSearchParams({ chien_nom: dog.nom, chien_age: dog.age, chien_race: dog.race })}`;
     });
     if (stage) {
       select(stage.key);

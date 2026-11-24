@@ -39,17 +39,35 @@ export const nav: { href: string; label: string; also?: string[] }[] = [
   { href: '/ecole-oslo/', label: 'L’école d’Oslo', also: ['/races/', '/conseils/'] },
 ];
 
+// Bilan gratuit : premier échange de 30 min à distance, sans engagement (accueil, prestations, formulaire).
+export const freeCall = {
+  name: 'Bilan gratuit',
+  duration: '30 min',
+  where: 'par téléphone ou en visio',
+  pitch: 'Vous hésitez encore ? Faites un premier bilan gratuit.',
+  features: [
+    'Vous m’exposez la situation et ce qui vous gêne au quotidien',
+    'Je vous donne mon regard de professionnelle sur la situation',
+    'Je vous indique les points que nous aurions à travailler ensemble',
+    'Je vous propose un échéancier de séances adapté',
+  ],
+  note: 'Sans engagement : vous décidez ensuite, tranquillement, si vous souhaitez aller plus loin.',
+};
+
+// Pourquoi le bilan complet reste indispensable, même après le bilan gratuit.
+export const bilanWhy = 'En 30 minutes, on fait le point sur l’essentiel. Mais pour construire un travail sérieux, j’ai besoin de connaître votre chien en profondeur : son histoire, sa santé, son quotidien, son environnement, et de l’observer chez vous. C’est le rôle du bilan complet, indispensable avant de commencer les séances.';
+
 export const prices = [
   {
-    name: 'Séance bilan',
+    name: 'Bilan complet',
     price: 40,
-    unit: 'la séance',
-    pitch: 'Le point de départ de tout accompagnement.',
+    unit: 'la séance · 1h30 à 2h chez vous',
+    pitch: 'Indispensable avant de commencer le travail.',
     features: [
       'Observation de votre chien dans son environnement',
-      'Échange sur votre quotidien et vos objectifs',
-      'Premières pistes concrètes à appliquer',
-      'Proposition d’un plan de travail adapté',
+      'Histoire, santé, quotidien : tout ce qui compte pour comprendre',
+      'Analyse de l’origine des comportements gênants',
+      'Plan de travail détaillé et personnalisé',
     ],
     featured: false,
   },
@@ -69,7 +87,7 @@ export const prices = [
   {
     name: 'Forfait 3 séances',
     price: 160,
-    unit: 'séance bilan + 3 séances d’éducation',
+    unit: 'bilan complet + 3 séances d’éducation',
     pitch: 'Pour poser des bases solides.',
     features: [
       'Progression construite séance après séance',
@@ -82,7 +100,7 @@ export const prices = [
   {
     name: 'Forfait 5 séances',
     price: 230,
-    unit: 'séance bilan + 5 séances d’éducation',
+    unit: 'bilan complet + 5 séances d’éducation',
     pitch: 'Pour les problématiques de comportement.',
     features: [
       'Accompagnement dans la durée',
@@ -177,13 +195,13 @@ export const programs = [
       'Déménagement et nouvel environnement',
       'Évolution du rythme de vie',
     ],
-    suggested: 'Séance bilan + séances individuelles',
+    suggested: 'Bilan complet + séances individuelles',
     oslo: 'Un bébé arrive ? Préparez votre chien quelques semaines avant : nouveaux bruits, nouvelles odeurs, nouvelles pièces interdites. Les surprises, on n’aime pas trop.',
   },
 ];
 
 export const steps = [
-  { n: '01', title: 'On fait connaissance', text: 'Lors de la séance bilan, j’observe votre chien et j’écoute votre quotidien, vos difficultés et vos envies.' },
+  { n: '01', title: 'On fait connaissance', text: 'Lors du bilan complet, j’observe votre chien et j’écoute votre quotidien, vos difficultés et vos envies.' },
   { n: '02', title: 'On comprend', text: 'Ensemble, on identifie les causes des comportements gênants : émotion, besoin, environnement, apprentissage.' },
   { n: '03', title: 'On avance pas à pas', text: 'Je vous transmets des outils simples et concrets, adaptés à votre chien et à votre rythme.' },
   { n: '04', title: 'On ancre durablement', text: 'On généralise les acquis dans différents lieux pour un changement qui tient dans le temps.' },
@@ -191,8 +209,12 @@ export const steps = [
 
 export const faq = [
   {
-    q: 'Comment se déroule la première séance ?',
-    a: 'La séance bilan (40 €) me permet d’observer votre chien et d’échanger avec vous sur votre quotidien. À la fin, je vous propose un plan de travail adapté et des premières pistes à appliquer tout de suite.',
+    q: 'Comment se déroule le premier contact ?',
+    a: 'Vous pouvez commencer par un bilan gratuit de 30 minutes, par téléphone ou en visio : vous m’exposez la situation, je vous indique les points à travailler et vous propose un échéancier de séances. Sans engagement.',
+  },
+  {
+    q: 'Pourquoi un bilan gratuit et un bilan complet payant ?',
+    a: 'Le bilan gratuit permet de faire connaissance et de savoir si je peux vous aider. Le bilan complet (40 €, 1h30 à 2h chez vous) est indispensable avant de commencer le travail : j’y recueille toutes les informations sur votre chien (histoire, santé, quotidien, environnement) et je l’observe chez lui pour établir un plan vraiment adapté. En 30 minutes à distance, ce n’est pas possible.',
   },
   {
     q: 'Où ont lieu les séances ?',

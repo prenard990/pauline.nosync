@@ -5,7 +5,7 @@ import PageHero from '../components/PageHero.astro';
 import Icon from '../components/Icon.astro';
 import Faq from '../components/Faq.astro';
 import OsloTip from '../components/OsloTip.astro';
-import { site, prices } from '../data/site';
+import { site, prices, freeCall } from '../data/site';
 import { stages } from '../data/groups';
 import { breeds } from '../data/breeds';
 // liste de races proposée dans le formulaire (sans doublons, par ordre alphabétique)
@@ -14,7 +14,8 @@ const breedNames = [...new Set(breeds.map((b) => b.name))].sort((a, b) => a.loca
 // pour présélectionner la bonne option.
 const motifGroups = [
   { label: 'Pour commencer', options: [
-    { text: 'Bilan comportemental (premier rendez-vous)', alias: ['Bilan comportemental', 'Séance bilan'] },
+    { text: `Bilan gratuit de ${freeCall.duration} (téléphone ou visio)`, alias: ['Bilan gratuit'] },
+    { text: 'Bilan complet (1h30 à 2h chez vous)', alias: ['Bilan comportemental', 'Séance bilan', 'Bilan complet'] },
     { text: 'Une question avant de me lancer', alias: [] },
   ] },
   { label: 'Ce qui vous amène', options: [
@@ -31,15 +32,15 @@ const motifGroups = [
   ] },
 ];
 ---
-<Layout footerCta={false} title="Contact" description="Contactez Pauline Renard, éducatrice canine à Lyon 7 : décrivez votre situation pour convenir d’une séance bilan.">
-  <PageHero mood="heureux" label="Écrivez à ma maîtresse" title="Parlons de <em>votre chien</em>." lead="Décrivez-moi votre situation, je reviens vers vous rapidement pour convenir d’une séance bilan." />
+<Layout footerCta={false} title="Contact" description="Contactez Pauline Renard, éducatrice canine à Lyon 7 : décrivez votre situation ou réservez un bilan gratuit de 30 minutes par téléphone ou en visio.">
+  <PageHero mood="heureux" label="Écrivez à ma maîtresse" title="Parlons de <em>votre chien</em>." lead="Décrivez-moi votre situation, je reviens vers vous rapidement. Vous hésitez encore ? Choisissez le bilan gratuit de 30 minutes, par téléphone ou en visio." />
 
   <section>
     <div class="w layout">
       <aside class="side" data-reveal="stagger">
         <a class="ct" href={`mailto:${site.email}`}><span class="icon-c"><Icon name="mail" size={20} /></span><span><small>E-mail</small><strong>{site.email}</strong></span></a>
         <div class="ct"><span class="icon-c"><Icon name="pin" size={20} /></span><span><small>Zone d’intervention</small><strong>{site.city} · {site.area}</strong></span></div>
-        <OsloTip title="Bon à savoir"><p>La <strong>séance bilan à 40 €</strong> est le point de départ idéal : vous faites connaissance avec ma maîtresse, et elle vous propose un plan adapté.</p></OsloTip>
+        <OsloTip title="Bon à savoir"><p>Le <strong>bilan gratuit</strong> (30 min, par téléphone ou en visio) permet de faire connaissance : ma maîtresse vous indique les points à travailler et vous propose un échéancier de séances. Le <strong>bilan complet à 40 €</strong>, chez vous, est ensuite indispensable pour démarrer le travail.</p></OsloTip>
       </aside>
 
       <div class="form-card" data-reveal>
@@ -68,8 +69,21 @@ const motifGroups = [
               ))}
               <option data-alias="Autre">Autre demande</option>
             </select></label>
-            <label>Formule envisagée<select name="offre" id="offre"><option>Je ne sais pas encore</option>{prices.map((p) => <option>{p.name}</option>)}</select></label>
+            <label>Formule envisagée<select name="offre" id="offre"><option>Je ne sais pas encore</option><option>{freeCall.name}</option>{prices.map((p, i) => <option data-alias={i === 0 ? 'Séance bilan' : ''}>{p.name}</option>)}</select></label>
           </div>
+          <!-- visible seulement si le bilan gratuit est choisi (motif ou formule) -->
+          <fieldset class="free" id="free" hidden>
+            <legend>Votre bilan gratuit de {freeCall.duration}</legend>
+            <div class="two">
+              <div class="choice" role="radiogroup" aria-label="Je préfère être contacté·e">
+                <span class="cl">Je préfère</span>
+                <label class="radio"><input type="radio" name="canal" value="Téléphone" checked /> Par téléphone</label>
+                <label class="radio"><input type="radio" name="canal" value="Visio" /> En visio</label>
+              </div>
+              <label><span>Mes disponibilités <span class="opt">(facultatif)</span></span><input name="dispos" placeholder="Ex. : en semaine après 18 h, samedi matin" autocomplete="off" /></label>
+            </div>
+            <p class="free-note">{freeCall.note}</p>
+          </fieldset>
           <label>Votre message<textarea name="msg" rows="6" required placeholder="Depuis quand, dans quels contextes, ce que vous avez déjà essayé…"></textarea></label>
           <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
           <button class="btn sage" type="submit"><span class="lbl">Envoyer ma demande</span> <Icon name="arrow" size={17} /></button>
@@ -107,6 +121,13 @@ const motifGroups = [
   input:focus, select:focus, textarea:focus { outline: none; background: var(--white); border-color: var(--sage); box-shadow: 0 0 0 3px var(--sage-l); }
   .invalid { border-color: var(--clay) !important; background: var(--clay-l) !important; }
   .hp { position: absolute; left: -9999px; }
+  .free { margin: 0; padding: 20px; border: 1px solid var(--sage); border-radius: var(--r); background: var(--sage-l); display: grid; gap: 14px; }
+  .free legend { padding: 0 8px; font-weight: 600; color: var(--sage-d); }
+  .choice { display: grid; gap: 8px; align-content: start; font-size: .9rem; }
+  .cl { font-weight: 500; }
+  .radio { display: flex; align-items: center; gap: 10px; font-weight: 400; cursor: pointer; }
+  .radio input { width: auto; accent-color: var(--sage); }
+  .free-note { margin: 0; font-size: .88rem; color: var(--ink2); }
   form .btn { justify-self: start; }
   form .btn[disabled] { opacity: .7; cursor: wait; }
   .msg { margin: 0; font-weight: 500; }
@@ -135,6 +156,32 @@ const motifGroups = [
     };
     pick('#offre', q.get('offre'));
     pick('#motif', q.get('motif'));
+    // bilan gratuit : bloc « téléphone ou visio » + disponibilités, et les deux listes restent cohérentes
+    const motifEl = f.querySelector<HTMLSelectElement>('#motif')!;
+    const offreEl = f.querySelector<HTMLSelectElement>('#offre')!;
+    const freeEl = f.querySelector<HTMLFieldSetElement>('#free')!;
+    const telEl = f.querySelector<HTMLInputElement>('[name=tel]')!;
+    const isFree = () => motifEl.value.startsWith('Bilan gratuit') || offreEl.value === 'Bilan gratuit';
+    const syncFree = () => {
+      const on = isFree();
+      freeEl.hidden = !on;
+      const phone = on && f.querySelector<HTMLInputElement>('[name=canal]:checked')?.value === 'Téléphone';
+      telEl.required = phone;
+      telEl.closest('label')!.querySelector('.opt')!.textContent = phone ? '(pour vous appeler)' : '(facultatif)';
+    };
+    motifEl.addEventListener('change', () => {
+      if (motifEl.value.startsWith('Bilan gratuit')) offreEl.value = 'Bilan gratuit';
+      else if (offreEl.value === 'Bilan gratuit') offreEl.value = 'Je ne sais pas encore';
+      syncFree();
+    });
+    offreEl.addEventListener('change', () => {
+      if (offreEl.value === 'Bilan gratuit') pick('#motif', 'Bilan gratuit');
+      else if (motifEl.value.startsWith('Bilan gratuit')) motifEl.value = '';
+      syncFree();
+    });
+    f.querySelectorAll('[name=canal]').forEach((r) => r.addEventListener('change', syncFree));
+    if (q.get('motif') === 'Bilan gratuit' || q.get('offre') === 'Bilan gratuit') { pick('#motif', 'Bilan gratuit'); offreEl.value = 'Bilan gratuit'; }
+    syncFree();
     // préremplit le chien depuis l'adresse (chien_nom, chien_age, chien_race) ou le profil enregistré avec Oslo
     const dog = loadDog();
     const nomEl = f.querySelector<HTMLInputElement>('[name=chien_nom]')!;
@@ -146,7 +193,7 @@ const motifGroups = [
 
     const ok = f.querySelector<HTMLElement>('#ok')!;
     // un champ signalé en rouge redevient normal dès qu'il est correctement rempli
-    f.querySelectorAll<HTMLInputElement>('[required]').forEach((el) =>
+    f.querySelectorAll<HTMLInputElement>('[required], [name=tel]').forEach((el) =>
       el.addEventListener('input', () => { if (el.checkValidity()) el.classList.remove('invalid'); }));
     const btn = f.querySelector<HTMLButtonElement>('button[type=submit]')!;
     const lbl = btn.querySelector<HTMLElement>('.lbl')!;
@@ -161,6 +208,10 @@ const motifGroups = [
       if (!valid) { ok.className = 'msg err'; ok.textContent = 'Merci de compléter les champs obligatoires.'; return; }
       const o: Record<string, string> = Object.fromEntries(new FormData(f) as any);
       if (o._honey) return;
+      // bilan gratuit : le mode de contact et les disponibilités sont ajoutés en tête du message
+      // (ainsi ils arrivent aussi bien dans l'e-mail que dans l'application « Mes bilans »)
+      if (isFree()) o.msg = `[Bilan gratuit – ${o.canal === 'Visio' ? 'en visio' : 'par téléphone'}${o.dispos ? ` – disponibilités : ${o.dispos}` : ''}]\n\n${o.msg}`;
+      delete o.canal; delete o.dispos;
       Object.assign(o, { _subject: `Nouvelle demande via le site – ${o.motif}`, _captcha: 'false', _template: 'table' });
       btn.disabled = true; lbl.textContent = 'Envoi en cours…'; ok.textContent = '';
       // si le service d'envoi est lent, on rassure le visiteur pour qu'il ne ferme pas la page
@@ -195,9 +246,9 @@ const motifGroups = [
         // l'envoi est réussi si l'e-mail est parti OU si la demande est enregistrée sur le site
         if ((!r.ok || String(res.success) !== 'true') && !(await saved)) throw new Error(res.message);
         ok.className = 'msg ok'; ok.textContent = 'Merci ! Votre message a bien été envoyé, je vous réponds rapidement. 🐶';
-        f.reset();
+        f.reset(); syncFree();
       } catch {
-        if (await saved) { ok.className = 'msg ok'; ok.textContent = 'Merci ! Votre message a bien été envoyé, je vous réponds rapidement. 🐶'; f.reset(); return; }
+        if (await saved) { ok.className = 'msg ok'; ok.textContent = 'Merci ! Votre message a bien été envoyé, je vous réponds rapidement. 🐶'; f.reset(); syncFree(); return; }
         ok.className = 'msg err'; ok.textContent = `L’envoi a échoué. Écrivez-moi directement à ${site.email} ou réessayez dans quelques minutes.`;
       } finally {
         window.clearTimeout(slow);

@@ -6,9 +6,8 @@ import LIcon from '../components/LIcon.astro';
 import OsloAvatar from '../components/OsloAvatar.astro';
 import DogFinder from '../components/DogFinder.astro';
 import { temoignages } from '../data/temoignages';
-import { site, zones, pillars, freeCall, prices, bilanWhy } from '../data/site';
+import { site, zones, freeCall, prices, bilanWhy } from '../data/site';
 import heroPhoto from '../assets/photos/pauline-oslo-prairie.jpg';
-import paulineRecompense from '../assets/photos/pauline-recompense.jpg';
 
 const situations = [
   {
@@ -108,7 +107,32 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
     </div>
   </section>
 
-  <!-- 2 bis. BILAN GRATUIT (juste après les difficultés : la porte d'entrée la plus simple) -->
+  <!-- 3. MES ACCOMPAGNEMENTS -->
+  <section id="accompagnements" class="anchor offers-s">
+    <div class="w">
+      <div class="head narrow-head">
+        <div class="osl-say"><OsloAvatar size={120} mood="bravo" /><p class="label osl-bub">Les accompagnements de ma maîtresse</p></div>
+        <h2 data-split>Un accompagnement <em>sur-mesure</em> à domicile et en extérieur</h2>
+      </div>
+      <div class="offers" data-reveal="stagger">
+        {offers.map((o, i) => (
+          <article class:list={['card', 'offer', { first: i === 0 }]}>
+            <div class="o-top">
+              <span class="icon-c"><LIcon name={o.icon} /></span>
+              <span class="o-n">{o.n}</span>
+            </div>
+            <p class="o-tag">{o.tag}</p>
+            <h3>{o.title}</h3>
+            <p class="o-txt">{o.text}</p>
+            <a class="link" href={o.href}>{o.cta} <Icon name="arrow" size={15} /></a>
+          </article>
+        ))}
+      </div>
+      <p class="center more-p"><a class="btn ghost" href="/prestations/">Toutes les prestations et tarifs <Icon name="arrow" size={17} /></a></p>
+    </div>
+  </section>
+
+  <!-- 4. BILAN GRATUIT (après les accompagnements) -->
   <section class="free-s" id="bilan-gratuit">
     <div class="w">
       <div class="free-card" data-reveal>
@@ -139,7 +163,7 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
     </div>
   </section>
 
-  <!-- 2 ter. GUIDE D'OSLO (formulaire affiché à la demande) -->
+  <!-- 5. GUIDE D'OSLO (formulaire affiché à la demande) -->
   <section class="finder-s">
     <div class="w">
       <div class="finder" id="mon-chien" data-reveal>
@@ -154,55 +178,7 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
     </div>
   </section>
 
-  <!-- 3. MES ACCOMPAGNEMENTS -->
-  <section id="accompagnements" class="anchor offers-s">
-    <div class="w">
-      <div class="head narrow-head">
-        <div class="osl-say"><OsloAvatar size={120} mood="bravo" /><p class="label osl-bub">Les accompagnements de ma maîtresse</p></div>
-        <h2 data-split>Un accompagnement <em>sur-mesure</em> à domicile et en extérieur</h2>
-      </div>
-      <div class="offers" data-reveal="stagger">
-        {offers.map((o, i) => (
-          <article class:list={['card', 'offer', { first: i === 0 }]}>
-            <div class="o-top">
-              <span class="icon-c"><LIcon name={o.icon} /></span>
-              <span class="o-n">{o.n}</span>
-            </div>
-            <p class="o-tag">{o.tag}</p>
-            <h3>{o.title}</h3>
-            <p class="o-txt">{o.text}</p>
-            <a class="link" href={o.href}>{o.cta} <Icon name="arrow" size={15} /></a>
-          </article>
-        ))}
-      </div>
-      <p class="center more-p"><a class="btn ghost" href="/prestations/">Toutes les prestations et tarifs <Icon name="arrow" size={17} /></a></p>
-    </div>
-  </section>
-
-  <!-- 4. PHILOSOPHIE & PRÉSENTATION -->
-  <section class="bg-sage">
-    <div class="w philo">
-      <div class="photo philo-img" data-img>
-        <Image src={paulineRecompense} alt="Pauline, accroupie sur un chemin, récompense une chienne au poil fauve" widths={[400, 675]} sizes="(min-width: 960px) 440px, 90vw" />
-      </div>
-      <div>
-        <div class="osl-say"><OsloAvatar size={120} mood="fier" /><p class="label osl-bub">La philosophie de ma maîtresse</p></div>
-        <h2 data-split>L’École d’Oslo : <em>comprendre</em> avant d’agir</h2>
-        <p class="lead" data-reveal>Bonjour, je suis Pauline, éducateur canin et comportementaliste à Lyon. Passionnée par le comportement animal, j’accompagne les duos maître-chien avec une conviction simple : un chien qui écoute est avant tout un chien qui est confiant et compris.</p>
-        <ul class="pillars" data-reveal="stagger">
-          {pillars.map((p) => (
-            <li>
-              <span class="icon-c"><LIcon name={p.icon} /></span>
-              <div><h3>{p.title}</h3><p>{p.text}</p></div>
-            </li>
-          ))}
-        </ul>
-        <a class="link" href="/mon-approche/">En savoir plus sur mon approche <Icon name="arrow" size={15} /></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- 5. AVIS CLIENTS (masqué tant qu'il n'y a aucun vrai avis) -->
+  <!-- 6. AVIS CLIENTS (masqué tant qu'il n'y a aucun vrai avis) -->
   {avis.length > 0 && <section>
     <div class="w">
       <div class="row-head">
@@ -230,19 +206,17 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
     </div>
   </section>}
 
-  <!-- 6. ZONE D'INTERVENTION & CONTACT -->
+  <!-- 7. ZONE D'INTERVENTION & CONTACT -->
   <section class="final-s">
     <div class="w">
       <div class="final">
-        <div class="osl-say"><OsloAvatar size={120} mood="heureux" /><p class="label osl-bub">Zone d’intervention</p></div>
-        <h2 data-split>Prêt à transformer votre quotidien <em>avec votre chien</em> ?</h2>
-        <p class="lead" data-reveal>J’interviens directement à votre domicile et sur vos lieux de promenade habituels à Lyon, Villeurbanne, Caluire, Tassin, Meyzieu et dans tout l’Est et l’Ouest lyonnais.</p>
-        <ul class="zones" data-reveal="stagger" aria-label="Communes desservies">
-          {zones.map((z) => <li><LIcon name="pin" size={15} /> {z}</li>)}
-        </ul>
+        <div>
+          <h2 data-split>Prêt à commencer <em>avec votre chien</em> ?</h2>
+          <p class="zones-l"><LIcon name="pin" size={16} /> À domicile et en extérieur : {zones.join(', ')}.</p>
+        </div>
         <div class="final-cta" data-reveal>
-          <a class="btn light" href="/contact/">Prendre rendez-vous / Me contacter <Icon name="arrow" size={17} /></a>
-          <p class="reassure"><LIcon name="clock" size={18} /> Réponse sous 24h • 7j/7</p>
+          <a class="btn light" href="/contact/">Me contacter <Icon name="arrow" size={17} /></a>
+          <p class="reassure"><LIcon name="clock" size={16} /> Réponse sous 24h · 7j/7</p>
         </div>
       </div>
     </div>
@@ -361,17 +335,6 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
   .o-txt { flex: 1; color: var(--ink2); font-size: .97rem; margin: 0 0 22px; }
   .more-p { margin-top: 40px; }
 
-  /* 4. Philosophie */
-  .philo { display: grid; gap: 48px; align-items: center; }
-  @media (min-width: 960px) { .philo { grid-template-columns: .8fr 1.2fr; gap: 90px; } }
-  .philo-img { aspect-ratio: 4 / 5; max-width: 460px; }
-  @media (max-width: 959px) { .philo-img { display: none; } }
-  .pillars { list-style: none; padding: 0; margin: 30px 0; border-top: 1px solid rgb(54 81 63 / .2); }
-  .pillars li { display: flex; gap: 18px; padding: 20px 0; border-bottom: 1px solid rgb(54 81 63 / .2); }
-  .pillars .icon-c { background: var(--white); }
-  .pillars h3 { margin: 2px 0 4px; font-size: 1.15rem; }
-  .pillars p { margin: 0; color: var(--ink2); font-size: .97rem; }
-
   /* 5. Avis */
   .reviews { display: grid; gap: 20px; margin-top: 44px; }
   @media (min-width: 900px) { .reviews { grid-template-columns: repeat(3, 1fr); } .reviews.n2 { grid-template-columns: 1fr 1fr; } .reviews.n1 { grid-template-columns: 1fr; max-width: 760px; } }
@@ -390,18 +353,16 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
 
   /* 6. Final */
   .final-s { padding-top: 0; }
-  .final { background: var(--sage-d); color: #fff; border-radius: var(--r-lg); padding: clamp(36px, 7vw, 88px) clamp(22px, 6vw, 80px); text-align: center; }
-  .final .label { color: rgb(255 255 255 / .9); justify-content: center; }
-  .final .osl-say { justify-content: center; }
-  .final .osl-bub { color: var(--sage-d); }
-  .final h2 { color: #fff; max-width: 20ch; margin-inline: auto; }
+  .final { display: grid; gap: 22px; align-items: center; background: var(--sage-d); color: #fff; border-radius: var(--r-lg); padding: clamp(26px, 4vw, 44px) clamp(22px, 4vw, 52px); }
+  @media (min-width: 860px) { .final { grid-template-columns: 1fr auto; gap: 40px; } }
+  .final h2 { color: #fff; margin: 0 0 10px; font-size: clamp(1.5rem, 3vw, 2.2rem); }
   .final h2 :global(em) { color: #cfe6d3; }
-  .final .lead { color: rgb(255 255 255 / .94); max-width: 60ch; margin: 22px auto 0; }
-  .zones { list-style: none; padding: 0; margin: 30px auto 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 760px; }
-  .zones li { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border: 1px solid rgb(255 255 255 / .4); border-radius: 999px; font-size: .92rem; color: #fff; }
-  .final-cta { display: grid; justify-items: center; gap: 16px; margin-top: 38px; }
-  .reassure { display: inline-flex; align-items: center; gap: 8px; margin: 0; font-size: .95rem; font-weight: 500; color: #fff; }
-  .final-cta .btn { background: var(--paper); border-color: var(--paper); color: var(--sage-d); font-weight: 600; font-size: 1.02rem; padding: 17px 30px; box-shadow: 0 14px 34px -14px rgb(0 0 0 / .55); }
+  .zones-l { display: flex; gap: 8px; align-items: flex-start; margin: 0; color: rgb(255 255 255 / .9); font-size: .92rem; line-height: 1.5; }
+  .zones-l :global(svg) { flex: none; margin-top: 3px; }
+  .final-cta { display: grid; justify-items: start; gap: 10px; }
+  @media (min-width: 860px) { .final-cta { justify-items: center; } }
+  .reassure { display: inline-flex; align-items: center; gap: 8px; margin: 0; font-size: .85rem; font-weight: 500; color: #fff; }
+  .final-cta .btn { background: var(--paper); border-color: var(--paper); color: var(--sage-d); font-weight: 600; font-size: 1rem; padding: 15px 26px; box-shadow: 0 14px 34px -14px rgb(0 0 0 / .55); }
   .final-cta .btn:hover { background: #fff; border-color: #fff; color: var(--ink); transform: translateY(-2px); }
   @media (max-width: 520px) { .final-cta .btn { width: 100%; justify-content: center; } }
   @media (max-width: 699px) {
@@ -417,13 +378,10 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
     .narrow-head .lead { margin-top: 14px; font-size: 1rem; }
     .reviews { grid-auto-flow: column; grid-auto-columns: 86%; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; margin-top: 28px; gap: 12px; }
     .review { scroll-snap-align: start; }
-    .zones { gap: 6px; }
     .free-side { display: none; }
     section:not(.hero):not(.free-s):not(.finder-s) { padding: 56px 0; }
     .final-s { padding-top: 0 !important; }
     .head { margin-bottom: 0; }
-    .final .lead { font-size: 1rem; margin-top: 14px; }
-    .final .zones { margin-top: 18px; }
     .sit { padding: 18px 16px; gap: 12px; }
     .sit .icon-c { width: 40px; height: 40px; }
     .sit h3 { font-size: 1.08rem; }
@@ -434,11 +392,6 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
     .o-top { display: none; }
     .o-tag { margin-top: 0; }
     .offer { padding: 20px 18px; }
-    .pillars { margin: 22px 0; }
-    .pillars li { padding: 14px 0; gap: 14px; }
-    .pillars p { display: none; }
-    .pillars h3 { margin: 0; align-self: center; }
-    .pillars .icon-c { width: 40px; height: 40px; }
     .free-card { gap: 0; padding: 22px 18px; }
     .free-meta { margin-bottom: 20px; gap: 6px; }
     .free-meta li { padding: 6px 11px; font-size: .84rem; }

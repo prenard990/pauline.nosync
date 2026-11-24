@@ -104,6 +104,17 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
           </article>
         ))}
       </div>
+      <div class="finder" id="mon-chien" data-reveal>
+        <div class="finder-intro">
+          <div class="fi-txt">
+          <div class="fc-head"><OsloAvatar size={44} mood="curieux" /><span>Le guide d’Oslo</span></div>
+          <h3>Comprendre ce qui compte pour lui</h3>
+          <p>Présentez votre chien à Oslo (nom, âge, race) : il vous donne des pistes pour mieux comprendre ses besoins.</p>
+          </div>
+          <button class="btn sage" type="button" data-finder-open aria-controls="finder-form" aria-expanded="false">Découvrir le profil de votre chien <Icon name="arrow" size={17} /></button>
+        </div>
+        <div class="finder-form" id="finder-form" hidden><DogFinder /></div>
+      </div>
     </div>
   </section>
 
@@ -132,22 +143,7 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
     </div>
   </section>
 
-  <!-- 4. GUIDE D'OSLO (formulaire affiché à la demande) -->
-  <section class="finder-s">
-    <div class="w">
-      <div class="finder" id="mon-chien" data-reveal>
-        <div class="finder-intro">
-          <div class="fc-head"><OsloAvatar size={44} mood="curieux" /><span>Le guide d’Oslo</span></div>
-          <h3>Comprendre ce qui compte pour lui</h3>
-          <p>Présentez votre chien à Oslo (nom, âge, race) : il vous donne des pistes pour mieux comprendre ses besoins.</p>
-          <button class="btn sage" type="button" data-finder-open aria-controls="finder-form" aria-expanded="false">Découvrir ses besoins <Icon name="arrow" size={17} /></button>
-        </div>
-        <div class="finder-form" id="finder-form" hidden><DogFinder /></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 5. AVIS CLIENTS puis CONTACT (un seul bloc) -->
+  <!-- 4. AVIS CLIENTS puis CONTACT (un seul bloc) -->
   <section class="final-s">
     <div class="w">
       <div class="final">
@@ -177,7 +173,7 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
       </div>
     </div>
   </section>
-  <!-- 6. BILAN GRATUIT (en fin de page) -->
+  <!-- 5. BILAN GRATUIT (en fin de page) -->
   <section class="free-s" id="bilan-gratuit">
     <div class="w">
       <div class="free-card" data-reveal>
@@ -215,7 +211,8 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
   document.querySelectorAll<HTMLButtonElement>('[data-finder-open]').forEach((b) => b.addEventListener('click', () => {
     const f = document.getElementById(b.getAttribute('aria-controls')!);
     if (!f) return;
-    f.hidden = false; b.setAttribute('aria-expanded', 'true'); b.hidden = true;
+    f.hidden = false; b.setAttribute('aria-expanded', 'true'); b.style.display = 'none';
+    b.closest('.finder')?.classList.add('open');
     f.querySelector<HTMLInputElement>('input')?.focus({ preventScroll: true });
   }));
   // pistes de compréhension : ouvertes sur grand écran, repliées sur téléphone
@@ -260,7 +257,6 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
 
   /* 1 bis. Bilan gratuit */
   .free-s { padding: clamp(40px, 5vw, 64px) 0 clamp(56px, 7vw, 96px); }
-  .finder-s { padding: clamp(32px, 4vw, 56px) 0 clamp(56px, 7vw, 96px); }
   @media (min-width: 700px) { .free-more { display: none; } }
   .free-card { display: grid; gap: 36px; background: var(--white); border: 1px solid var(--sage); box-shadow: inset 0 0 0 1px var(--sage); border-radius: var(--r-lg); padding: clamp(26px, 4vw, 56px); }
   @media (min-width: 1000px) { .free-card { grid-template-columns: 1.1fr .9fr; gap: 64px; align-items: start; } }
@@ -303,8 +299,9 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
   .sit-more { display: inline-flex; align-items: center; gap: 6px; font-size: .9rem; font-weight: 500; color: var(--sage); }
   .sit-more { text-decoration: none; align-self: flex-start; margin-top: auto; }
   .sit-more:hover { text-decoration: underline; }
-  .finder { display: grid; gap: 32px; background: var(--white); border: 1px solid var(--line); border-radius: var(--r-lg); padding: clamp(24px, 4vw, 48px); scroll-margin-top: 90px; }
-  @media (min-width: 1000px) { .finder { grid-template-columns: .8fr 1.2fr; gap: 56px; align-items: center; } }
+  .finder { margin-top: clamp(28px, 4vw, 48px); display: grid; gap: 32px; background: var(--white); border: 1px solid var(--line); border-radius: var(--r-lg); padding: clamp(24px, 4vw, 48px); scroll-margin-top: 90px; }
+  @media (min-width: 860px) { .finder:not(.open) .finder-intro { display: flex; align-items: center; justify-content: space-between; gap: 40px; } .finder:not(.open) .fi-txt p { margin-bottom: 0; } .finder:not(.open) .btn { flex: none; } }
+  @media (min-width: 1000px) { .finder.open { grid-template-columns: .8fr 1.2fr; gap: 56px; align-items: center; } }
   .fc-head { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; font-size: .78rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--sage); }
   .finder-intro h3 { font-size: clamp(1.3rem, 2.2vw, 1.6rem); margin: 0 0 12px; }
   .finder-intro p { color: var(--ink2); font-size: .97rem; }
@@ -364,6 +361,8 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
     .sits-s .narrow-head .lead { display: none; }
     .narrow-head .lead { margin-top: 14px; font-size: 1rem; }
     .free-side { display: none; }
+    .finder { margin-top: 20px; padding: 22px 18px; }
+    .finder [data-finder-open] { width: 100%; padding: 15px 18px; font-size: .94rem; }
     section:not(.hero):not(.free-s):not(.finder-s):not(.final-s) { padding: 56px 0; }
     .final-s { padding-top: 0 !important; padding-bottom: 0 !important; }
     .head { margin-bottom: 0; }

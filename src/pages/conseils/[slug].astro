@@ -49,7 +49,7 @@ const related = all.filter((a) => a.id !== entry.id).sort((a, b) => Number(b.dat
 <style>
   .progress { position: fixed; top: 0; left: 0; height: 2px; width: 100%; background: var(--sage); transform-origin: 0 50%; transform: scaleX(0); z-index: 60; }
   @supports (animation-timeline: scroll()) { .progress { animation: grow linear both; animation-timeline: scroll(root); } @keyframes grow { to { transform: scaleX(1); } } }
-  .ah { padding: clamp(48px, 7vw, 96px) 0 clamp(40px, 5vw, 64px); }
+  .ah { padding: clamp(36px, 5vw, 72px) 0 clamp(28px, 3.5vw, 48px); }
   .back { display: inline-flex; align-items: center; gap: 8px; font-size: .9rem; color: var(--ink2); text-decoration: none; margin-bottom: 30px; }
   .back :global(svg) { transform: rotate(180deg); }
   .back:hover { color: var(--ink); }

@@ -53,7 +53,7 @@ h1 em, h2 em { font-size: 1.08em; }
 /* ─────────────────────────  Layout  ───────────────────────── */
 .w { max-width: 1240px; margin: 0 auto; padding: 0 28px; }
 .narrow { max-width: 800px; }
-section { padding: clamp(80px, 10vw, 140px) 0; position: relative; }
+section { padding: clamp(52px, 6.5vw, 96px) 0; position: relative; }
 .center { text-align: center; }
 .grid { display: grid; gap: 24px; }
 @media (min-width: 800px) { .g2 { grid-template-columns: 1fr 1fr; } .g3 { grid-template-columns: repeat(3, 1fr); } .g4 { grid-template-columns: repeat(2, 1fr); } }
@@ -79,9 +79,9 @@ section { padding: clamp(80px, 10vw, 140px) 0; position: relative; }
 .osl-say .osl-bub::before { content: ''; position: absolute; left: -7px; top: 50%; width: 12px; height: 12px; background: var(--white); border-left: 1px solid var(--line); border-bottom: 1px solid var(--line); transform: translateY(-50%) rotate(45deg); }
 .center .osl-say { justify-content: center; }
 .muted { color: var(--ink2); }
-.head { max-width: 760px; margin-bottom: clamp(40px, 5vw, 64px); }
+.head { max-width: 760px; margin-bottom: clamp(28px, 3.5vw, 44px); }
 .head.center { margin-inline: auto; }
-.row-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px; margin-bottom: clamp(40px, 5vw, 64px); }
+.row-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px; margin-bottom: clamp(28px, 3.5vw, 44px); }
 .row-head h2 { margin: 0; max-width: 16ch; }
 
 /* ─────────────────────────  Buttons & links  ───────────────────────── */

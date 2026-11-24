@@ -30,7 +30,10 @@ const mobile = [{ href: '/', label: 'Accueil' }, ...nav, { href: '/contact/', la
 </header>
 
 <style>
-  .hdr { position: sticky; top: 0; z-index: 50; background: rgb(251 250 247 / .86); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid transparent; transition: border-color .3s, transform .45s var(--ease); }
+  /* le flou est porté par un calque à part : sur .hdr lui-même, il enfermerait le menu mobile (position: fixed) dans la barre */
+  .hdr { position: sticky; top: 0; z-index: 50; border-bottom: 1px solid transparent; transition: border-color .3s, transform .45s var(--ease); }
+  .hdr::before { content: ''; position: absolute; inset: 0; z-index: -1; background: rgb(251 250 247 / .86); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+  .hdr.open::before { background: var(--paper); }
   .hdr.scrolled { border-color: var(--line); }
   .hdr.hide { transform: translateY(-100%); }
   .bar { display: flex; align-items: center; gap: 28px; height: 78px; }
@@ -49,9 +52,9 @@ const mobile = [{ href: '/', label: 'Accueil' }, ...nav, { href: '/contact/', la
   .burger span:first-child { top: 19px; } .burger span:last-child { top: 25px; }
   .hdr.open .burger span:first-child { transform: translateY(3px) rotate(45deg); }
   .hdr.open .burger span:last-child { transform: translateY(-3px) rotate(-45deg); }
-  .mnav { position: fixed; inset: 78px 0 0; background: var(--paper); padding: 28px 28px 40px; display: flex; flex-direction: column; opacity: 0; visibility: hidden; transition: opacity .4s var(--ease), visibility .4s; overflow-y: auto; }
+  .mnav { position: fixed; top: 78px; left: 0; right: 0; height: calc(100dvh - 78px); background: var(--paper); padding: 20px 24px 40px; display: flex; flex-direction: column; opacity: 0; visibility: hidden; transition: opacity .4s var(--ease), visibility .4s; overflow-y: auto; }
   .hdr.open .mnav { opacity: 1; visibility: visible; }
-  .mnav a:not(.btn) { font-family: var(--display); font-weight: 500; font-size: 2.1rem; letter-spacing: -.03em; text-decoration: none; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .mnav a:not(.btn) { font-family: var(--display); font-weight: 500; font-size: clamp(1.6rem, 7vw, 2.1rem); letter-spacing: -.03em; text-decoration: none; padding: 14px 0; border-bottom: 1px solid var(--line); }
   .mnav a[aria-current='page'] { color: var(--sage); }
   .mnav a { opacity: 0; transform: translateY(14px); transition: opacity .5s var(--ease), transform .6s var(--ease); transition-delay: calc(var(--i) * 40ms + .05s); }
   .hdr.open .mnav a { opacity: 1; transform: none; }

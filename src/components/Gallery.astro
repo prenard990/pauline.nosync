@@ -1,0 +1,103 @@
+---
+// Galerie « En images » : photos et vidéos des balades, 4 visibles au départ (page Mon approche).
+import { Image } from 'astro:assets';
+import OsloAvatar from './OsloAvatar.astro';
+import chiotJeune from '../assets/photos/balades/chiot-et-jeune-chien.jpg';
+import riviere2 from '../assets/photos/balades/bord-de-riviere.jpg';
+import pause from '../assets/photos/balades/pause-dans-l-herbe.jpg';
+import frisbee2 from '../assets/photos/balades/plage-frisbee.jpg';
+import rencontre from '../assets/photos/balades/rencontre-chiot.jpg';
+import flair from '../assets/photos/balades/flair-automne.jpg';
+import osloChiotAssis from '../assets/photos/balades/oslo-et-chiot-assis.jpg';
+import riviereFrisbee from '../assets/photos/balades/riviere-et-frisbee.jpg';
+import bordDuLac from '../assets/photos/balades/bord-du-lac.jpg';
+import deuxChiensLonge from '../assets/photos/balades/deux-chiens-en-longe.jpg';
+
+/* ---------- 3. Galerie : photos et vidéos mêlées, 4 visibles au départ ---------- */
+const media = [
+  { kind: 'video', src: '/videos/balades/balade-1.mp4', label: 'Chiens qui se promènent sur un tapis de feuilles d’automne au bord de l’eau' },
+  { kind: 'photo', src: chiotJeune, alt: 'Un jeune chien et un chiot tricolores qui se promènent dans un grand parc' },
+  { kind: 'video', src: '/videos/balades/balade-3.mp4', label: 'Deux chiens qui courent ensemble sur une pelouse' },
+  { kind: 'photo', src: riviere2, alt: 'Trois chiens détendus sur une plage de galets au bord d’une rivière' },
+  { kind: 'photo', src: pause, alt: 'Deux petits chiens en harnais, allongés dans l’herbe pendant une pause' },
+  { kind: 'video', src: '/videos/balades/balade-2.mp4', label: 'Chiot qui joue avec d’autres chiens dans un jardin' },
+  { kind: 'photo', src: frisbee2, alt: 'Un chien noir couvert de sable à côté d’un frisbee, au bord de l’eau' },
+  { kind: 'photo', src: rencontre, alt: 'Un chiot et un jeune chien se rencontrent sous l’œil de leurs humains' },
+  { kind: 'video', src: '/videos/balades/balade-4.mp4', label: 'Chiens qui jouent dans un parc' },
+  { kind: 'photo', src: flair, alt: 'Deux chiens en longe reniflent l’herbe parmi les feuilles d’automne' },
+  { kind: 'photo', src: osloChiotAssis, alt: 'Oslo assis, langue pendante, à côté d’un chiot couché dans l’herbe' },
+  { kind: 'photo', src: riviereFrisbee, alt: 'Deux chiens joyeux sur une plage de rivière, un frisbee rouge à leurs pieds' },
+  { kind: 'photo', src: bordDuLac, alt: 'Des chiens en longe se rafraîchissent au bord d’un lac' },
+  { kind: 'photo', src: deuxChiensLonge, alt: 'Deux chiens en longe se reniflent dans un grand pré' },
+] as const;
+const VISIBLE = 4;
+---
+  <!-- Galerie -->
+  <section class="gal-s bg-stone">
+    <div class="w">
+      <div class="head center"><div class="osl-say"><OsloAvatar size={120} mood="joyeux" /><p class="label osl-bub">En images</p></div><h2 data-split>Ça court, ça <em>renifle</em>, ça joue.</h2></div>
+      <div class="media" data-media>
+        {media.map((m, i) => (
+          m.kind === 'photo' ? (
+            <figure class:list={['photo', 'mitem', { extra: i >= VISIBLE }]}><Image src={m.src} alt={m.alt} widths={[360, 560]} sizes="(min-width: 1000px) 280px, 45vw" /></figure>
+          ) : (
+            <figure class:list={['photo', 'mitem', 'vid', { extra: i >= VISIBLE }]}>
+              <video src={`${m.src}#t=0.5`} muted playsinline loop preload="metadata" disablepictureinpicture aria-label={m.label} data-silent></video>
+              <button class="vplay" type="button" aria-label="Lire la vidéo" data-vplay><span class="vi" aria-hidden="true"></span></button>
+            </figure>
+          )
+        ))}
+      </div>
+      <div class="cta"><button class="btn ghost" type="button" data-more aria-expanded="false">Voir plus de photos et vidéos</button></div>
+    </div>
+  </section>
+
+
+<script>
+  /* ---------- Galerie : voir plus ---------- */
+  const more = document.querySelector<HTMLButtonElement>('[data-more]');
+  const mediaBox = document.querySelector<HTMLElement>('[data-media]');
+  more?.addEventListener('click', () => {
+    const open = mediaBox!.classList.toggle('all');
+    more.setAttribute('aria-expanded', String(open));
+    more.textContent = open ? 'Voir moins' : 'Voir plus de photos et vidéos';
+  });
+
+  /* ---------- Vidéos : toujours sans le son ---------- */
+  document.querySelectorAll<HTMLVideoElement>('video[data-silent]').forEach((v) => {
+    const fig = v.closest('.vid')!;
+    const btn = fig.querySelector<HTMLButtonElement>('[data-vplay]')!;
+    const mute = () => { v.muted = true; v.volume = 0; };
+    mute();
+    v.addEventListener('volumechange', mute);
+    const sync = () => {
+      fig.classList.toggle('playing', !v.paused);
+      btn.setAttribute('aria-label', v.paused ? 'Lire la vidéo' : 'Mettre en pause');
+    };
+    btn.addEventListener('click', () => { mute(); v.paused ? v.play() : v.pause(); });
+    v.addEventListener('play', sync);
+    v.addEventListener('pause', sync);
+  });
+</script>
+
+<style>
+  /* ---------- 3. Galerie ---------- */
+  .media { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }
+  @media (min-width: 1000px) { .media { grid-template-columns: repeat(4, 1fr); gap: 16px; } }
+  .mitem { margin: 0; aspect-ratio: 3 / 4; }
+  .mitem.extra { display: none; }
+  .media.all .mitem.extra { display: block; animation: pin .35s var(--ease); }
+  .vid { position: relative; background: #111; }
+  .vid video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .vplay { position: absolute; inset: 0; display: grid; place-items: center; width: 100%; border: 0; background: rgb(0 0 0 / .18); cursor: pointer; transition: background .3s; }
+  .vplay:hover { background: rgb(0 0 0 / .08); }
+  .vplay .vi { display: grid; place-items: center; width: 54px; height: 54px; border-radius: 50%; background: rgb(255 255 255 / .92); box-shadow: 0 8px 24px -8px rgb(0 0 0 / .5); }
+  .vplay .vi::before { content: ''; margin-left: 4px; border-style: solid; border-width: 10px 0 10px 16px; border-color: transparent transparent transparent var(--ink); }
+  .vid.playing .vplay { background: transparent; }
+  .vid.playing .vplay .vi { opacity: 0; transition: opacity .3s; }
+  .vid.playing:hover .vplay .vi { opacity: 1; }
+  .vid.playing .vplay .vi::before { margin-left: 0; width: 14px; height: 18px; border: 0; border-left: 5px solid var(--ink); border-right: 5px solid var(--ink); }
+  .vplay:focus-visible { outline: 3px solid var(--sage); outline-offset: -3px; }
+  .cta { display: flex; justify-content: center; margin-top: 28px; }
+  @keyframes pin { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+</style>

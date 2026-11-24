@@ -6,7 +6,7 @@ import LIcon from '../components/LIcon.astro';
 import OsloAvatar from '../components/OsloAvatar.astro';
 import DogFinder from '../components/DogFinder.astro';
 import { temoignages } from '../data/temoignages';
-import { zones, pillars, freeCall, prices, bilanWhy } from '../data/site';
+import { site, zones, pillars, freeCall, prices, bilanWhy } from '../data/site';
 import heroPhoto from '../assets/photos/pauline-oslo-prairie.jpg';
 import paulineRecompense from '../assets/photos/pauline-recompense.jpg';
 
@@ -218,6 +218,7 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
           </figure>
         ))}
       </div>
+      <p class="center more-p"><a class="btn ghost" href={site.reviewUrl} target="_blank" rel="noopener">Vous avez été accompagné·e ? Laissez un avis <Icon name="arrow" size={17} /></a></p>
     </div>
   </section>}
 

@@ -37,6 +37,7 @@ const { cta = true } = Astro.props;
           <li><a href="/contact/">Formulaire de contact</a></li>
           <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
           <li class="muted">{site.location}</li>
+          <li><a href={site.reviewUrl} target="_blank" rel="noopener">Laisser un avis Google</a></li>
         </ul>
       </div>
     </div>

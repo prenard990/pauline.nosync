@@ -5,6 +5,8 @@ export const site = {
   area: 'Lyon et alentours',
   // affiché sur le site (pied de page, contact, prestations)
   location: 'Lyon 7 et alentours',
+  // lien « Laisser un avis » de la fiche Google Business Profile
+  reviewUrl: 'https://g.page/r/CfsPYsFRwWhVECE/review',
   email: 'pauline-rnd@hotmail.fr',
   // Clé publique Web3Forms (https://web3forms.com) : une fois renseignée, le formulaire de contact
   // l'utilise à la place de FormSubmit. Cette clé est faite pour être visible dans le site.

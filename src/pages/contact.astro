@@ -50,7 +50,7 @@ const motifGroups = [
 
       <div class="form-card" data-reveal>
         <h2 class="fc-t">Ou écrivez-moi</h2>
-        <p class="fc-s">Décrivez-moi votre situation, je reviens vers vous rapidement.</p>
+        <p class="fc-s">Décrivez-moi votre situation, je vous réponds sous 24 h.</p>
         <form id="f" novalidate>
           <div class="two">
             <label>Votre nom<input name="nom" required autocomplete="name" /></label>
@@ -206,10 +206,10 @@ const motifGroups = [
         const res = await r.json().catch(() => ({}));
         // l'envoi est réussi si l'e-mail est parti OU si la demande est enregistrée sur le site
         if ((!r.ok || String(res.success) !== 'true') && !(await saved)) throw new Error(res.message);
-        ok.className = 'msg ok'; ok.textContent = 'Merci ! Votre message a bien été envoyé, je vous réponds rapidement. 🐶';
+        ok.className = 'msg ok'; ok.textContent = 'Merci ! Votre message a bien été envoyé, je vous réponds sous 24 h. 🐶';
         f.reset();
       } catch {
-        if (await saved) { ok.className = 'msg ok'; ok.textContent = 'Merci ! Votre message a bien été envoyé, je vous réponds rapidement. 🐶'; f.reset(); return; }
+        if (await saved) { ok.className = 'msg ok'; ok.textContent = 'Merci ! Votre message a bien été envoyé, je vous réponds sous 24 h. 🐶'; f.reset(); return; }
         ok.className = 'msg err'; ok.textContent = `L’envoi a échoué. Écrivez-moi directement à ${site.email} ou réessayez dans quelques minutes.`;
       } finally {
         window.clearTimeout(slow);

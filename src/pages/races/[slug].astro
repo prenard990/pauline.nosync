@@ -29,17 +29,12 @@ const others = groups.filter((o) => o.slug !== g.slug);
             <span><strong data-dog="nom"></strong> · <span data-dog="race"></span> · <span data-dog="stage"></span></span>
             <button type="button" class="reset" data-reset>Changer de chien</button>
           </div>
-          <div class="osl-say"><OsloAvatar size={120} mood="curieux" /><p class="label osl-bub"><LIcon name={st.icon} size={16} /> Typologie</p></div>
+          <div class="osl-say"><OsloAvatar size={80} mood="curieux" /><p class="label osl-bub"><LIcon name={st.icon} size={16} /> Typologie</p></div>
           <h1 class="gtitle" data-split><span data-dog-title hidden><span data-dog="nom"></span> <span data-dog-verb>fait partie des</span> </span><em>{g.name}</em></h1>
           <p class="lead" data-reveal>{g.short}</p>
           <ul class="traits" data-reveal="stagger">{g.traits.map((t) => <li>{t}</li>)}</ul>
-        </div>
-        <div class="gside" data-reveal>
-          <div class="gicon"><LIcon name={st.icon} size={72} stroke={1} /></div>
-          <div class="gspeech">
-            <OsloAvatar size={48} mood="fier" />
-            <p data-oslo-hello>Voici les grandes tendances des {g.name.toLowerCase()}. Mais chaque chien reste unique : son histoire, son âge et ses apprentissages comptent tout autant !</p>
-          </div>
+          <!-- affiché seulement en arrivant du questionnaire « croisé / je ne sais pas » -->
+          <p class="quiz-note" data-oslo-hello hidden></p>
         </div>
       </div>
     </section>
@@ -47,7 +42,7 @@ const others = groups.filter((o) => o.slug !== g.slug);
     <section>
       <div class="w origin">
         <div>
-          <div class="osl-say"><OsloAvatar size={120} mood="curieux" /><p class="label osl-bub">D’où vient-il ?</p></div>
+          <div class="osl-say"><OsloAvatar size={80} mood="curieux" /><p class="label osl-bub">D’où vient-il ?</p></div>
           <h2 data-split>Des tendances héritées de <em>sa sélection</em>.</h2>
         </div>
         <div data-reveal>
@@ -61,7 +56,7 @@ const others = groups.filter((o) => o.slug !== g.slug);
 
     <section class="bg-stone">
       <div class="w">
-        <div class="head"><div class="osl-say"><OsloAvatar size={120} mood="curieux" /><p class="label osl-bub">Décrypter son comportement</p></div><h2 data-split>Ce que vous observez, <em>et ce que ça signifie</em>.</h2></div>
+        <div class="head"><div class="osl-say"><OsloAvatar size={80} mood="curieux" /><p class="label osl-bub">Décrypter son comportement</p></div><h2 data-split>Ce que vous observez, <em>et ce que ça signifie</em>.</h2></div>
         <div class="decode" data-reveal="stagger">
           {g.decode.map((d, i) => (
             <details name="decode" open={i === 0}>
@@ -75,8 +70,8 @@ const others = groups.filter((o) => o.slug !== g.slug);
 
     <section>
       <div class="w">
-        <div class="head"><div class="osl-say"><OsloAvatar size={120} mood="bravo" /><p class="label osl-bub">Les grandes pistes</p></div><h2 data-split>Les clés pour <em>l’accompagner</em>.</h2></div>
-        <div class="grid g4" data-reveal="stagger">
+        <div class="head"><div class="osl-say"><OsloAvatar size={80} mood="bravo" /><p class="label osl-bub">Les grandes pistes</p></div><h2 data-split>Les clés pour <em>l’accompagner</em>.</h2></div>
+        <div class="grid g4 edus" data-reveal="stagger">
           {g.education.map((e, i) => (
             <div class="edu">
               <span class="n">0{i + 1}</span>
@@ -94,11 +89,11 @@ const others = groups.filter((o) => o.slug !== g.slug);
     <section class="bg-sage">
       <div class="w grid g2 lists">
         <div data-reveal>
-          <div class="osl-say"><OsloAvatar size={120} mood="joyeux" /><p class="label osl-bub">Activités adaptées</p></div>
+          <div class="osl-say"><OsloAvatar size={80} mood="joyeux" /><p class="label osl-bub">Activités adaptées</p></div>
           <ul class="pills">{g.activities.map((a) => <li>{a}</li>)}</ul>
         </div>
         <div data-reveal>
-          <div class="osl-say"><OsloAvatar size={120} mood="surpris" /><p class="label osl-bub">Points de vigilance</p></div>
+          <div class="osl-say"><OsloAvatar size={80} mood="surpris" /><p class="label osl-bub">Points de vigilance</p></div>
           <ul class="check">{g.vigilance.map((v) => <li>{v}</li>)}</ul>
         </div>
       </div>
@@ -106,7 +101,7 @@ const others = groups.filter((o) => o.slug !== g.slug);
 
     <section>
       <div class="w narrow">
-        <div class="head center"><div class="osl-say"><OsloAvatar size={120} mood="chiot" /><p class="label osl-bub">Selon son âge</p></div><h2><span data-dog-age-title>Et selon l’âge ?</span></h2></div>
+        <div class="head center"><div class="osl-say"><OsloAvatar size={80} mood="chiot" /><p class="label osl-bub">Selon son âge</p></div><h2><span data-dog-age-title>Et selon l’âge ?</span></h2></div>
         <div class="tabs" role="tablist">
           {stages.map((s, i) => <button type="button" role="tab" data-stage={s.key} aria-selected={i === 2 ? 'true' : 'false'}>{s.label}</button>)}
         </div>
@@ -143,8 +138,7 @@ const others = groups.filter((o) => o.slug !== g.slug);
 
 <style>
   .ghero { padding: clamp(32px, 4.5vw, 64px) 0 clamp(36px, 4.5vw, 64px); border-bottom: 1px solid var(--line); }
-  .ghero-grid { display: grid; gap: 48px; align-items: end; }
-  @media (min-width: 960px) { .ghero-grid { grid-template-columns: 1.3fr .7fr; gap: 80px; } }
+  .ghero-grid { display: grid; }
   .back { display: inline-flex; align-items: center; gap: 8px; font-size: .9rem; color: var(--ink2); text-decoration: none; margin-bottom: 26px; }
   .back :global(svg) { transform: rotate(180deg); }
   .dogcard { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; background: var(--sage-l); border-radius: 999px; padding: 8px 8px 8px 18px; margin-bottom: 24px; width: fit-content; font-size: .93rem; }
@@ -154,17 +148,15 @@ const others = groups.filter((o) => o.slug !== g.slug);
   .gtitle { font-size: clamp(2.6rem, 6vw, 5rem); }
   .traits { list-style: none; padding: 0; margin: 26px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
   .traits li { padding: 7px 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--white); font-size: .9rem; color: var(--ink2); }
-  .gside { display: grid; gap: 18px; }
-  .gicon { display: grid; place-items: center; aspect-ratio: 1; max-width: 240px; width: 100%; border-radius: 50%; background: var(--sage-l); color: var(--sage-d); }
-  .gspeech { display: flex; gap: 14px; align-items: flex-start; background: var(--white); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; }
-  .gspeech p { margin: 0; font-size: .93rem; color: var(--ink2); }
+  .quiz-note { margin: 22px 0 0; max-width: 60ch; padding: 14px 18px; background: var(--white); border: 1px solid var(--line); border-radius: var(--r); font-size: .93rem; color: var(--ink2); }
+  .quiz-note[hidden] { display: none; }
   .origin { display: grid; gap: 40px; }
   @media (min-width: 960px) { .origin { grid-template-columns: .8fr 1.2fr; gap: 90px; } }
   .ex { color: var(--ink3); font-size: .95rem; }
   .oimg { aspect-ratio: 4 / 3; max-width: 420px; margin-top: 20px; }
   .decode { border-top: 1px solid var(--line); }
   .decode details { border-bottom: 1px solid var(--line); }
-  .decode summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 26px 0; }
+  .decode summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 18px 0; }
   .decode summary::-webkit-details-marker { display: none; }
   .dq { font-family: var(--display); font-size: clamp(1.15rem, 2vw, 1.45rem); letter-spacing: -.015em; }
   .pm { position: relative; flex: none; width: 36px; height: 36px; border: 1px solid var(--line); border-radius: 50%; background: var(--white); transition: transform .45s var(--ease), background .3s; }
@@ -176,11 +168,12 @@ const others = groups.filter((o) => o.slug !== g.slug);
   .dw span { display: block; font-size: .75rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--sage); margin-bottom: 4px; }
   .decode details::details-content { block-size: 0; overflow: hidden; transition: block-size .45s var(--ease), content-visibility .45s allow-discrete; }
   .decode details[open]::details-content { block-size: auto; }
-  .edu { padding-top: 22px; border-top: 1px solid var(--ink); }
-  .edu .n { font-family: var(--serif); font-style: italic; font-size: 1.6rem; color: var(--sage); }
-  .edu h3 { margin: 12px 0 10px; }
+  .edus { gap: 0 32px; }
+  .edu { display: flex; align-items: baseline; gap: 14px; padding: 16px 0; border-top: 1px solid var(--ink); }
+  .edu .n { flex: none; font-family: var(--serif); font-style: italic; font-size: 1.4rem; color: var(--sage); }
+  .edu h3 { margin: 0; }
   .edu p { margin: 0; color: var(--ink2); font-size: .96rem; }
-  .edu-cta { margin-top: 44px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px 32px; padding-top: 28px; border-top: 1px dashed var(--ink2); }
+  .edu-cta { margin-top: 28px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px 32px; padding-top: 28px; border-top: 1px dashed var(--ink2); }
   .edu-cta p { margin: 0; max-width: 62ch; }
   .lists { gap: 56px; align-items: start; }
   .pills { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
@@ -232,8 +225,6 @@ const others = groups.filter((o) => o.slug !== g.slug);
     set('nom', dog.nom); set('race', dog.race); set('stage', stage?.label ?? '');
     document.querySelector<HTMLElement>('[data-dogcard]')!.hidden = false;
     document.querySelector<HTMLElement>('[data-dog-title]')!.hidden = false;
-    document.querySelector<HTMLElement>('[data-oslo-hello]')!.textContent =
-      `Enchanté, ${dog.nom} ! Les ${g.name.toLowerCase()} ont une histoire passionnante. Voyons ensemble ce qui se cache derrière ses comportements.`;
     document.querySelectorAll<HTMLElement>('[data-dog-for]').forEach((el) => (el.textContent = `pour ${dog.nom}`));
     // bilan complet : le formulaire de contact est prérempli avec le chien
     document.querySelectorAll<HTMLAnchorElement>('[data-bilan]').forEach((c) => {
@@ -258,6 +249,7 @@ const others = groups.filter((o) => o.slug !== g.slug);
     if (verb) verb.textContent = 'se rapproche surtout des';
     const hello = document.querySelector<HTMLElement>('[data-oslo-hello]');
     if (!hello) return;
+    hello.hidden = false;
     hello.textContent = `D’après les comportements choisis, ${nom} se rapproche surtout des ${g.name.toLowerCase()}. C’est une tendance, pas une étiquette : chaque chien reste unique !`;
     const other = groups.find((x) => x.slug === q.get('aussi'));
     if (other) {

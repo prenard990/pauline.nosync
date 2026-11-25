@@ -86,7 +86,7 @@ const others = groups.filter((o) => o.slug !== g.slug);
         </div>
         <div class="edu-cta" data-reveal>
           <p class="muted">Voici les grandes lignes. La mise en pratique dépend de votre chien, de son histoire et de votre quotidien : c’est ce que nous construisons ensemble, pas à pas, en séance.</p>
-          <a class="btn sage" href={site.bookingUrl} target="_blank" rel="noopener">Réserver un appel découverte gratuit <span data-dog-for></span> <Icon name="arrow" size={17} /></a>
+          <a class="btn sage" href={`/contact/?motif=${encodeURIComponent('Bilan complet')}&offre=${encodeURIComponent('Bilan complet')}`} data-bilan><span>Réserver mon bilan complet <span data-dog-for></span></span> <Icon name="arrow" size={17} /></a>
         </div>
       </div>
     </section>
@@ -126,7 +126,7 @@ const others = groups.filter((o) => o.slug !== g.slug);
             <p class="t">Chaque chien est unique.</p>
             <p class="muted">La race donne des tendances, pas un destin : l’histoire, l’environnement et la personnalité de votre chien comptent tout autant. Pour une analyse personnalisée, commencez par un appel découverte gratuit de 30 minutes, par téléphone.</p>
           </div>
-          <a class="btn sage" href={site.bookingUrl} target="_blank" rel="noopener">Réserver mon appel <span data-dog-for></span> <Icon name="arrow" size={17} /></a>
+          <a class="btn sage" href={site.bookingUrl} target="_blank" rel="noopener"><span>Réserver mon appel <span data-dog-for></span></span> <Icon name="arrow" size={17} /></a>
         </div>
         <details class="all">
           <summary>Voir les {groupBreeds.length} races de cette famille</summary>
@@ -235,6 +235,10 @@ const others = groups.filter((o) => o.slug !== g.slug);
     document.querySelector<HTMLElement>('[data-oslo-hello]')!.textContent =
       `Enchanté, ${dog.nom} ! Les ${g.name.toLowerCase()} ont une histoire passionnante. Voyons ensemble ce qui se cache derrière ses comportements.`;
     document.querySelectorAll<HTMLElement>('[data-dog-for]').forEach((el) => (el.textContent = `pour ${dog.nom}`));
+    // bilan complet : le formulaire de contact est prérempli avec le chien
+    document.querySelectorAll<HTMLAnchorElement>('[data-bilan]').forEach((c) => {
+      c.href = `/contact/?motif=${encodeURIComponent('Bilan complet')}&offre=${encodeURIComponent('Bilan complet')}&${new URLSearchParams({ chien_nom: dog.nom, chien_age: dog.age, chien_race: dog.race })}`;
+    });
     if (stage) {
       select(stage.key);
       document.querySelector<HTMLElement>('[data-dog-age-title]')!.textContent = `${dog.nom} : ${stage.title.charAt(0).toLowerCase()}${stage.title.slice(1)}`;

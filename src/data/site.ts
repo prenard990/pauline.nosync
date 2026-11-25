@@ -222,7 +222,7 @@ export const steps = [
 export const conditions = {
   deplacement: 'Frais de déplacement compris dans les prix affichés',
   paiement: 'Par virement au plus tard la veille de la séance, ou en espèces le jour même. Les forfaits peuvent être réglés en 3 fois : la totalité doit être payée au plus tard la veille de la dernière séance (ou le jour même en espèces).',
-  annulation: 'Vous pouvez annuler une séance jusqu’à 1 heure avant : elle est alors reportée. Moins d’une heure avant, elle est déduite du forfait, ou facturée s’il s’agit d’une séance individuelle, sauf cas de force majeure (un accident, par exemple).',
+  annulation: 'Une séance peut être annulée ou reportée gratuitement jusqu’à 12 heures avant. En deçà, elle est déduite du forfait ou facturée pour une séance individuelle, sauf cas de force majeure (maladie, accident).',
 };
 
 // FAQ courte (7 questions) : page Prestations (avec balisage FAQPage) et page Contact.

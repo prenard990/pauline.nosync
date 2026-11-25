@@ -1,6 +1,6 @@
 ---
 import OsloAvatar from './OsloAvatar.astro';
-import { nav, site } from '../data/site';
+import { nav, site, freeCall } from '../data/site';
 import Icon from './Icon.astro';
 // cta = false : pas de bandeau « Commençons par faire connaissance » (ex. accueil, qui a déjà son appel final)
 interface Props { cta?: boolean }
@@ -14,9 +14,9 @@ const { cta = true } = Astro.props;
         <h2 data-split>Commençons par <em>faire connaissance</em>.</h2>
       </div>
       <div>
-        <p class="sub">Un premier bilan gratuit de 30 minutes, par téléphone ou en visio, pour faire le point sur votre chien et voir ensemble comment avancer. Sans engagement.</p>
+        <p class="sub">Un appel découverte gratuit de 30 minutes, par téléphone, pour faire le point sur votre chien et voir ensemble comment avancer. Sans engagement.</p>
         <div class="btns">
-          <a class="btn light" href="/contact/?motif=Bilan%20gratuit&offre=Bilan%20gratuit">Réserver mon bilan gratuit <Icon name="arrow" size={17} /></a>
+          <a class="btn light" href={site.bookingUrl} target="_blank" rel="noopener">{freeCall.ctaShort} <Icon name="arrow" size={17} /></a>
         </div>
       </div>
     </div>
@@ -37,11 +37,12 @@ const { cta = true } = Astro.props;
           <li><a href="/contact/">Formulaire de contact</a></li>
           <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
           <li class="muted">{site.location}</li>
+          <li><a href={site.instagram} target="_blank" rel="noopener">Instagram</a></li>
           <li><a href={site.reviewUrl} target="_blank" rel="noopener">Laisser un avis Google</a></li>
         </ul>
       </div>
     </div>
-    <div class="w bottom"><span>© {new Date().getFullYear()} Pauline Renard</span><span>Éducateur canin &amp; comportementaliste · Lyon 7 et alentours</span></div>
+    <div class="w bottom"><span>© {new Date().getFullYear()} Pauline Renard</span><span>Éducateur canin &amp; comportementaliste · {site.location}</span></div>
   </div>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <symbol id="paw-sym" viewBox="0 0 24 24"><g fill="currentColor"><ellipse cx="12" cy="15.5" rx="5" ry="4.2"/><ellipse cx="5.5" cy="10" rx="2.2" ry="2.8"/><ellipse cx="18.5" cy="10" rx="2.2" ry="2.8"/><ellipse cx="9" cy="5" rx="2" ry="2.6"/><ellipse cx="15" cy="5" rx="2" ry="2.6"/></g></symbol>

@@ -43,7 +43,7 @@ const offers = [
 const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
 ---
 <Layout
-  description="Pauline Renard, éducateur canin et comportementaliste à Lyon : bilan comportemental, éducation et rééducation à domicile, école du chiot et balades éducatives. Lyon, Villeurbanne, Caluire, Tassin, Meyzieu."
+  description="Pauline Renard, éducateur canin à Lyon et comportementaliste : appel découverte gratuit, bilan comportemental, éducation et rééducation à domicile, école du chiot et balades éducatives. Lyon, Villeurbanne, Caluire, Tassin, Meyzieu."
   image={heroPhoto}
   footerCta={false}
 >
@@ -52,13 +52,13 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
     <div class="w hero-grid">
       <div class="hero-txt">
         <div class="hero-head">
-          <h1 data-split>Éducatrice et comportementaliste canin <em>à Lyon</em> et alentours</h1>
+          <h1 data-split>Éducateur et comportementaliste canin <em>à Lyon</em> et alentours</h1>
           <div class="hero-mini" aria-hidden="true"><Image src={heroPhoto} alt="" widths={[160, 240]} sizes="120px" loading="eager" /></div>
         </div>
         <p class="lead" data-reveal>Retrouvez une relation sereine et complice avec votre chien grâce à une approche bienveillante, respectueuse de ses émotions et adaptée à votre quotidien.</p>
         <div class="btns" data-reveal>
-          <a class="btn sage" href={`/contact/?motif=${encodeURIComponent('Bilan comportemental')}`}>Réserver un bilan comportemental <Icon name="arrow" size={17} /></a>
-          <a class="btn ghost" href="#accompagnements">Découvrir mes accompagnements</a>
+          <a class="btn sage" href={site.bookingUrl} target="_blank" rel="noopener">{freeCall.cta} <Icon name="arrow" size={17} /></a>
+          <a class="btn ghost" href="/prestations/#tarifs">Voir les tarifs</a>
         </div>
         <ul class="trust" data-reveal="stagger">
           <li><LIcon name="cap" size={20} /> Diplômée EFM · ACACED + TAV</li>
@@ -134,7 +134,7 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
           </article>
         ))}
       </div>
-      <p class="center more-p"><a class="btn ghost" href="/prestations/">Toutes les prestations et tarifs <Icon name="arrow" size={17} /></a></p>
+      <p class="center more-p"><a class="btn ghost" href="/prestations/#tarifs">Voir les tarifs <Icon name="arrow" size={17} /></a></p>
     </div>
   </section>
 
@@ -158,33 +158,32 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
         <div class="final-top">
           <div>
             <h2 data-split>Prêt à commencer <em>avec votre chien</em> ?</h2>
-            <p class="zones-l"><LIcon name="pin" size={16} /> À domicile et en extérieur : {zones.join(', ')}.</p>
+            <p class="zones-l"><LIcon name="pin" size={16} /> À domicile et en extérieur, {site.location}.</p>
           </div>
           <div class="final-cta" data-reveal>
-            <a class="btn light" href="/contact/">Me contacter <Icon name="arrow" size={17} /></a>
+            <a class="btn light" href="/contact/">Prendre rendez-vous <Icon name="arrow" size={17} /></a>
             <p class="reassure"><LIcon name="clock" size={16} /> Réponse sous 24h · 7j/7</p>
           </div>
         </div>
       </div>
     </div>
   </section>
-  <!-- 5. BILAN GRATUIT (en fin de page) -->
+  <!-- 5. APPEL DÉCOUVERTE GRATUIT (en fin de page) -->
   <section class="free-s" id="bilan-gratuit">
     <div class="w">
       <div class="free-card" data-reveal>
         <div class="free-main">
-          <div class="osl-say"><OsloAvatar size={120} mood="joyeux" /><p class="label osl-bub">Bilan gratuit · {freeCall.duration}</p></div>
-          <h2 data-split>Vous hésitez encore ? <em>Faites un premier bilan gratuit.</em></h2>
+          <div class="osl-say"><OsloAvatar size={120} mood="joyeux" /><p class="label osl-bub">Appel découverte gratuit · {freeCall.duration}</p></div>
+          <h2 data-split>Vous hésitez encore ? <em>Commencez par un appel découverte gratuit.</em></h2>
           <p class="lead">Un premier échange pour faire connaissance et voir ensemble comment je peux vous aider, votre chien et vous.</p>
           <ul class="free-meta" aria-label="En pratique">
             <li><LIcon name="clock" size={18} /> {freeCall.duration}</li>
-            <li><LIcon name="phone" size={18} /> Téléphone</li>
-            <li><LIcon name="video" size={18} /> ou visio</li>
+            <li><LIcon name="phone" size={18} /> Par téléphone, je vous appelle</li>
             <li><LIcon name="gift" size={18} /> Gratuit, sans engagement</li>
           </ul>
           <div class="btns">
-            <a class="btn sage" href={`/contact/?motif=${encodeURIComponent('Bilan gratuit')}&offre=${encodeURIComponent('Bilan gratuit')}`}>Réserver mon bilan gratuit <Icon name="arrow" size={17} /></a>
-            <a class="link free-more" href="/prestations/#bilan">Bilan gratuit ou bilan complet ? <Icon name="arrow" size={15} /></a>
+            <a class="btn sage" href={site.bookingUrl} target="_blank" rel="noopener">{freeCall.ctaShort} <Icon name="arrow" size={17} /></a>
+            <a class="link free-more" href="/prestations/#bilan">Appel découverte ou bilan complet ? <Icon name="arrow" size={15} /></a>
           </div>
         </div>
         <div class="free-side">
@@ -250,7 +249,7 @@ const avis = temoignages.filter((t) => !t.exemple).slice(0, 3);
   .oslo-card strong { display: block; color: var(--ink); font-size: .95rem; }
   @media (max-width: 1000px) { .oslo-card { position: static; margin: 14px auto 0; width: fit-content; box-shadow: none; } }
 
-  /* 1 bis. Bilan gratuit */
+  /* 1 bis. Appel découverte gratuit */
   .free-s { padding: clamp(40px, 5vw, 64px) 0 clamp(56px, 7vw, 96px); }
   @media (min-width: 700px) { .free-more { display: none; } }
   .free-card { display: grid; gap: 36px; background: var(--white); border: 1px solid var(--sage); box-shadow: inset 0 0 0 1px var(--sage); border-radius: var(--r-lg); padding: clamp(26px, 4vw, 56px); }

@@ -9,7 +9,7 @@ import '../styles/global.css';
 
 interface Props { title?: string; description?: string; image?: ImageMetadata; type?: 'website' | 'article'; footerCta?: boolean; noindex?: boolean }
 const { title, description = site.description, image = ogPhoto, type = 'website', footerCta = true, noindex = false } = Astro.props;
-const fullTitle = title ? `${title} · Pauline Renard, éducateur canin à Lyon` : 'Pauline Renard · Éducateur canin & comportementaliste à Lyon';
+const fullTitle = title ? `${title} · Pauline Renard, éducateur canin à Lyon` : 'Pauline Renard · Éducateur canin à Lyon & comportementaliste';
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const og = await getImage({ src: image, width: 675, format: 'jpg' });
 const ld = {
@@ -19,6 +19,7 @@ const ld = {
   description: site.description,
   url: Astro.site?.toString(),
   email: site.email,
+  sameAs: [site.instagram],
   image: new URL(og.src, Astro.site).toString(),
   address: { '@type': 'PostalAddress', addressLocality: 'Lyon', postalCode: '69007', addressCountry: 'FR' },
   areaServed: zones.filter((z) => !z.includes('lyonnais')).map((name) => ({ '@type': 'City', name })),

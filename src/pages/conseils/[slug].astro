@@ -6,6 +6,7 @@ import Layout from '../../layouts/Layout.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 import Icon from '../../components/Icon.astro';
 import OsloTip from '../../components/OsloTip.astro';
+import { site, freeCall } from '../../data/site';
 
 export async function getStaticPaths() {
   const all = await getCollection('conseils');
@@ -16,7 +17,7 @@ const { Content } = await render(entry);
 const { title, description, category, cover, coverAlt, readingTime } = entry.data;
 const related = all.filter((a) => a.id !== entry.id).sort((a, b) => Number(b.data.category === category) - Number(a.data.category === category)).slice(0, 3);
 ---
-<Layout footerCta={false} title={title} description={description} image={cover} type="article">
+<Layout footerCta={false} title={title} description={`${description} Les conseils de Pauline Renard, éducateur canin à Lyon.`} image={cover} type="article">
   <div class="progress" aria-hidden="true"></div>
   <article>
     <header class="ah" data-hero>
@@ -34,8 +35,8 @@ const related = all.filter((a) => a.id !== entry.id).sort((a, b) => Number(b.dat
       <aside class="box" data-reveal>
         <div class="osl-say"><OsloAvatar size={120} mood="bravo" /><p class="label osl-bub">Accompagnement personnalisé</p></div>
         <p class="t">Chaque chien est unique.</p>
-        <p class="muted">Lors d’un premier bilan gratuit de 30 minutes, par téléphone ou en visio, vous m’exposez la situation et je vous indique les points à travailler.</p>
-        <a class="btn sage" href="/contact/?motif=Bilan%20gratuit&offre=Bilan%20gratuit">Réserver un bilan gratuit <Icon name="arrow" size={17} /></a>
+        <p class="muted">Lors d’un appel découverte gratuit de 30 minutes, par téléphone, vous m’exposez la situation et je vous indique les points à travailler.</p>
+        <a class="btn sage" href={site.bookingUrl} target="_blank" rel="noopener">{freeCall.ctaShort} <Icon name="arrow" size={17} /></a>
       </aside>
     </div>
   </article>

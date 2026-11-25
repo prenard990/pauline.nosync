@@ -20,7 +20,7 @@ const mobile = [{ href: '/', label: 'Accueil' }, ...nav, { href: '/contact/', la
     <nav class="links" aria-label="Navigation principale">
       {nav.map((l) => <a href={l.href} aria-current={isActive(l.href) ? 'page' : undefined}>{l.label}</a>)}
     </nav>
-    <a class="btn cta" href="/contact/">Prendre rendez-vous</a>
+    <a class="btn sage cta" href="/contact/">Prendre rendez-vous</a>
     <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mnav"><span></span><span></span></button>
   </div>
   <nav id="mnav" class="mnav" aria-label="Navigation mobile">
@@ -46,8 +46,11 @@ const mobile = [{ href: '/', label: 'Accueil' }, ...nav, { href: '/contact/', la
   .links a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--ink); transform: scaleX(0); transform-origin: right; transition: transform .4s var(--ease); }
   .links a:hover, .links a[aria-current='page'] { color: var(--ink); }
   .links a:hover::after, .links a[aria-current='page']::after { transform: scaleX(1); transform-origin: left; }
-  .cta { display: none; padding: 12px 20px; font-size: .92rem; }
-  .burger { position: relative; width: 46px; height: 46px; border: 1px solid var(--line); border-radius: 50%; background: var(--white); cursor: pointer; }
+  .cta { padding: 12px 20px; font-size: .92rem; gap: 5px; white-space: nowrap; }
+  @media (max-width: 1059px) { .bar { gap: 12px; } .cta { padding: 11px 16px; font-size: .84rem; } }
+  @media (max-width: 480px) { .name small { display: none; } }
+  @media (max-width: 380px) { .bar { gap: 8px; } .logo { gap: 8px; } .name strong { font-size: .95rem; } .cta { padding: 10px 12px; font-size: .78rem; } }
+  .burger { flex: none; position: relative; width: 46px; height: 46px; border: 1px solid var(--line); border-radius: 50%; background: var(--white); cursor: pointer; }
   .burger span { position: absolute; left: 14px; width: 17px; height: 1.5px; background: var(--ink); transition: transform .4s var(--ease); }
   .burger span:first-child { top: 19px; } .burger span:last-child { top: 25px; }
   .hdr.open .burger span:first-child { transform: translateY(3px) rotate(45deg); }
@@ -58,8 +61,8 @@ const mobile = [{ href: '/', label: 'Accueil' }, ...nav, { href: '/contact/', la
   .mnav a[aria-current='page'] { color: var(--sage); }
   .mnav a { opacity: 0; transform: translateY(14px); transition: opacity .5s var(--ease), transform .6s var(--ease); transition-delay: calc(var(--i) * 40ms + .05s); }
   .hdr.open .mnav a { opacity: 1; transform: none; }
-  .mnav .btn { margin-top: 28px; align-self: flex-start; }
-  @media (min-width: 1060px) { .links, .cta { display: flex; } .burger, .mnav { display: none; } }
+  .mnav .btn { margin-top: 28px; align-self: flex-start; white-space: normal; }
+  @media (min-width: 1060px) { .links { display: flex; } .burger, .mnav { display: none; } }
 </style>
 
 <script>

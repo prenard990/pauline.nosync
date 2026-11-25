@@ -1,7 +1,7 @@
 // What Oslo says in the floating bubble, by page (longest matching prefix wins).
 export const osloLines: Record<string, string> = {
   '/': 'Wouf ! Je suis Oslo, le binôme de ma maîtresse, Pauline. Présentez-moi votre chien et je vous donne des pistes pour mieux comprendre ses besoins !',
-  '/prestations/': 'Pas sûr·e de la formule ? Commencez par le bilan gratuit de 30 min : ma maîtresse vous conseillera la suite.',
+  '/prestations/': 'Pas sûr·e de la formule ? Commencez par l’appel découverte gratuit de 30 min : ma maîtresse vous conseillera la suite.',
   '/ecole-oslo/': 'Bienvenue à mon école ! Présentez-moi votre chien, ou piochez dans les conseils de ma maîtresse.',
   '/temoignages/': 'Tous ces chiens, je les ai croisés ! Certains sont même devenus mes copains de balade.',
   '/conseils/': 'Mon conseil préféré ? Laissez votre chien renifler en balade. 10 minutes de flair, c’est une vraie séance de détente !',

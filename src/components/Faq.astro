@@ -1,7 +1,8 @@
 ---
 import { faq as defaultFaq } from '../data/site';
-interface Props { items?: { q: string; a: string }[] }
-const { items: faq = defaultFaq } = Astro.props;
+// ld = false : n'ajoute pas le balisage FAQPage (il n'est mis que sur une page, Prestations, pour éviter les doublons)
+interface Props { items?: { q: string; a: string }[]; ld?: boolean }
+const { items: faq = defaultFaq, ld: withLd = true } = Astro.props;
 const ld = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
 ---
 <div class="faq" data-reveal="stagger">
@@ -12,7 +13,7 @@ const ld = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: f
     </details>
   ))}
 </div>
-<script type="application/ld+json" set:html={JSON.stringify(ld)} />
+{withLd && <script type="application/ld+json" set:html={JSON.stringify(ld)} />}
 <style>
   .faq { border-top: 1px solid var(--line); }
   details { border-bottom: 1px solid var(--line); }

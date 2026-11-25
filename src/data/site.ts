@@ -1,10 +1,13 @@
 export const site = {
   name: 'Pauline Renard',
   role: 'Éducateur & comportementaliste canin',
-  city: 'Lyon 7',
+  city: 'Lyon',
   area: 'Lyon et alentours',
-  // affiché sur le site (pied de page, contact, prestations)
-  location: 'Lyon 7 et alentours',
+  // zone d'intervention : même formulation partout (pied de page, contact, prestations, accueil, FAQ)
+  location: 'Lyon et alentours : Villeurbanne, Caluire-et-Cuire, Tassin-la-Demi-Lune, Meyzieu, Est et Ouest lyonnais',
+  // agenda en ligne pour réserver l'appel découverte gratuit (bouton principal du site)
+  bookingUrl: 'https://cal.com/pauline-renard',
+  instagram: 'https://www.instagram.com/pauline_educ_oslo/',
   // lien « Laisser un avis » de la fiche Google Business Profile
   reviewUrl: 'https://g.page/r/CfsPYsFRwWhVECE/review',
   email: 'pauline-rnd@hotmail.fr',
@@ -15,7 +18,7 @@ export const site = {
   // Adresse fixe : fonctionne que le site soit hébergé sur Netlify ou sur Cloudflare.
   demandesApi: 'https://pauline-renard.pauline-renard.workers.dev/api/demande',
   description:
-    "Pauline Renard, éducateur canin et comportementaliste à Lyon 7 : éducation de base, chiots, anxiété de séparation, réactivité. Méthodes bienveillantes, déplacements dans Lyon et alentours.",
+    "Pauline Renard, éducateur canin et comportementaliste à Lyon : éducation de base, chiots, anxiété de séparation, réactivité. Méthodes bienveillantes, déplacements dans Lyon et alentours.",
 };
 
 // Communes desservies (zone d'intervention, affichée sur l'accueil et utilisée pour le SEO local).
@@ -43,12 +46,16 @@ export const nav: { href: string; label: string; also?: string[] }[] = [
   { href: '/ecole-oslo/', label: 'L’école d’Oslo', also: ['/races/', '/conseils/'] },
 ];
 
-// Bilan gratuit : premier échange de 30 min à distance, sans engagement (accueil, prestations, formulaire).
+// Appel découverte gratuit : 30 min par téléphone, réservé dans l'agenda en ligne (site.bookingUrl). Pauline rappelle le client.
 export const freeCall = {
-  name: 'Bilan gratuit',
+  name: 'Appel découverte gratuit',
   duration: '30 min',
-  where: 'par téléphone ou en visio',
-  pitch: 'Vous hésitez encore ? Faites un premier bilan gratuit.',
+  where: 'par téléphone',
+  pitch: 'Vous hésitez encore ? Commencez par un appel découverte gratuit.',
+  // libellé du bouton principal
+  cta: 'Réserver mon appel découverte gratuit (30 min)',
+  // libellé court, quand le bloc parle déjà de l'appel découverte gratuit (évite les répétitions)
+  ctaShort: 'Réserver mon appel',
   features: [
     'Vous m’exposez la situation et ce qui vous gêne au quotidien',
     'Je vous donne mon regard de professionnelle sur la situation',
@@ -58,7 +65,7 @@ export const freeCall = {
   note: 'Sans engagement : vous décidez ensuite, tranquillement, si vous souhaitez aller plus loin.',
 };
 
-// Pourquoi le bilan complet reste indispensable, même après le bilan gratuit.
+// Pourquoi le bilan complet reste indispensable, même après l’appel découverte.
 export const bilanWhy = 'En 30 minutes, on fait le point sur l’essentiel. Mais pour construire un travail sérieux, j’ai besoin de connaître votre chien en profondeur : son histoire, sa santé, son quotidien, son environnement, et de l’observer chez vous. C’est le rôle du bilan complet, indispensable avant de commencer les séances.';
 
 export const prices = [
@@ -78,7 +85,7 @@ export const prices = [
   {
     name: 'Séance individuelle',
     price: 45,
-    unit: 'la séance',
+    unit: 'la séance · environ 1h',
     pitch: 'Une séance ciblée sur un objectif précis.',
     features: [
       'Travail à domicile ou en extérieur',
@@ -91,7 +98,7 @@ export const prices = [
   {
     name: 'Forfait 3 séances',
     price: 160,
-    unit: 'bilan complet + 3 séances d’éducation',
+    unit: 'bilan complet + 3 séances d’éducation d’environ 1h',
     pitch: 'Pour poser des bases solides.',
     features: [
       'Progression construite séance après séance',
@@ -104,7 +111,7 @@ export const prices = [
   {
     name: 'Forfait 5 séances',
     price: 230,
-    unit: 'bilan complet + 5 séances d’éducation',
+    unit: 'bilan complet + 5 séances d’éducation d’environ 1h',
     pitch: 'Pour les problématiques de comportement.',
     features: [
       'Accompagnement dans la durée',
@@ -211,33 +218,41 @@ export const steps = [
   { n: '04', title: 'On ancre durablement', text: 'On généralise les acquis dans différents lieux pour un changement qui tient dans le temps.' },
 ];
 
+// Conditions pratiques (page Prestations + FAQ). Textes validés par Pauline.
+export const conditions = {
+  deplacement: 'Frais de déplacement compris dans les prix affichés',
+  paiement: 'Par virement au plus tard la veille de la séance, ou en espèces le jour même. Les forfaits peuvent être réglés en 3 fois : la totalité doit être payée au plus tard la veille de la dernière séance (ou le jour même en espèces).',
+  annulation: 'Vous pouvez annuler une séance jusqu’à 1 heure avant : elle est alors reportée. Moins d’une heure avant, elle est déduite du forfait, ou facturée s’il s’agit d’une séance individuelle, sauf cas de force majeure (un accident, par exemple).',
+};
+
+// FAQ courte (7 questions) : page Prestations (avec balisage FAQPage) et page Contact.
 export const faq = [
   {
-    q: 'Comment se déroule le premier contact ?',
-    a: 'Vous pouvez commencer par un bilan gratuit de 30 minutes, par téléphone ou en visio : vous m’exposez la situation, je vous indique les points à travailler et vous propose un échéancier de séances. Sans engagement.',
+    q: 'Où intervenez-vous ? Y a-t-il des frais de déplacement ?',
+    a: `Je me déplace à ${site.location}. Les frais de déplacement sont compris dans les prix affichés. Selon l’objectif, on travaille à votre domicile ou en extérieur (parc, quais, rue).`,
   },
   {
-    q: 'Pourquoi un bilan gratuit et un bilan complet payant ?',
-    a: 'Le bilan gratuit permet de faire connaissance et de savoir si je peux vous aider. Le bilan complet (40 €, 1h30 à 2h chez vous) est indispensable avant de commencer le travail : j’y recueille toutes les informations sur votre chien (histoire, santé, quotidien, environnement) et je l’observe chez lui pour établir un plan vraiment adapté. En 30 minutes à distance, ce n’est pas possible.',
+    q: 'Combien de temps dure une séance ?',
+    a: 'Une séance d’éducation dure environ 1 heure, qu’elle soit à l’unité ou comprise dans un forfait. Le bilan complet dure de 1h30 à 2h, chez vous. Les balades collectives durent entre 1h et 2h.',
   },
   {
-    q: 'Où ont lieu les séances ?',
-    a: 'Je suis basée à Lyon 7 et je me déplace dans Lyon et aux alentours. Selon l’objectif, on travaille à votre domicile ou en extérieur (parc, quais, rue).',
-  },
-  {
-    q: 'Quelles méthodes utilisez-vous ?',
-    a: 'Des méthodes bienveillantes et respectueuses du chien : on s’appuie sur la compréhension de ses émotions et de ses besoins, et sur le renforcement de ce qu’il fait bien. Aucune méthode coercitive.',
-  },
-  {
-    q: 'Mon chien est adulte, est-ce trop tard ?',
-    a: 'Non ! Un chien apprend à tout âge. Les habitudes installées demandent parfois un peu plus de patience, mais les progrès sont tout à fait possibles.',
+    q: 'Vous accompagnez les chiots ou les chiens adultes ?',
+    a: 'Les deux. Il n’y a pas d’âge minimum : on peut commencer dès l’arrivée du chiot à la maison. Et un chien adulte apprend à tout âge : les habitudes installées demandent parfois un peu plus de patience, mais les progrès sont tout à fait possibles.',
   },
   {
     q: 'Combien de séances faut-il prévoir ?',
     a: 'Cela dépend de votre chien et de votre objectif. Pour l’éducation de base, 3 séances suffisent souvent à poser des bases solides. Pour un trouble du comportement, un accompagnement de 5 séances est généralement plus adapté.',
   },
   {
+    q: 'Comment se passe l’appel découverte gratuit ?',
+    a: 'Vous réservez un créneau de 30 minutes dans mon agenda en ligne, et je vous appelle à l’heure choisie. Vous m’exposez la situation, je vous donne mon regard de professionnelle, je vous indique les points à travailler et je vous propose un échéancier de séances. Sans engagement. Pour commencer le travail, le bilan complet (40 €, 1h30 à 2h chez vous) reste ensuite indispensable.',
+  },
+  {
     q: 'Comment régler les séances ?',
-    a: 'Le paiement se fait par virement ou en espèces.',
+    a: conditions.paiement,
+  },
+  {
+    q: 'Et si je dois annuler une séance ?',
+    a: conditions.annulation,
   },
 ];

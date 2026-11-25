@@ -10,13 +10,14 @@ import OsloAvatar from '../components/OsloAvatar.astro';
 import LIcon from '../components/LIcon.astro';
 import Icon from '../components/Icon.astro';
 import { groups } from '../data/groups';
+import { site } from '../data/site';
 import { groupStyle } from '../data/groupStyle';
 
 const articles = (await getCollection('conseils')).sort((a, b) => a.data.order - b.data.order);
 const cats = ['Tous', ...new Set(articles.map((a) => a.data.category))];
 ---
 <Layout title="L’école d’Oslo : les conseils" description="Les conseils d’éducation canine de Pauline Renard, éducateur canin à Lyon, et le guide d’Oslo : rappel, marche en laisse, chiot, anxiété, et les aptitudes naturelles et les besoins de votre chien.">
-  <PageHero mood="curieux" label="Bienvenue à mon école" title="Les conseils pour mieux <em>comprendre</em> votre chien." lead="Des conseils simples et bienveillants, issus du terrain, et le guide d’Oslo pour mieux comprendre les aptitudes et les besoins de votre chien.">
+  <PageHero mood="curieux" label="Bienvenue à mon école" title="Les conseils pour mieux <em>comprendre</em> votre chien." lead="Oslo est mon chien régulateur, un bouvier de l’Entlebuch de 8 ans, calme et stable, qui m’aide à accompagner les chiens et les chiots timides ou réactifs. Des conseils simples et bienveillants, issus du terrain, et le guide d’Oslo pour mieux comprendre les aptitudes et les besoins de votre chien.">
     <nav class="jump" aria-label="Accès rapide">
       <a href="#conseils"><span>01</span> Les conseils</a>
       <a href="#mon-chien"><span>02</span> Le guide d’Oslo</a>
@@ -35,7 +36,7 @@ const cats = ['Tous', ...new Set(articles.map((a) => a.data.category))];
       <div class="grid g3 list" data-reveal="stagger">
         {articles.map((a) => <ArticleCard entry={a} />)}
       </div>
-      <p class="note">Pour une situation précise, rien ne remplace une séance adaptée à votre chien. <a class="link" href="/contact/">Prendre rendez-vous <Icon name="arrow" size={15} /></a></p>
+      <p class="note">Pour une situation précise, rien ne remplace une séance adaptée à votre chien. <a class="link" href={site.bookingUrl} target="_blank" rel="noopener">Réserver un appel découverte gratuit <Icon name="arrow" size={15} /></a></p>
     </div>
   </section>
 

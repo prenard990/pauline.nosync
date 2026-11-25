@@ -9,7 +9,7 @@ import Icon from '../components/Icon.astro';
 import LIcon from '../components/LIcon.astro';
 import Faq from '../components/Faq.astro';
 import OsloTip from '../components/OsloTip.astro';
-import { prices, formats, programs, faq, freeCall, bilanWhy } from '../data/site';
+import { site, prices, formats, programs, faq, freeCall, bilanWhy, conditions } from '../data/site';
 import chiotEtOslo from '../assets/photos/chiot-et-oslo.jpg';
 import paulineDeuxChiens from '../assets/photos/pauline-deux-chiens.jpg';
 import aLaMaison from '../assets/photos/a-la-maison.jpg';
@@ -23,9 +23,9 @@ const contact = (motif: string) => `/contact/?motif=${encodeURIComponent(motif)}
 /* ---------- 1. Vue rapide : 4 cartes compactes ---------- */
 const quick = [
   { tab: 'bilan', icon: 'list', name: bilan.name, price: `${bilan.price} €`, meta: '1h30 à 2h · chez vous', points: bilan.features.slice(0, 3), badge: 'Avant les séances' },
-  { tab: 'seances', icon: 'target', name: seance.name, price: `${seance.price} €`, meta: seance.unit, points: seance.features.slice(0, 3) },
-  { tab: 'seances', icon: 'calendar', name: 'Forfaits', price: `dès ${forfait3.price} €`, meta: 'Bilan + 3 ou 5 séances', points: [`3 séances : ${forfait3.price} €`, `5 séances : ${forfait5.price} €`, 'Progression suivie dans la durée'], featured: true },
-  { tab: 'balades', icon: 'users', name: 'Balades collectives', price: 'Sur demande', meta: 'Une fois par semaine · petit groupe', points: ['Socialisation en douceur', 'Marche en laisse en situation réelle', 'Toujours en laisse, encadrée'] },
+  { tab: 'seances', icon: 'target', name: seance.name, price: `${seance.price} €`, meta: 'environ 1h · à domicile ou en extérieur', points: seance.features.slice(0, 3) },
+  { tab: 'seances', icon: 'calendar', name: 'Forfaits', price: `dès ${forfait3.price} €`, meta: 'Bilan + 3 ou 5 séances d’environ 1h', points: [`3 séances : ${forfait3.price} €`, `5 séances : ${forfait5.price} €`, 'Progression suivie dans la durée'], featured: true },
+  { tab: 'balades', icon: 'users', name: 'Balades collectives', price: 'Gratuit', meta: '1h à 2h · une fois par semaine', points: ['Réservées aux chiens vus en bilan complet', 'Socialisation en douceur, en petit groupe', 'Toujours en laisse, encadrée'] },
 ];
 
 /* ---------- 2. Onglets ---------- */
@@ -71,13 +71,13 @@ const who = [
 
 
 const baladeFaq = [
-  { q: 'Mon chien peut-il participer directement à une balade ?', a: 'Pour la sécurité et le confort de tous, je rencontre d’abord chaque nouveau chien (bilan complet ou séance individuelle). Cela me permet de vérifier que la balade collective lui convient et de bien le placer dans le groupe.' },
+  { q: 'Mon chien peut-il participer directement à une balade ?', a: 'Les balades sont gratuites et réservées aux chiens que j’ai déjà rencontrés en bilan complet. Pour la sécurité et le confort de tous, cela me permet de vérifier que la balade collective lui convient et de bien le placer dans le groupe.' },
   { q: 'Mon chien est réactif, la balade est-elle adaptée ?', a: 'Cela dépend de son profil. Pour certains chiens réactifs, la balade collective est une belle étape de travail, avec des distances adaptées. Pour d’autres, il vaut mieux commencer en séance individuelle. On en parle ensemble.' },
-  { q: 'Où et quand ont lieu les balades ?', a: 'Une balade par semaine, à Lyon ou dans les alentours. Le jour, l’horaire et le point de rendez-vous vous sont communiqués à l’inscription.' },
+  { q: 'Où et quand ont lieu les balades ?', a: 'Une balade par semaine, à Lyon ou dans les alentours, d’une durée de 1h à 2h. Le jour, l’horaire et le point de rendez-vous vous sont communiqués à l’inscription.' },
   { q: 'Que dois-je apporter en balade ?', a: 'Une laisse (idéalement longue de 2 à 3 m) et un harnais confortable, des friandises appréciées par votre chien, de l’eau et des sacs à déjections.' },
 ];
 ---
-<Layout title="Prestations et tarifs" description="Bilan gratuit de 30 min, bilan complet à 40 €, séances individuelles, forfaits, accompagnements (chiot, réactivité, anxiété…) et balades collectives : les prestations de Pauline Renard, éducateur canin à Lyon.">
+<Layout title="Prestations et tarifs" description="Appel découverte gratuit de 30 min, bilan complet à 40 €, séances individuelles, forfaits, accompagnements (chiot, réactivité, anxiété…) et balades collectives : les prestations de Pauline Renard, éducateur canin à Lyon.">
   <PageHero mood="bravo" label="Prestations et tarifs" title="Des formules <em>claires</em>, adaptées à votre chien." />
 
   <!-- ============ 1. VUE RAPIDE ============ -->
@@ -98,8 +98,12 @@ const baladeFaq = [
         ))}
       </div>
       <div class="info" data-reveal>
-        <p><LIcon name="list" size={20} /> Paiement par virement ou en espèces</p>
-        <p><LIcon name="route" size={20} /> Lyon 7 et alentours</p>
+        <p><LIcon name="route" size={20} /> {site.location}</p>
+        <p><LIcon name="house" size={20} /> {conditions.deplacement}</p>
+      </div>
+      <div class="conds" data-reveal>
+        <div><p class="cond-t"><LIcon name="list" size={18} /> Paiement</p><p>{conditions.paiement}</p></div>
+        <div><p class="cond-t"><LIcon name="calendar" size={18} /> Annulation</p><p>{conditions.annulation}</p></div>
       </div>
       <div class="free-band" data-reveal>
         <span class="icon-c"><LIcon name="gift" /></span>
@@ -107,7 +111,7 @@ const baladeFaq = [
           <p class="fb-t">{freeCall.pitch}</p>
           <p class="fb-s">{freeCall.duration} {freeCall.where}, sans engagement : vous m’exposez la situation, je vous propose les points à travailler et un échéancier de séances.</p>
         </div>
-        <a class="btn sage" href={contact('Bilan gratuit')}>Réserver mon bilan gratuit <Icon name="arrow" size={17} /></a>
+        <a class="btn sage" href={site.bookingUrl} target="_blank" rel="noopener">{freeCall.ctaShort} <Icon name="arrow" size={17} /></a>
       </div>
     </div>
   </section>
@@ -135,7 +139,7 @@ const baladeFaq = [
             <p>Un premier échange pour faire connaissance et savoir si je peux vous aider.</p>
             <ul class="check">{freeCall.features.map((f) => <li>{f}</li>)}</ul>
             <p class="snote">{freeCall.note}</p>
-            <a class="btn sage" href={contact('Bilan gratuit')}>Réserver mon bilan gratuit <Icon name="arrow" size={17} /></a>
+            <a class="btn sage" href={site.bookingUrl} target="_blank" rel="noopener">{freeCall.ctaShort} <Icon name="arrow" size={17} /></a>
           </article>
           <article class="step">
             <p class="ptag"><LIcon name="list" size={16} /> Avant toute séance · {bilan.price} €</p>
@@ -222,9 +226,9 @@ const baladeFaq = [
         <div class="prow">
           <div class="photo pimg"><Image src={groupeDeChiens} alt="Un petit groupe de chiens, dont un samoyède, se rencontre au bord d’un chemin" widths={[400, 675]} sizes="(min-width: 960px) 420px, 90vw" /></div>
           <div>
-            <p class="ptag">Une fois par semaine · petit groupe</p>
+            <p class="ptag">Une fois par semaine · 1h à 2h · gratuit</p>
             <h3 class="ptitle">Marcher et progresser <em>ensemble</em>.</h3>
-            <p class="lead">Chaque semaine, je vous propose une balade collective en petit groupe : un moment encadré pour socialiser votre chien, mettre en pratique ses apprentissages et partager un bon moment.</p>
+            <p class="lead">Chaque semaine, je vous propose une balade collective gratuite en petit groupe, réservée aux chiens que j’ai déjà rencontrés en bilan complet : un moment encadré pour socialiser votre chien, mettre en pratique ses apprentissages et partager un bon moment.</p>
             <div class="bens">
               {benefits.map((b) => (
                 <div class="ben"><span class="icon-c"><LIcon name={b.icon} /></span><div><h4>{b.title}</h4><p>{b.text}</p></div></div>
@@ -244,6 +248,8 @@ const baladeFaq = [
             <p class="ptag">Pour qui ?</p>
             <ul class="check who">{who.map((w) => <li>{w}</li>)}</ul>
             <a class="btn sage" href={contact('Balade collective')}>Réserver ma place <Icon name="arrow" size={17} /></a>
+            <p class="ptag bfaq-t">Questions sur les balades</p>
+            <Faq items={baladeFaq} ld={false} />
             <OsloTip mood="joyeux"><p>Je participe souvent aux balades : je montre l’exemple aux plus jeunes… et je profite des pauses pour renifler partout !</p></OsloTip>
           </div>
         </div>
@@ -255,7 +261,7 @@ const baladeFaq = [
   <section id="questions" class="anchor bg-stone">
     <div class="w narrow">
       <div class="head center"><div class="osl-say"><OsloAvatar size={120} mood="surpris" /><p class="label osl-bub">Questions fréquentes</p></div><h2 data-split>Vous vous demandez…</h2></div>
-      <Faq items={[...faq, ...baladeFaq]} />
+      <Faq items={faq} />
     </div>
   </section>
 </Layout>
@@ -330,6 +336,12 @@ const baladeFaq = [
   .info { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 40px; margin-top: 40px; color: var(--ink2); font-size: .95rem; }
   .info p { display: flex; align-items: center; gap: 10px; margin: 0; }
   .info :global(svg) { color: var(--sage); }
+  .conds { display: grid; gap: 16px; margin-top: 28px; }
+  @media (min-width: 820px) { .conds { grid-template-columns: 1fr 1fr; } }
+  .conds > div { background: var(--white); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 22px; }
+  .conds p { margin: 0; color: var(--ink2); font-size: .93rem; line-height: 1.55; }
+  .conds .cond-t { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; color: var(--ink); font-weight: 600; font-size: .95rem; }
+  .conds :global(svg) { color: var(--sage); }
 
   /* ---------- 2. Onglets ---------- */
   .tablist { display: flex; gap: 8px; margin: 8px auto 28px; padding: 6px; width: fit-content; max-width: 100%; overflow-x: auto; background: var(--white); border: 1px solid var(--line); border-radius: 999px; scrollbar-width: none; }
@@ -372,6 +384,7 @@ const baladeFaq = [
   @media (min-width: 960px) { .prow { grid-template-columns: .8fr 1.2fr; gap: 56px; } }
   .pimg { aspect-ratio: 4 / 5; }
   @media (max-width: 959px) { .pimg { aspect-ratio: 16 / 10; } }
+  .bfaq-t { margin-top: 32px !important; }
   .ptag { margin: 0 0 8px; font-size: .76rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--sage); }
   .ptitle { font-size: clamp(1.5rem, 2.6vw, 2rem); margin: 0 0 14px; }
   .cols2 { margin: 24px 0; }

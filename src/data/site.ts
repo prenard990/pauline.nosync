@@ -6,7 +6,7 @@ export const site = {
   // zone d'intervention : même formulation partout (pied de page, contact, prestations, accueil, FAQ)
   location: 'Lyon et alentours : Villeurbanne, Caluire-et-Cuire, Tassin-la-Demi-Lune, Meyzieu, Est et Ouest lyonnais',
   // agenda en ligne pour réserver l'appel découverte gratuit (bouton principal du site)
-  bookingUrl: 'https://cal.com/pauline-renard',
+  bookingUrl: 'https://cal.com/pauline-renard/appel-decouverte-gratuit',
   instagram: 'https://www.instagram.com/pauline_educ_oslo/',
   // lien « Laisser un avis » de la fiche Google Business Profile
   reviewUrl: 'https://g.page/r/CfsPYsFRwWhVECE/review',
